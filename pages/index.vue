@@ -5,8 +5,8 @@
       <h1>I'm Spimy</h1>
       <p>At least that's the username that I've grown quite fond of. My name is actually William and I am
         {{ calculateAge() }} years old. Coding since 2016 and I got into programming for trying to code a
-        <NuxtLink href="https://spigotmc.org" target="_blank">Spigot plugin</NuxtLink> for
-        <NuxtLink href="https://minecraft.net" target="_blank">Minecraft</NuxtLink>!
+        <NuxtLink href="https://spigotmc.org" target="_blank" rel="external">Spigot plugin</NuxtLink> for
+        <NuxtLink href="https://minecraft.net" target="_blank" rel="external">Minecraft</NuxtLink>!
       </p>
     </div>
     <div class="right">
