@@ -30,7 +30,7 @@ function calculateAge() {
   font-family: 'Fira Code', monospace;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
   margin: 5rem 6rem;
 
   @media screen and (max-width: 900px) {
@@ -70,7 +70,6 @@ function calculateAge() {
     height: 4rem;
     border-style: solid;
     border-radius: 5%;
-    margin: -1rem;
   }
 
   .right:before {
