@@ -89,7 +89,7 @@ const skills = [
   width: calc(var(--s)/2 + var(--mh));
   float: left;
   height: 135%;
-  shape-outside: repeating-linear-gradient(#0000 0 calc(var(--f) - 0.1rem),
+  shape-outside: repeating-linear-gradient(#0000 0 calc(var(--f) - 2px),
       #000 0 var(--f));
 }
 
