@@ -2,7 +2,7 @@
 export default defineNuxtConfig({
   typescript: { shim: false },
   modules: ['@nuxtjs/color-mode'],
-  css: ['@/assets/scss/main.scss'],
+  css: ['@/assets/scss/main.scss', '@/assets/scss/theme.scss'],
 
   vite: {
     css: {
