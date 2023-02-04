@@ -120,6 +120,14 @@ function calculateAge() {
     height: 30rem;
     background-color: #2e2e2e;
 
+    @media screen and (max-width: 1100px) {
+      height: 35rem;
+    }
+
+    @media screen and (max-width: 1000px) {
+      height: 40rem;
+    }
+
     @media screen and (max-width: 900px) {
       height: 50rem;
     }
