@@ -15,6 +15,13 @@
       </div>
     </div>
   </section>
+
+  <section id="skills">
+    <h1 class="highlight">Skills</h1>
+    <div class="skills-container">
+      <Skills id="skill-tree" />
+    </div>
+  </section>
 </template>
 
 <script lang="ts" setup>
@@ -27,15 +34,16 @@ function calculateAge() {
 
 <style lang="scss" scoped>
 #hero {
-  font-family: 'Fira Code', monospace;
   display: flex;
   align-items: center;
   justify-content: space-around;
-  margin: 5rem 6rem;
+  margin: 0 6rem;
+  height: 100vh;
 
   @media screen and (max-width: 900px) {
     flex-direction: column-reverse;
-    margin: 5rem 2rem;
+    justify-content: center;
+    margin: 0 2rem;
   }
 
   .left {
@@ -94,6 +102,39 @@ function calculateAge() {
     bottom: 0;
     left: 0;
     border-width: 0 0 0.3rem 0.3rem;
+  }
+}
+
+#skills {
+  h1 {
+    margin: 0 6rem;
+    font-weight: 600;
+
+    @media screen and (max-width: 900px) {
+      margin: 0 2rem;
+    }
+  }
+
+  .skills-container {
+    margin: 2rem 0;
+    height: 30rem;
+    background-color: #2e2e2e;
+
+    @media screen and (max-width: 900px) {
+      height: 50rem;
+    }
+  }
+
+  #skill-tree {
+    width: 55%;
+    margin: 0 50vw;
+    padding: 15rem 0;
+    transform: translate(-50%, -22%);
+
+    @media screen and (max-width: 900px) {
+      width: 90%;
+      padding: 25rem 0;
+    }
   }
 }
 </style>
