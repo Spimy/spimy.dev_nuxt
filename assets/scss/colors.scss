@@ -1,5 +1,23 @@
-$light-main: #efefef;
-$dark-main: #212121;
+// Colors to be used
+$dark: #212121;
+$light: #efefef;
+$blue: #3760dc;
+$blue-darker: #005aaf;
 
-$light-text: #005aaf;
-$dark-text: #3760dc;
+$default-animation-time: 0.3s;
+
+/*
+  Index 1: Dark theme
+  Index 2: Light theme
+*/
+$theme: (
+  backgroundColor: ($dark, $light),
+  borderColor: ($light, $dark),
+  color: ($light, $dark),
+  accentColor: ($blue, $blue-darker),
+  shadowColor: ($light, $dark)
+);
+
+@function theme($property, $index) {
+  @return nth(map-get($theme, $property), $index);
+}
