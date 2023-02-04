@@ -19,11 +19,15 @@
 </template>
 
 <style lang="scss" scoped>
-.dark-mode path {
-  fill: $light-main;
-}
+path {
+  transition: fill $default-animation-time ease-in-out;
 
-.light-mode path {
-  fill: $dark-main;
+  .dark-mode & {
+    fill: theme(color, 1)
+  }
+
+  .light-mode & {
+    fill: theme(color, 2)
+  }
 }
 </style>

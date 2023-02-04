@@ -2,7 +2,7 @@
   <section id="hero">
     <div class="left">
       <h6>Hi there!</h6>
-      <h1>I'm Spimy</h1>
+      <h1 class="highlight shadow">I'm Spimy</h1>
       <p>At least that's the username that I've grown quite fond of. My name is actually William and I am
         {{ calculateAge() }} years old. Coding since 2016 and I got into programming for trying to code a
         <NuxtLink href="https://spigotmc.org" target="_blank" rel="external">Spigot plugin</NuxtLink> for
@@ -39,10 +39,6 @@ function calculateAge() {
   }
 
   .left {
-    h1 {
-      color: $dark-text;
-      text-shadow: 0.1rem 0.1rem 0.1rem $light-main;
-    }
 
     h1,
     h6 {
@@ -72,7 +68,6 @@ function calculateAge() {
     position: absolute;
     width: 4rem;
     height: 4rem;
-    border-color: $light-main;
     border-style: solid;
     border-radius: 5%;
     margin: -1rem;
@@ -101,22 +96,5 @@ function calculateAge() {
     left: 0;
     border-width: 0 0 0.3rem 0.3rem;
   }
-}
-
-.light-mode {
-  #hero {
-    h1 {
-      color: $light-text;
-      text-shadow: 0.1rem 0.1rem 0.1rem $dark-main;
-    }
-
-    .right:before,
-    .right:after,
-    .right>:first-child:before,
-    .right>:first-child:after {
-      border-color: #212121;
-    }
-  }
-
 }
 </style>

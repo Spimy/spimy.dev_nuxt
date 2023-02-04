@@ -8,12 +8,8 @@
 <script lang="ts" setup>
 const colorMode = useColorMode();
 
-function nextTheme() {
-  return colorMode.preference === 'dark' ? 'light' : 'dark'
-}
-
 function toggleTheme() {
-  colorMode.preference = nextTheme();
+  colorMode.preference = colorMode.preference === 'dark' ? 'light' : 'dark';
 }
 </script>
 

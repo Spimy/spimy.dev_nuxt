@@ -22,12 +22,19 @@ onMounted(() => show.value = true);
 @mixin selected-page {
   content: '';
   position: absolute;
-  background-color: $dark-text;
   height: 0.15rem;
   right: 0;
   bottom: 0;
   width: 100%;
-  transition: 0.3s ease-in-out;
+  transition: width $default-animation-time ease-in-out, left $default-animation-time ease-in-out;
+
+  .dark-mode & {
+    background-color: theme(accentColor, 1);
+  }
+
+  .light-mode & {
+    background-color: theme(accentColor, 2);
+  }
 }
 
 #navbar {
@@ -82,8 +89,11 @@ onMounted(() => show.value = true);
   a {
     margin-left: 2em;
     text-decoration: none;
-    color: inherit;
     position: relative;
+  }
+
+  a:not(.router-link-active, .router-link-exact-active) {
+    color: inherit !important;
   }
 
   a::after {
@@ -103,20 +113,11 @@ onMounted(() => show.value = true);
 
   .router-link-active,
   .router-link-exact-active {
-    color: $dark-text;
     position: relative;
 
     ::after {
       @include selected-page();
     }
-  }
-}
-
-.light-mode #right-bar {
-
-  .router-link-active,
-  .router-link-exact-active {
-    color: $light-text;
   }
 }
 </style>

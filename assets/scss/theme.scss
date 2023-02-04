@@ -1,0 +1,48 @@
+html.dark-mode {
+  body {
+    color: theme(color, 1);
+    background-color: theme(backgroundColor, 1);
+  }
+
+  a,
+  :visited,
+  .router-link-active,
+  .router-link-exact-active,
+  .highlight,
+  &.highlight {
+    color: theme(accentColor, 1);
+    transition: color $default-animation-time ease-in-out;
+  }
+
+  .shadow,
+  &.shadow {
+    text-shadow: 0.01rem 0.01rem 0.2rem theme(shadowColor, 1);
+    transition: text-shadow $default-animation-time ease-in-out;
+  }
+
+  border-color: theme(borderColor, 2);
+}
+
+html.light-mode {
+  body {
+    background-color: theme(backgroundColor, 2);
+  }
+
+  a,
+  :visited,
+  .router-link-active,
+  .router-link-exact-active,
+  .highlight,
+  &.highlight {
+    color: theme(accentColor, 2);
+    transition: color $default-animation-time ease-in-out;
+  }
+
+  .shadow,
+  &.shadow {
+    text-shadow: 0.01rem 0.01rem 0.2rem theme(shadowColor, 2);
+    transition: text-shadow $default-animation-time ease-in-out;
+  }
+
+  border-color: theme(borderColor, 2);
+}

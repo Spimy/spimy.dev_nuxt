@@ -18,29 +18,12 @@ body {
   margin: 0;
   padding: 0;
 
-  -webkit-transition: all 0.3s ease-in-out, color 0.3s ease-in-out;
-  -moz-transition: all 0.3s ease-in-out, color 0.3s ease-in-out;
-  -o-transition: all 0.3s ease-in-out, color 0.3s ease-in-out;
-  transition: all 0.3s ease-in-out, color 0.3s ease-in-out;
-}
-
-.dark-mode body {
-  background-color: $dark-main;
-  color: $light-main;
-}
-
-.light-mode body {
-  background-color: $light-main;
-  color: $dark-main;
+  -webkit-transition: all $default-animation-time ease-in-out, color $default-animation-time ease-in-out;
+  -moz-transition: all $default-animation-time ease-in-out, color $default-animation-time ease-in-out;
+  -o-transition: all $default-animation-time ease-in-out, color $default-animation-time ease-in-out;
+  transition: all $default-animation-time ease-in-out, color $default-animation-time ease-in-out;
 }
 
 a, a:visited {
-  color: $dark-text;
   text-decoration: underline;
-}
-
-.light-mode {
-  a, a:visited {
-    color: $light-text;
-  }
 }
