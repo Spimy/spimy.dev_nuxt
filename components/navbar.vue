@@ -1,5 +1,5 @@
 <template>
-  <div id="navbar">
+  <div id="navbar" :class="{ scrolled: scrollPosition > 50 }">
     <NuxtLink href="/"><img id="icon" src="/logos/icon.png" alt="icon logo" /></NuxtLink>
     <div id="right-bar">
       <LazyThemeToggler id="toggler" v-if="show" />
@@ -15,7 +15,16 @@
 
 <script lang="ts" setup>
 const show = ref(false);
-onMounted(() => show.value = true);
+const scrollPosition = ref(0);
+
+function updateScroll() {
+  scrollPosition.value = window.scrollY;
+}
+
+onMounted(() => {
+  show.value = true
+  window.addEventListener('scroll', updateScroll);
+});
 </script>
 
 <style lang="scss" scoped>
@@ -38,16 +47,25 @@ onMounted(() => show.value = true);
 }
 
 #navbar {
-  font-family: 'Fira Code', monospace;
   font-weight: bold;
   font-size: 1.2rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 2rem 5rem;
+  padding: 1rem 5rem;
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  z-index: 100;
+  transition: background-color $default-animation-time ease-in-out;
 
   @media screen and (max-width: 900px) {
-    margin: 2rem;
+    padding: 1rem 2rem;
+  }
+
+  &.scrolled {
+    background-color: #2f2f2f;
   }
 }
 
