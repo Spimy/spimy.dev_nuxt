@@ -15,7 +15,9 @@ $theme: (
   borderColor: ($light, $dark),
   color: ($light, $dark),
   accentColor: ($blue, $blue-darker),
-  shadowColor: ($light, $dark)
+  shadowColor: ($light, $dark),
+  skillsBgColor: (#2e2e2e, #15102e),
+  skillHighlight: (#505050, #ffffff)
 );
 
 @function theme($property, $index) {
