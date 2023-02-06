@@ -11,6 +11,8 @@ Character Logo Design by SuchHaste (current username unknown unfortunately)
 
 Portfolio Design by [Nikhil Kumar Swain](https://github.com/nikhilswain) using [Figma](https://www.figma.com)
 
+Tileable hexagons CSS in skill section by [Temani Afif](https://css-tricks.com/hexagons-and-beyond-flexible-responsive-grid-patterns-sans-media-queries)
+
 Coded by [Spimy](https://github.com/Spimy) aka myself
 
 Built on [Nuxt 3.0](https://nuxt.com) and soon to be hosted on [Vercel](https://vercel.com)

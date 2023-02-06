@@ -40,6 +40,8 @@ const skills = [
 </script>
 
 <style lang="scss" scoped>
+// Credit to tileable hexagon CSS:
+// https://css-tricks.com/hexagons-and-beyond-flexible-responsive-grid-patterns-sans-media-queries
 .main {
   display: flex;
 
