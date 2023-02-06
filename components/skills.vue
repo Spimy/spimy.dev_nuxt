@@ -65,6 +65,15 @@ const skills = [
 .container {
   // disable white space between inline block element
   font-size: 0;
+  transition: filter $default-animation-time ease-in-out;
+
+  .dark-mode & {
+    filter: drop-shadow(0.15rem 0.15rem 0.05rem rgba(0, 0, 0, 0.5));
+  }
+
+  .light-mode & {
+    filter: drop-shadow(0.15rem 0.15rem 0.05rem rgba(255, 255, 255, 0.5));
+  }
 }
 
 .container div {
