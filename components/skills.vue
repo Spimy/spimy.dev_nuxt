@@ -33,7 +33,9 @@ const skills = [
   { name: 'git', src: '/skills/git.png' },
   { name: 'ubuntu', src: '/skills/ubuntu.png' },
   { name: 'adobexd', src: '/skills/adobexd.png' },
-  { name: 'photoshop', src: '/skills/photoshop.png' }
+  { name: 'photoshop', src: '/skills/photoshop.png' },
+  { name: 'nginx', src: '/skills/nginx.png' },
+  { name: 'certbot', src: '/skills/certbot.png' }
 ];
 </script>
 
@@ -103,7 +105,7 @@ img {
   top: 50%;
 
   &[alt] {
-    font-size: 1rem;
+    font-size: 0.8rem;
     word-wrap: break-word;
   }
 }
