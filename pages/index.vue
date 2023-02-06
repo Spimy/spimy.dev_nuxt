@@ -4,9 +4,11 @@
       <h6>Hi there!</h6>
       <h1 class="highlight shadow">I'm Spimy</h1>
       <p>At least that's the username that I've grown quite fond of. My name is actually William and I am
-        {{ calculateAge() }} years old. Coding since 2016 and I got into programming for trying to code a
+        {{ calculateAge('2003/01/30') }} years old. Coding since 2016 (~{{ calculateAge('2016') }} years of experience)
+        and I got into programming for trying to code a
         <NuxtLink href="https://spigotmc.org" target="_blank" rel="external">Spigot plugin</NuxtLink> for
-        <NuxtLink href="https://minecraft.net" target="_blank" rel="external">Minecraft</NuxtLink>!
+        <NuxtLink href="https://minecraft.net" target="_blank" rel="external">Minecraft</NuxtLink>; making Java my first
+        programming language.
       </p>
     </div>
     <div class="right">
@@ -22,17 +24,29 @@
       <Skills id="skill-tree" />
     </div>
   </section>
+
+  <section id="projects">
+    <h1 class="highlight">Projects</h1>
+  </section>
 </template>
 
 <script lang="ts" setup>
-function calculateAge() {
-  const birthday = '2003/01/30';
-  const timeDiff = Math.abs(Date.now() - new Date(birthday).getTime());
+function calculateAge(date: string) {
+  const timeDiff = Math.abs(Date.now() - new Date(date).getTime());
   return Math.floor((timeDiff / (1000 * 3600 * 24)) / 365);
 }
 </script>
 
 <style lang="scss" scoped>
+h1 {
+  margin: 0 6rem;
+  font-weight: 600;
+
+  @media screen and (max-width: 900px) {
+    margin: 0 2rem;
+  }
+}
+
 #hero {
   display: flex;
   align-items: center;
@@ -47,6 +61,10 @@ function calculateAge() {
   }
 
   .left {
+
+    h1 {
+      margin: revert;
+    }
 
     h1,
     h6 {
@@ -66,82 +84,75 @@ function calculateAge() {
       width: 20rem;
       height: auto;
     }
+
+    &::before,
+    &::after,
+    &>:first-child:before,
+    &>:first-child:after {
+      content: ' ';
+      position: absolute;
+      width: 4rem;
+      height: 4rem;
+      border-style: solid;
+      border-radius: 5%;
+    }
+
+    &::before {
+      top: 0;
+      left: 0;
+      border-width: 0.3rem 0 0 0.3rem;
+    }
+
+    &::after {
+      top: 0;
+      right: 0;
+      border-width: 0.3rem 0.3rem 0 0;
+    }
+
+    &>:first-child:before {
+      bottom: 0;
+      right: 0;
+      border-width: 0 0.3rem 0.3rem 0;
+    }
+
+    &>:first-child:after {
+      bottom: 0;
+      left: 0;
+      border-width: 0 0 0.3rem 0.3rem;
+    }
   }
 
-  .right:before,
-  .right:after,
-  .right>:first-child:before,
-  .right>:first-child:after {
-    content: ' ';
-    position: absolute;
-    width: 4rem;
-    height: 4rem;
-    border-style: solid;
-    border-radius: 5%;
-  }
-
-  .right:before {
-    top: 0;
-    left: 0;
-    border-width: 0.3rem 0 0 0.3rem;
-  }
-
-  .right:after {
-    top: 0;
-    right: 0;
-    border-width: 0.3rem 0.3rem 0 0;
-  }
-
-  .right>:first-child:before {
-    bottom: 0;
-    right: 0;
-    border-width: 0 0.3rem 0.3rem 0;
-  }
-
-  .right>:first-child:after {
-    bottom: 0;
-    left: 0;
-    border-width: 0 0 0.3rem 0.3rem;
-  }
 }
 
 #skills {
-  h1 {
-    margin: 0 6rem;
-    font-weight: 600;
-
-    @media screen and (max-width: 900px) {
-      margin: 0 2rem;
-    }
-  }
+  margin-bottom: 15rem;
 
   .skills-container {
-    margin: 2rem 0;
-    height: 30rem;
+    width: 100%;
     background-color: #2e2e2e;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding: 1rem;
 
-    @media screen and (max-width: 1100px) {
-      height: 35rem;
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      width: 100%;
+      background-color: #2e2e2e;
+      height: calc((135% + 50vh) / 1.8);
+      z-index: -1;
     }
 
-    @media screen and (max-width: 1000px) {
-      height: 40rem;
-    }
+    #skill-tree {
+      width: 55%;
+      transform: translateY(calc((35% + 50vh) / 12));
 
-    @media screen and (max-width: 900px) {
-      height: 50rem;
-    }
-  }
-
-  #skill-tree {
-    width: 55%;
-    margin: 0 50vw;
-    padding: 15rem 0;
-    transform: translate(-50%, -22%);
-
-    @media screen and (max-width: 900px) {
-      width: 90%;
-      padding: 25rem 0;
+      @media screen and (max-width: 900px) {
+        width: 100%;
+      }
     }
   }
 }
