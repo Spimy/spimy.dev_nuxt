@@ -129,7 +129,16 @@ h1 {
 
   .skills-container {
     width: 100%;
-    background-color: #2e2e2e;
+    transition: background-color $default-animation-time ease-in-out;
+
+    .dark-mode & {
+      background-color: theme(skillsBgColor, 1);
+    }
+
+    .light-mode & {
+      background-color: theme(skillsBgColor, 2);
+    }
+
     display: flex;
     justify-content: center;
     align-items: center;
@@ -141,16 +150,18 @@ h1 {
       position: absolute;
       top: 0;
       width: 100%;
-      background-color: #2e2e2e;
+      background-color: inherit;
       height: calc((135% + 50vh) / 1.8);
       z-index: -1;
+      transition: background-color $default-animation-time ease-in-out;
     }
 
     #skill-tree {
       width: 55%;
-      transform: translateY(calc((35% + 50vh) / 12));
+      transform: translateY(calc((35% + 50vh) / 9));
 
       @media screen and (max-width: 900px) {
+        transform: translateY(calc((35% + 50vh) / 30));
         width: 100%;
       }
     }

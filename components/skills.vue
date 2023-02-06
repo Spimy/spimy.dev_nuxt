@@ -78,11 +78,27 @@ const skills = [
   position: relative;
 
   cursor: pointer;
-  background: #505050;
+
+  .dark-mode & {
+    background-color: theme(skillHighlight, 1);
+  }
+
+  .light-mode & {
+    background-color: theme(skillHighlight, 2);
+  }
+
+  transition: background-color $default-animation-time ease-in-out;
 
   &:hover {
-    color: theme(color, 2);
-    background: linear-gradient(150deg, rgba(217, 217, 217, 1) 0%, rgba(148, 148, 148, 1) 100%);
+    .dark-mode & {
+      color: theme(color, 2);
+      background: linear-gradient(150deg, rgba(217, 217, 217, 1) 0%, rgba(148, 148, 148, 1) 100%);
+    }
+
+    .light-mode & {
+      color: theme(color, 1);
+      background: linear-gradient(150deg, rgba(217, 217, 217, 1) 0%, rgba(104, 157, 208, 1) 100%);
+    }
   }
 }
 
