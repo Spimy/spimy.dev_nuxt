@@ -28,7 +28,9 @@
   </section>
 
   <section id="projects">
+    <h1>Latest</h1>
     <h1 class="highlight">Projects</h1>
+    <ProjectsList />
   </section>
 </template>
 
@@ -149,11 +151,11 @@ h1 {
     transition: background-color $default-animation-time ease-in-out;
 
     .dark-mode & {
-      background-color: theme(skillsBgColor, 1);
+      background-color: theme(secondary, 1);
     }
 
     .light-mode & {
-      background-color: theme(skillsBgColor, 2);
+      background-color: theme(secondary, 2);
     }
 
     display: flex;
@@ -182,6 +184,12 @@ h1 {
         width: 100%;
       }
     }
+  }
+}
+
+#projects {
+  h1 {
+    line-height: 100%;
   }
 }
 </style>
