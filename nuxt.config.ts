@@ -23,9 +23,13 @@ export default defineNuxtConfig({
     }
   },
 
+  runtimeConfig: {
+    mongoUrl: process.env.MONGO_URL
+  },
+
   typescript: { shim: false },
   modules: ['@nuxtjs/color-mode'],
-  css: ['@/assets/scss/main.scss', '@/assets/scss/theme.scss'],
+  css: ['@/assets/scss/main.scss', '@/assets/scss/theme.scss', '@/assets/scss/animations/block-fade-in.scss'],
 
   vite: {
     css: {
@@ -35,6 +39,10 @@ export default defineNuxtConfig({
         }
       }
     }
+  },
+
+  nitro: {
+    plugins: ['~/server/database/index.ts']
   },
 
   colorMode: {
