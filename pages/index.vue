@@ -3,17 +3,19 @@
     <div class="left">
       <h6>Hi there!</h6>
       <h1 class="highlight shadow">I'm Spimy</h1>
-      <p>At least that's the username that I've grown quite fond of. My name is actually William and I am
-        {{ calculateAge('2003/01/30') }} years old. Coding since 2016 (~{{ calculateAge('2016') }} years of experience)
-        and I got into programming for trying to code a
-        <NuxtLink href="https://spigotmc.org" target="_blank" rel="external">Spigot plugin</NuxtLink> for
+      <p>
+        At least that's the username that I've grown quite fond of. My name is actually William and I am
+        {{ calculateAge('2003/01/30') }} years old. Coding since 2016 (~{{ calculateAge('2016') }}
+        years of experience) and I got into programming for trying to code a
+        <NuxtLink href="https://spigotmc.org" target="_blank" rel="external">Spigot plugin</NuxtLink>
+        for
         <NuxtLink href="https://minecraft.net" target="_blank" rel="external">Minecraft</NuxtLink>; making Java my first
         programming language.
       </p>
     </div>
     <div class="right">
       <div class="logo-container">
-        <img src="/logos/character.png" alt="spimy's character logo">
+        <img src="/logos/character.png" alt="spimy's character logo" />
       </div>
     </div>
   </section>
@@ -33,8 +35,25 @@
 <script lang="ts" setup>
 function calculateAge(date: string) {
   const timeDiff = Math.abs(Date.now() - new Date(date).getTime());
-  return Math.floor((timeDiff / (1000 * 3600 * 24)) / 365);
+  return Math.floor(timeDiff / (1000 * 3600 * 24) / 365);
 }
+
+const title = 'Home';
+const description = "Homepage of Spimy's portfolio. Get an overview of Spimy's skillsets and past projects.";
+
+useHead({
+  title
+});
+
+useServerSeoMeta({
+  title,
+  description,
+  ogTitle: title,
+  ogDescription: description,
+  ogUrl: `${useRoute().fullPath}`,
+  twitterTitle: title,
+  twitterDescription: description
+});
 </script>
 
 <style lang="scss" scoped>
@@ -61,7 +80,6 @@ h1 {
   }
 
   .left {
-
     h1 {
       margin: revert;
     }
@@ -87,8 +105,8 @@ h1 {
 
     &::before,
     &::after,
-    &>:first-child:before,
-    &>:first-child:after {
+    & > :first-child:before,
+    & > :first-child:after {
       content: ' ';
       position: absolute;
       width: 4rem;
@@ -109,19 +127,18 @@ h1 {
       border-width: 0.3rem 0.3rem 0 0;
     }
 
-    &>:first-child:before {
+    & > :first-child:before {
       bottom: 0;
       right: 0;
       border-width: 0 0.3rem 0.3rem 0;
     }
 
-    &>:first-child:after {
+    & > :first-child:after {
       bottom: 0;
       left: 0;
       border-width: 0 0 0.3rem 0.3rem;
     }
   }
-
 }
 
 #skills {
@@ -146,7 +163,7 @@ h1 {
     padding: 1rem;
 
     &::after {
-      content: "";
+      content: '';
       position: absolute;
       top: 0;
       width: 100%;
