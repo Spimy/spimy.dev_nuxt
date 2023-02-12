@@ -10,14 +10,14 @@ export default defineNuxtConfig({
         { 'http-equiv': 'x-ua-compatible', content: 'IE=edge' },
         {
           name: 'keywords',
-          content:
-            'spimy, portfolio, william, programming, projects, code, javascript, typescript, skills, contact'
+          content: 'spimy, portfolio, william, programming, projects, code, javascript, typescript, skills, contact'
         },
         { property: 'og:site:name', content: "Spimy's Portfolio" },
         { property: 'og:see_also', content: DOMAIN },
         { property: 'og:image', content: `${DOMAIN}/logos/character.png` },
         { name: 'twitter:card', content: 'summary' },
-        { name: 'twitter:image', content: `${DOMAIN}/logos/character.png` }
+        { name: 'twitter:image', content: `${DOMAIN}/logos/character.png` },
+        { name: 'theme-color', content: '#3760dc' }
       ],
       link: [{ rel: 'canonical', href: DOMAIN }]
     }
