@@ -35,6 +35,8 @@ watch(
   (newProjects) => {
     if (newProjects === null || newProjects.length === 0) {
       showPlaceholder.value = true;
+    } else {
+      showPlaceholder.value = false;
     }
   },
   { immediate: true }
