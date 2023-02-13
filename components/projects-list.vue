@@ -28,6 +28,8 @@ const props = defineProps({
   }
 });
 
+const emit = defineEmits(['hasProjects']);
+
 const showPlaceholder = ref(false);
 const { data: projects } = useLazyFetch(`/api/projects?perPage=${props.perPage}`);
 watch(
@@ -37,6 +39,7 @@ watch(
       showPlaceholder.value = true;
     } else {
       showPlaceholder.value = false;
+      emit('hasProjects');
     }
   },
   { immediate: true }

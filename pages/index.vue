@@ -30,11 +30,17 @@
   <section id="projects">
     <h1>Latest</h1>
     <h1 class="highlight">Projects</h1>
-    <ProjectsList :perPage="6" />
+    <ProjectsList :perPage="6" @hasProjects="showMoreBtn = true" />
+
+    <div v-if="showMoreBtn" class="button-container">
+      <NuxtLink rel="next" href="/projects" class="btn">View More</NuxtLink>
+    </div>
   </section>
 </template>
 
 <script lang="ts" setup>
+const showMoreBtn = ref(false);
+
 function calculateAge(date: string) {
   const timeDiff = Math.abs(Date.now() - new Date(date).getTime());
   return Math.floor(timeDiff / (1000 * 3600 * 24) / 365);
@@ -189,8 +195,30 @@ h1 {
 }
 
 #projects {
+  margin-bottom: 5rem;
+
   h1 {
     line-height: 100%;
+  }
+
+  .button-container {
+    display: flex;
+    justify-content: center;
+
+    .btn {
+      text-decoration: none;
+      font-size: 1rem;
+      padding: 1rem 3rem;
+      border: 0.1em solid theme(accentColor, 1);
+      border-radius: 0.2em;
+
+      &:hover {
+      }
+
+      .light-mode & {
+        border: 0.1em solid theme(accentColor, 2);
+      }
+    }
   }
 }
 </style>
