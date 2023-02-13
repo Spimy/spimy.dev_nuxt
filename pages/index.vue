@@ -30,7 +30,7 @@
   <section id="projects">
     <h1>Latest</h1>
     <h1 class="highlight">Projects</h1>
-    <ProjectsList />
+    <ProjectsList :perPage="6" />
   </section>
 </template>
 
@@ -40,6 +40,7 @@ function calculateAge(date: string) {
   return Math.floor(timeDiff / (1000 * 3600 * 24) / 365);
 }
 
+// Setup meta for SEO
 const title = 'Home';
 const description = "Homepage of Spimy's portfolio. Get an overview of Spimy's skillsets and past projects.";
 
