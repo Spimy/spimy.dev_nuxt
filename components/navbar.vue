@@ -22,7 +22,7 @@ function updateScroll() {
 }
 
 onMounted(() => {
-  show.value = true
+  show.value = true;
   window.addEventListener('scroll', updateScroll);
 });
 </script>
@@ -66,7 +66,12 @@ onMounted(() => {
   }
 
   &.scrolled {
-    background-color: #2f2f2f;
+    background-color: theme(secondary, 1);
+
+    .light-mode & {
+      background-color: theme(secondary, 2);
+      color: theme(color, 1);
+    }
   }
 }
 
@@ -96,7 +101,6 @@ onMounted(() => {
       height: 2rem;
       cursor: pointer;
     }
-
   }
 
   nav {
