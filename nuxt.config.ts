@@ -23,13 +23,20 @@ export default defineNuxtConfig({
     }
   },
 
+  build: { transpile: ['@fortawesome/vue-fontawesome'] },
+
   runtimeConfig: {
     mongoUrl: process.env.MONGO_URL
   },
 
   typescript: { shim: false },
   modules: ['@nuxtjs/color-mode'],
-  css: ['@/assets/scss/main.scss', '@/assets/scss/theme.scss', '@/assets/scss/animations/block-fade-in.scss'],
+  css: [
+    '@/assets/scss/main.scss',
+    '@/assets/scss/theme.scss',
+    '@/assets/scss/animations/block-fade-in.scss',
+    '@fortawesome/fontawesome-svg-core/styles.css'
+  ],
 
   vite: {
     css: {
