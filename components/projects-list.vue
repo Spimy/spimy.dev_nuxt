@@ -53,7 +53,7 @@ const getTechnologies = (project: IProjects) => project.technologies.join(', ');
   gap: 1.5em;
 
   @media screen and (max-width: 900px) {
-    margin: 0 2em;
+    margin: 2em;
   }
 
   .card {
