@@ -12,6 +12,9 @@
       </div>
       <p class="description">{{ project.description }}</p>
     </div>
+    <div class="placeholder" v-if="showPlaceholder">
+      <h2>No projects have been uploaded for display yet.</h2>
+    </div>
   </div>
 </template>
 
@@ -21,11 +24,22 @@ import { IProjects } from '@/server/database/models/projects.model';
 const props = defineProps({
   perPage: {
     type: Number,
-    default: 6
+    default: 9
   }
 });
 
+const showPlaceholder = ref(false);
 const { data: projects } = useLazyFetch(`/api/projects?perPage=${props.perPage}`);
+watch(
+  projects,
+  (newProjects) => {
+    if (newProjects === null || newProjects.length === 0) {
+      showPlaceholder.value = true;
+    }
+  },
+  { immediate: true }
+);
+
 const getTechnologies = (project: IProjects) => project.technologies.join(', ');
 </script>
 
@@ -34,7 +48,7 @@ const getTechnologies = (project: IProjects) => project.technologies.join(', ');
   font-size: 1rem;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(25em, 1fr));
-  margin: 0 6em;
+  margin: 2em 6em;
   place-items: center;
   gap: 1.5em;
 
@@ -51,6 +65,11 @@ const getTechnologies = (project: IProjects) => project.technologies.join(', ');
     background-color: theme(secondary, 1);
     border-radius: 0.5em;
     filter: drop-shadow(0.2em 0.2em 0.2em #0f0f0f);
+
+    .light-mode & {
+      color: theme(color, 1);
+      background-color: theme(secondary, 2);
+    }
 
     .header {
       display: flex;
@@ -131,6 +150,14 @@ const getTechnologies = (project: IProjects) => project.technologies.join(', ');
         animation: fadeInFromNone 0.5s ease-in-out;
       }
     }
+  }
+
+  .placeholder {
+    background-color: theme(secondary, 1);
+    border-radius: 0.5em;
+    padding: 2em;
+    width: 100%;
+    text-align: center;
   }
 }
 </style>
