@@ -211,12 +211,20 @@ h1 {
       padding: 1rem 3rem;
       border: 0.1em solid theme(accentColor, 1);
       border-radius: 0.2em;
+      transition: all $default-animation-time ease-in-out;
 
       &:hover {
+        color: theme(color, 1);
+        background-color: theme(accentColor, 1);
       }
 
       .light-mode & {
         border: 0.1em solid theme(accentColor, 2);
+
+        &:hover {
+          color: theme(color, 1);
+          background-color: theme(accentColor, 2);
+        }
       }
     }
   }
