@@ -158,6 +158,11 @@ const getTechnologies = (project: IProjects) => project.technologies.join(', ');
     padding: 2em;
     width: 100%;
     text-align: center;
+
+    .light-mode & {
+      color: theme(color, 1);
+      background-color: theme(secondary, 2);
+    }
   }
 }
 </style>
