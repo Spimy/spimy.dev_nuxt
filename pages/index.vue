@@ -30,7 +30,7 @@
   <section id="projects">
     <h1>Latest</h1>
     <h1 class="highlight">Projects</h1>
-    <ProjectsList :perPage="6" @hasProjects="showMoreBtn = true" />
+    <ProjectsList :perPage="6" :showPaginator="false" @hasProjects="showMoreBtn = true" />
 
     <div v-if="showMoreBtn" class="button-container">
       <NuxtLink rel="next" href="/projects" class="btn">View More</NuxtLink>
