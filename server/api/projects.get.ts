@@ -13,7 +13,7 @@ export default defineEventHandler(async (event) => {
 
   const pageRange = pageCount >= 5 ? 5 : pageCount;
 
-  let pageMin;
+  let pageMin: number;
   if (currentPage - 2 < 1) {
     pageMin = 1;
   } else if (currentPage >= pageCount) {
