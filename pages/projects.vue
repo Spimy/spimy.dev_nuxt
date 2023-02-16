@@ -1,11 +1,13 @@
 <template>
   <div class="container">
     <h1 class="highlight">Projects</h1>
-    <ProjectsList />
+    <ProjectsList :page="Number(route.query.page)" />
   </div>
 </template>
 
 <script lang="ts" setup>
+const route = useRoute();
+
 // Setup meta for SEO
 const title = 'Projects';
 const description =
