@@ -1,6 +1,6 @@
 <template>
   <div id="past-projects">
-    <div class="card" v-for="project in projects">
+    <div class="card" v-for="project in data?.projects">
       <div class="header">
         <img :src="project.previewImageUrl" />
         <div class="text">
@@ -12,30 +12,74 @@
       </div>
       <p class="description">{{ project.description }}</p>
     </div>
+
     <div class="placeholder" v-if="showPlaceholder">
-      <h2>No projects have been uploaded for display yet.</h2>
+      <h2 v-if="pending">Projects are currently being fetched...</h2>
+      <h2 v-else>No projects have been uploaded for display yet.</h2>
     </div>
+  </div>
+
+  <div id="paginator" v-if="showPaginator && data !== null && data.paginate.pageCount > 1">
+    <NuxtLink
+      class="pagination-item prev"
+      :class="{ disable: data.paginate.currentPage === 1 }"
+      @click="refresh"
+      :href="`?page=${data.paginate.currentPage === 1 ? 1 : data.paginate.currentPage - 1}`"
+    >
+      <FontAwesomeIcon icon="fa-solid fa-angle-left" />
+    </NuxtLink>
+
+    <NuxtLink
+      v-for="(_, index) in data.paginate.pageRange"
+      class="pagination-item"
+      :class="{ current: index + data.paginate.pageMin === data.paginate.currentPage }"
+      @click="refresh"
+      :href="`?page=${index + data.paginate.pageMin}`"
+    >
+      {{ index + data.paginate.pageMin }}
+    </NuxtLink>
+
+    <NuxtLink
+      class="pagination-item next"
+      :class="{ disable: data.paginate.currentPage === data.paginate.pageCount }"
+      @click="refresh"
+      :href="`?page=${
+        data.paginate.currentPage === data.paginate.pageCount ? data.paginate.pageCount : data.paginate.currentPage + 1
+      }`"
+    >
+      <FontAwesomeIcon icon="fa-solid fa-angle-right" />
+    </NuxtLink>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { IProjects } from '@/server/database/models/projects.model';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 const props = defineProps({
   perPage: {
     type: Number,
     default: 9
+  },
+  showPaginator: {
+    type: Boolean,
+    default: true
+  },
+  page: {
+    type: Number,
+    default: 1
   }
 });
 
 const emit = defineEmits(['hasProjects']);
 
 const showPlaceholder = ref(false);
-const { data: projects } = useLazyFetch(`/api/projects?perPage=${props.perPage}`);
+
+let { pending, data, refresh } = useLazyFetch(() => `/api/projects?perPage=${props.perPage}&page=${props.page}`);
 watch(
-  projects,
+  data,
   (newProjects) => {
-    if (newProjects === null || newProjects.length === 0) {
+    if (newProjects === null || newProjects.projects.length === 0) {
       showPlaceholder.value = true;
     } else {
       showPlaceholder.value = false;
@@ -167,6 +211,47 @@ const getTechnologies = (project: IProjects) => project.technologies.join(', ');
     .light-mode & {
       color: theme(color, 1);
       background-color: theme(secondary, 2);
+    }
+  }
+}
+
+#paginator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+
+  .pagination-item {
+    cursor: pointer;
+    font-size: 1rem;
+    background-color: theme(secondary, 1);
+    border-radius: 0.2rem;
+    text-align: center;
+    text-decoration: none;
+    padding: 1rem;
+    transition: background-color $default-animation-time ease-in-out;
+    color: theme(color, 1);
+
+    &.disable {
+      color: grey;
+    }
+
+    &.current,
+    &:hover:not(.disable) {
+      background-color: theme(accentColor, 1);
+    }
+
+    .light-mode & {
+      background-color: theme(secondary, 2);
+
+      &:not(.disable) {
+        color: theme(color, 1);
+      }
+
+      &.current,
+      &:hover:not(.disable) {
+        background-color: theme(accentColor, 2);
+      }
     }
   }
 }
