@@ -1,9 +1,5 @@
+import { ProjectQuery } from '../types/project-query';
 import { Projects } from '../database/models/projects.model';
-
-interface ProjectQuery {
-  perPage: number;
-  page?: number;
-}
 
 export default defineEventHandler(async (event) => {
   const query = (<unknown>getQuery(event)) as ProjectQuery;
