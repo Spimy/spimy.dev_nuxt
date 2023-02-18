@@ -23,10 +23,29 @@ export default defineNuxtConfig({
     }
   },
 
+  routeRules: {
+    '/api': { cors: true }
+  },
+
   build: { transpile: ['@fortawesome/vue-fontawesome'] },
 
   runtimeConfig: {
-    mongoUrl: process.env.MONGO_URL
+    secret: process.env.SECRET,
+    mongoUrl: process.env.MONGO_URL,
+
+    email: {
+      host: process.env.EMAIL_HOST,
+      port: Number(process.env.EMAIL_PORT),
+      user: process.env.EMAIL_USER,
+      password: process.env.EMAIL_PASSWORD,
+      destination: process.env.EMAIL_TO
+    },
+
+    hcaptcha_secret: process.env.HCAPTCHA_SECRET,
+
+    public: {
+      hcaptcha_sitekey: process.env.HCAPTCHA_SITEKEY
+    }
   },
 
   typescript: { shim: false },
