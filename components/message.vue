@@ -10,7 +10,7 @@
 <script lang="ts" setup>
 import { PropType } from 'vue';
 
-const props = defineProps({
+defineProps({
   message: {
     type: String,
     required: true
