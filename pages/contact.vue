@@ -192,6 +192,7 @@ useServerSeoMeta({
 
   .disclaimer {
     font-size: 1rem;
+    z-index: 1;
   }
 
   .container {
