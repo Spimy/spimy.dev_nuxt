@@ -2,7 +2,7 @@
   <div id="navbar" :class="{ scrolled: scrollPosition > 50 }">
     <NuxtLink href="/"><img id="icon" src="/logos/icon.png" alt="icon logo" /></NuxtLink>
     <div id="right-bar">
-      <LazyThemeToggler id="toggler" v-if="show" />
+      <LazyThemeToggler id="toggler" v-if="showThemeSelector" />
       <IconsBurger id="burger-menu" />
       <nav>
         <NuxtLink href="/">Home</NuxtLink>
@@ -14,15 +14,15 @@
 </template>
 
 <script lang="ts" setup>
-const show = ref(false);
+const showThemeSelector = ref(false);
 const scrollPosition = ref(0);
 
-function updateScroll() {
+const updateScroll = () => {
   scrollPosition.value = window.scrollY;
-}
+};
 
 onMounted(() => {
-  show.value = true;
+  showThemeSelector.value = true;
   window.addEventListener('scroll', updateScroll);
 });
 </script>
