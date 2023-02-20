@@ -200,6 +200,10 @@ useServerSeoMeta({
     padding: 2rem 5rem;
     border-radius: 0.5rem;
 
+    .light-mode & {
+      background-color: theme(secondary, 2);
+    }
+
     @media screen and (max-width: 900px) {
       padding: 0;
     }
@@ -228,6 +232,11 @@ useServerSeoMeta({
       padding: 2rem;
       gap: 1rem;
       width: 100%;
+      transition: all $default-animation-time ease-in-out;
+
+      .light-mode & {
+        background-color: theme(backgroundColor, 2);
+      }
 
       @media screen and (max-width: 900px) {
         padding: 0;
@@ -243,16 +252,29 @@ useServerSeoMeta({
         font-size: 1rem;
         font-weight: bold;
         padding: 0.8rem;
+        transition: all $default-animation-time ease-in-out;
         cursor: pointer;
+
+        .light-mode & {
+          background-color: theme(accentColor, 2);
+        }
       }
 
       .input {
         border: 0.1rem solid theme(color, 1);
         border-radius: 0.5rem;
         display: flex;
+        transition: all $default-animation-time ease-in-out;
+
+        .light-mode & {
+          border: 0.1rem solid theme(color, 2);
+        }
 
         &:focus-within {
           border: 0.1rem solid theme(accentColor, 1);
+          .light-mode & {
+            border: 0.1rem solid theme(accentColor, 2);
+          }
         }
 
         .icon {
@@ -280,6 +302,12 @@ useServerSeoMeta({
           font-size: 1rem;
           padding: 1rem;
           outline: none;
+          transition: all $default-animation-time ease-in-out;
+
+          .light-mode & {
+            background-color: theme(backgroundColor, 2);
+            color: theme(color, 2);
+          }
         }
       }
     }
