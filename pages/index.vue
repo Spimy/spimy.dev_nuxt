@@ -1,41 +1,43 @@
 <template>
-  <section id="hero">
-    <div class="left">
-      <h6>Hi there!</h6>
-      <h1 class="highlight shadow">I'm Spimy</h1>
-      <p>
-        At least that's the username that I've grown quite fond of. My name is actually William and I am
-        {{ calculateAge('2003/01/30') }} years old. Coding since 2016 (~{{ calculateAge('2016') }}
-        years of experience) and I got into programming for trying to code a
-        <NuxtLink href="https://spigotmc.org" target="_blank" rel="external">Spigot plugin</NuxtLink>
-        for
-        <NuxtLink href="https://minecraft.net" target="_blank" rel="external">Minecraft</NuxtLink>; making Java my first
-        programming language.
-      </p>
-    </div>
-    <div class="right">
-      <div class="logo-container">
-        <img src="/logos/character.png" alt="spimy's character logo" />
+  <div>
+    <section id="hero">
+      <div class="left">
+        <h6>Hi there!</h6>
+        <h1 class="highlight shadow">I'm Spimy</h1>
+        <p>
+          At least that's the username that I've grown quite fond of. My name is actually William and I am
+          {{ calculateAge('2003/01/30') }} years old. Coding since 2016 (~{{ calculateAge('2016') }}
+          years of experience) and I got into programming for trying to code a
+          <NuxtLink href="https://spigotmc.org" target="_blank" rel="external">Spigot plugin</NuxtLink>
+          for
+          <NuxtLink href="https://minecraft.net" target="_blank" rel="external">Minecraft</NuxtLink>; making Java my
+          first programming language.
+        </p>
       </div>
-    </div>
-  </section>
+      <div class="right">
+        <div class="logo-container">
+          <img src="/logos/character.png" alt="spimy's character logo" />
+        </div>
+      </div>
+    </section>
 
-  <section id="skills">
-    <h1 class="highlight">Skills</h1>
-    <div class="skills-container">
-      <Skills id="skill-tree" />
-    </div>
-  </section>
+    <section id="skills">
+      <h1 class="highlight">Skills</h1>
+      <div class="skills-container">
+        <Skills id="skill-tree" />
+      </div>
+    </section>
 
-  <section id="projects">
-    <h1>Latest</h1>
-    <h1 class="highlight">Projects</h1>
-    <ProjectsList :perPage="6" :showPaginator="false" @hasProjects="showMoreBtn = true" />
+    <section id="projects">
+      <h1>Latest</h1>
+      <h1 class="highlight">Projects</h1>
+      <ProjectsList :perPage="6" :showPaginator="false" @hasProjects="showMoreBtn = true" />
 
-    <div v-if="showMoreBtn" class="button-container">
-      <NuxtLink rel="next" href="/projects" class="btn">View More</NuxtLink>
-    </div>
-  </section>
+      <div v-if="showMoreBtn" class="button-container">
+        <NuxtLink rel="next" href="/projects" class="btn">View More</NuxtLink>
+      </div>
+    </section>
+  </div>
 </template>
 
 <script lang="ts" setup>
