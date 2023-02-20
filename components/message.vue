@@ -29,7 +29,7 @@ const props = defineProps({
 <style lang="scss" scoped>
 #message {
   position: fixed;
-  bottom: 5%;
+  bottom: -10%;
   left: 50%;
   transform: translateX(-50%);
   padding: 1.2rem;
@@ -37,7 +37,7 @@ const props = defineProps({
   border-radius: 0.5rem;
   line-height: normal;
   opacity: 0;
-  transition: opacity $default-animation-time ease-in-out;
+  transition: all $default-animation-time ease-in-out;
   font-size: 1rem;
   user-select: none;
   cursor: default;
@@ -54,6 +54,7 @@ const props = defineProps({
     user-select: auto;
     cursor: auto;
     opacity: 1;
+    bottom: 5%;
   }
 
   &.success {
