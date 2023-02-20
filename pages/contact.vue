@@ -245,8 +245,8 @@ useServerSeoMeta({
       button {
         align-self: center;
         width: 100%;
-        background-color: theme(accentColor, 1);
-        border: none;
+        background-color: transparent;
+        border: 0.15rem solid theme(accentColor, 1);
         color: theme(color, 1);
         border-radius: 0.5rem;
         font-size: 1rem;
@@ -256,7 +256,18 @@ useServerSeoMeta({
         cursor: pointer;
 
         .light-mode & {
-          background-color: theme(accentColor, 2);
+          color: theme(color, 2);
+          border: 0.15 solid theme(accentColor, 2);
+        }
+
+        &:hover,
+        &:focus {
+          background-color: theme(accentColor, 1);
+
+          .light-mode & {
+            color: theme(color, 1);
+            background-color: theme(accentColor, 2);
+          }
         }
       }
 
