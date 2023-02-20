@@ -48,7 +48,8 @@ function calculateAge(date: string) {
 
 // Setup meta for SEO
 const title = 'Home';
-const description = "Homepage of Spimy's portfolio. Get an overview of Spimy's skillsets and past projects.";
+const description =
+  "Homepage of Spimy's portfolio. Spimy is a username and my real name is William. On my portfolio, you will get an overview of my skillsets and past projects.";
 
 useHead({
   title
@@ -155,6 +156,11 @@ h1 {
   .skills-container {
     width: 100%;
     transition: background-color $default-animation-time ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding: 1rem;
 
     .dark-mode & {
       background-color: theme(secondary, 1);
@@ -163,12 +169,6 @@ h1 {
     .light-mode & {
       background-color: theme(secondary, 2);
     }
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    padding: 1rem;
 
     &::after {
       content: '';

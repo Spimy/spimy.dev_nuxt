@@ -26,11 +26,11 @@
 
 <script lang="ts" setup>
 useHead({
-  titleTemplate: (page) => (page ? `Spimy - ${page}` : 'Spimy')
+  titleTemplate: (page) => (page ? `Spimy's Portfolio - ${page}` : 'Spimy\'s Portfolio')
 });
 
 useServerSeoMeta({
-  titleTemplate: (page) => (page ? `Spimy - ${page}` : 'Spimy')
+  titleTemplate: (page) => (page ? `Spimy's Portfolio - ${page}` : 'Spimy\'s Portfolio')
 });
 </script>
 
@@ -41,7 +41,6 @@ footer {
   flex-direction: column;
   font-size: 2rem;
   padding: 2rem 6rem;
-  // background-color: red;
 
   @media screen and (max-width: 900px) {
     padding: 2rem;

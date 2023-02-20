@@ -1,9 +1,10 @@
-const DOMAIN = 'https://spimy.dev';
+const DOMAIN = 'https://www.spimy.dev';
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   app: {
     head: {
+      htmlAttrs: { lang: 'en' },
       charset: 'UTF-8',
       viewport: 'width=device-width, initial-scale=1.0, user-scalable=no',
       meta: [

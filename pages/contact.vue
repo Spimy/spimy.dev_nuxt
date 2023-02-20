@@ -146,7 +146,7 @@ const submit = async () => {
 // Setup meta for SEO
 const title = 'Contact';
 const description =
-  'If you need to contact Spimy, this is where you should head to. Fill in the form and an email will be forwarded. You can expect a response within a few days.';
+  'If you need to contact me, this is where you should head to. Fill in the form and an email will be forwarded. You can expect a response within a few days.';
 
 useHead({
   title

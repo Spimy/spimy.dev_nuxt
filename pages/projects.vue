@@ -11,7 +11,7 @@ const route = useRoute();
 // Setup meta for SEO
 const title = 'Projects';
 const description =
-  'View the list of projects that Spimy has created. The projects displayed contains the technologies used, why it was made and also mentions anyone that Spimy has collaborated with on said project. Some private or personal projects may not be displayed in this list which includes this portfolio site.';
+  'List of projects that I have created including its purpose, technologies used and who I made them with. Personal projects may not be listed.';
 
 useHead({
   title
