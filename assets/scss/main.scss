@@ -3,7 +3,7 @@
 *,
 *::before,
 *::after {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 html {
@@ -24,6 +24,18 @@ body {
   transition: all $default-animation-time ease-in-out, color $default-animation-time ease-in-out;
 }
 
-a, a:visited {
+a,
+a:visited {
   text-decoration: underline;
+}
+
+.page-enter-active,
+.page-leave-active {
+  transition: all 0.5s;
+}
+
+.page-enter-from,
+.page-leave-to {
+  opacity: 0;
+  transform: translateX(-50%);
 }

@@ -21,7 +21,8 @@ export default defineNuxtConfig({
         { name: 'theme-color', content: '#3760dc' }
       ],
       link: [{ rel: 'canonical', href: DOMAIN }]
-    }
+    },
+    pageTransition: { name: 'page', mode: 'out-in' }
   },
 
   routeRules: {
