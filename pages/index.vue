@@ -213,7 +213,8 @@ h1 {
       border-radius: 0.2em;
       transition: all $default-animation-time ease-in-out;
 
-      &:hover {
+      &:hover,
+      &:focus {
         color: theme(color, 1);
         background-color: theme(accentColor, 1);
       }

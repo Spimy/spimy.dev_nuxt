@@ -237,7 +237,8 @@ const getTechnologies = (project: IProjects) => project.technologies.join(', ');
     }
 
     &.current,
-    &:hover:not(.disable) {
+    &:hover:not(.disable),
+    &:focus:not(.disable) {
       background-color: theme(accentColor, 1);
     }
 
@@ -249,7 +250,8 @@ const getTechnologies = (project: IProjects) => project.technologies.join(', ');
       }
 
       &.current,
-      &:hover:not(.disable) {
+      &:hover:not(.disable),
+      &:focus:not(.disable) {
         background-color: theme(accentColor, 2);
       }
     }
