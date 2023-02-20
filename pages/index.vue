@@ -79,13 +79,12 @@ h1 {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  margin: 0 6rem;
-  height: 100vh;
+  margin: 18rem 6rem;
 
   @media screen and (max-width: 900px) {
     flex-direction: column-reverse;
     justify-content: center;
-    margin: 0 2rem;
+    margin: 10rem 2rem;
   }
 
   .left {
