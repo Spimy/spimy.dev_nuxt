@@ -75,7 +75,7 @@ const emit = defineEmits(['hasProjects']);
 
 const showPlaceholder = ref(false);
 
-let { pending, data, refresh } = useLazyFetch(() => `/api/projects?perPage=${props.perPage}&page=${props.page}`);
+let { pending, data, refresh } = useLazyFetch(() => `/api/projects?perPage=${props.perPage}&page=${props.page || 1}`);
 watch(
   data,
   (newProjects) => {
