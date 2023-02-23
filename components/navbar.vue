@@ -115,7 +115,7 @@ onMounted(() => {
   nav {
     @media screen and (max-width: 900px) {
       position: fixed;
-      flex-direction: column;
+      justify-content: space-between;
       display: flex;
       gap: 0.5rem;
       opacity: 0;
