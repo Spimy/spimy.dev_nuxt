@@ -66,15 +66,20 @@ useServerSeoMeta({
 </script>
 
 <style lang="scss" scoped>
+h1,
+h2 {
+  margin: 0;
+}
+
 #hero {
   display: flex;
   flex-direction: column-reverse;
   justify-content: space-between;
   align-items: center;
-  min-height: 30rem;
+  min-height: calc(100vh - 6rem);
   gap: 5rem;
 
-  @media (min-width: 40em) {
+  @media (min-width: 50em) {
     flex-direction: row;
   }
 
@@ -122,13 +127,12 @@ useServerSeoMeta({
     }
   }
 
-  h1,
-  h2 {
-    margin: 0;
+  h1 {
+    font-size: 2rem;
   }
 
   h2 {
-    font-size: 3.5rem;
+    font-size: 4rem;
   }
 
   .introduction {
