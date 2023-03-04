@@ -19,42 +19,49 @@
     </div>
   </div>
 
-  <div id="paginator" v-if="showPaginator && data !== null && data.paginate.pageCount > 1">
-    <NuxtLink
-      class="pagination-item prev"
-      :class="{ disable: data.paginate.currentPage === 1 }"
-      @click="refresh"
-      :href="`?page=${data.paginate.currentPage === 1 ? 1 : data.paginate.currentPage - 1}`"
-    >
-      <FontAwesomeIcon icon="fa-solid fa-angle-left" />
-    </NuxtLink>
+  <div id="view-more-container">
+    <div id="paginator" v-if="showPaginator && data !== null && data.paginate.pageCount > 1">
+      <NuxtLink
+        class="pagination-item prev"
+        :class="{ disable: data.paginate.currentPage === 1 }"
+        @click="refresh"
+        :href="`?page=${data.paginate.currentPage === 1 ? 1 : data.paginate.currentPage - 1}`"
+      >
+        <FontAwesomeIcon icon="fa-solid fa-angle-left" />
+      </NuxtLink>
 
-    <NuxtLink
-      v-for="(_, index) in data.paginate.pageRange"
-      class="pagination-item"
-      :class="{ current: index + data.paginate.pageMin === data.paginate.currentPage }"
-      @click="refresh"
-      :href="`?page=${index + data.paginate.pageMin}`"
-    >
-      {{ index + data.paginate.pageMin }}
-    </NuxtLink>
+      <NuxtLink
+        v-for="(_, index) in data.paginate.pageRange"
+        class="pagination-item"
+        :class="{ current: index + data.paginate.pageMin === data.paginate.currentPage }"
+        @click="refresh"
+        :href="`?page=${index + data.paginate.pageMin}`"
+      >
+        {{ index + data.paginate.pageMin }}
+      </NuxtLink>
 
-    <NuxtLink
-      class="pagination-item next"
-      :class="{ disable: data.paginate.currentPage === data.paginate.pageCount }"
-      @click="refresh"
-      :href="`?page=${
-        data.paginate.currentPage === data.paginate.pageCount ? data.paginate.pageCount : data.paginate.currentPage + 1
-      }`"
-    >
-      <FontAwesomeIcon icon="fa-solid fa-angle-right" />
-    </NuxtLink>
+      <NuxtLink
+        class="pagination-item next"
+        :class="{ disable: data.paginate.currentPage === data.paginate.pageCount }"
+        @click="refresh"
+        :href="`?page=${
+          data.paginate.currentPage === data.paginate.pageCount
+            ? data.paginate.pageCount
+            : data.paginate.currentPage + 1
+        }`"
+      >
+        <FontAwesomeIcon icon="fa-solid fa-angle-right" />
+      </NuxtLink>
+    </div>
+
+    <div v-if="!showPaginator && hasProjects" id="more-btn">
+      <NuxtLink rel="next" href="/projects" class="btn">View More</NuxtLink>
+    </div>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { IProjects } from '@/server/database/models/projects.model';
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 const props = defineProps({
   perPage: {
@@ -71,8 +78,7 @@ const props = defineProps({
   }
 });
 
-const emit = defineEmits(['hasProjects']);
-
+const hasProjects = ref(false);
 const showPlaceholder = ref(false);
 
 let { pending, data, refresh } = useLazyFetch(() => `/api/projects?perPage=${props.perPage}&page=${props.page || 1}`);
@@ -80,10 +86,11 @@ watch(
   data,
   (newProjects) => {
     if (newProjects === null || newProjects.projects.length === 0) {
+      hasProjects.value = false;
       showPlaceholder.value = true;
     } else {
+      hasProjects.value = true;
       showPlaceholder.value = false;
-      emit('hasProjects');
     }
   },
   { immediate: true }
@@ -97,13 +104,9 @@ const getTechnologies = (project: IProjects) => project.technologies.join(', ');
   font-size: 1rem;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(25em, 1fr));
-  margin: 2em 6em;
+  margin: 2em 0;
   place-items: center;
   gap: 1.5em;
-
-  @media screen and (max-width: 900px) {
-    margin: 2em;
-  }
 
   .card {
     display: flex;
@@ -215,46 +218,54 @@ const getTechnologies = (project: IProjects) => project.technologies.join(', ');
   }
 }
 
-#paginator {
+#view-more-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 1rem;
 
-  .pagination-item {
-    cursor: pointer;
-    font-size: 1rem;
-    background-color: theme(secondary, 1);
-    border-radius: 0.2rem;
-    text-align: center;
-    text-decoration: none;
-    padding: 1rem;
-    transition: background-color $default-animation-time ease-in-out;
-    color: theme(color, 1);
+  #paginator {
+    display: flex;
+    gap: 1rem;
 
-    &.disable {
-      color: grey;
-    }
+    .pagination-item {
+      cursor: pointer;
+      font-size: 1rem;
+      background-color: theme(secondary, 1);
+      border-radius: 0.2rem;
+      text-align: center;
+      text-decoration: none;
+      padding: 1rem;
+      transition: background-color $default-animation-time ease-in-out;
+      color: theme(color, 1);
 
-    &.current,
-    &:hover:not(.disable),
-    &:focus:not(.disable) {
-      background-color: theme(accentColor, 1);
-    }
-
-    .light-mode & {
-      background-color: theme(secondary, 2);
-
-      &:not(.disable) {
-        color: theme(color, 1);
+      &.disable {
+        color: grey;
       }
 
       &.current,
       &:hover:not(.disable),
       &:focus:not(.disable) {
-        background-color: theme(accentColor, 2);
+        background-color: theme(accentColor, 1);
+      }
+
+      .light-mode & {
+        background-color: theme(secondary, 2);
+
+        &:not(.disable) {
+          color: theme(color, 1);
+        }
+
+        &.current,
+        &:hover:not(.disable),
+        &:focus:not(.disable) {
+          background-color: theme(accentColor, 2);
+        }
       }
     }
+  }
+
+  #more-btn {
+    margin-block: 2rem;
   }
 }
 </style>
