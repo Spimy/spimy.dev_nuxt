@@ -73,8 +73,12 @@ img {
   margin: 2rem 5rem;
   transform: translateX(-2.5%);
 
-  @media (min-width: 40em) {
+  @media (min-width: 50em) {
     width: 40%;
+  }
+
+  @media (min-width: 90em) {
+    width: 35%;
   }
 
   .hexGridA,
