@@ -96,6 +96,7 @@ img {
     background-color: #424242;
     clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
     position: relative;
+    cursor: pointer;
 
     &::before {
       content: '';
