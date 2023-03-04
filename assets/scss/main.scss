@@ -7,14 +7,17 @@
 }
 
 html {
+  -webkit-text-size-adjust: none; /* for iOS Safari */
+  text-size-adjust: none; /* for other mobile browsers */
   font-family: 'Fira Code', monospace;
-  font-size: 16px;
-  scroll-behavior: smooth;
+  font-size: clamp(1rem, 0.9545rem + 0.1918vw, 1.875rem);
+
+  @media (prefers-reduced-motion: no-preference) {
+    scroll-behavior: smooth;
+  }
 }
 
 body {
-  font-size: clamp(1rem, 0.8353rem + 0.6936vw, 2.5rem);
-  text-size-adjust: auto;
   margin: 0;
   padding: 0;
   overflow-x: hidden;
@@ -53,8 +56,12 @@ body {
   }
 }
 
-p {
-  font-size: 1rem;
+h1 {
+  font-size: 3.5rem;
+}
+
+h2 {
+  font-size: 3rem;
 }
 
 a,
