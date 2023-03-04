@@ -1,15 +1,26 @@
 <template>
   <div class="main">
-    <div class="container">
-      <div v-for="(skill, index) in skills" :key="index">
-        <img :src="skill.src" :alt="`${skill.name} logo`">
+    <div class="hexGrid">
+      <div
+        v-for="(skillArr, index) in chunk(skills, 3) as SkillsList[][]"
+        :key="index"
+        :class="index % 2 === 0 ? 'hexGridA' : 'hexGridB'"
+      >
+        <div v-for="(skill, i) in skillArr" :key="i" class="hex">
+          <img :src="skill.src" :alt="`${skill.name} logo`" />
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-const skills = [
+interface SkillsList {
+  name: string;
+  src: string;
+}
+
+const skills: SkillsList[] = [
   { name: 'html', src: '/skills/html.png' },
   { name: 'css', src: '/skills/css.png' },
   { name: 'scss', src: '/skills/scss.png' },
@@ -37,103 +48,73 @@ const skills = [
   { name: 'nginx', src: '/skills/nginx.png' },
   { name: 'certbot', src: '/skills/certbot.png' }
 ];
+
+function chunk(array: SkillsList[], size: number): SkillsList[][] | SkillsList[] {
+  if (!array) return [];
+  const firstChunk = array.slice(0, size);
+  if (!firstChunk.length) return array;
+  return [firstChunk].concat(chunk(array.slice(size, array.length), size));
+}
 </script>
 
 <style lang="scss" scoped>
-// Credit to tileable hexagon CSS:
-// https://css-tricks.com/hexagons-and-beyond-flexible-responsive-grid-patterns-sans-media-queries
-.main {
-  display: flex;
-
-  // size
-  --s: 6rem;
-  // ratio
-  --r: 0.85;
-  // clip-path
-  --h: 0.25;
-  --v: 0.5;
-  --hc: calc(clamp(0, var(--h), 0.5) * var(--s));
-  --vc: calc(clamp(0, var(--v), 0.5) * var(--s) * var(--r));
-
-  // margin
-  // vertical
-  --mv: 0.2rem;
-  // horizontal
-  --mh: calc(var(--mv) + (var(--s) - 2*var(--hc))/2);
-  // for the float
-  --f: calc(2*var(--s)*var(--r) + 4*var(--mv) - 2*var(--vc) - 2px);
-}
-
-.container {
-  // disable white space between inline block element
-  font-size: 0;
-  transition: filter $default-animation-time ease-in-out;
-
-  .dark-mode & {
-    filter: drop-shadow(0.15rem 0.15rem 0.05rem rgba(0, 0, 0, 0.5));
-  }
-
-  .light-mode & {
-    filter: drop-shadow(0.15rem 0.15rem 0.05rem rgba(255, 255, 255, 0.5));
-  }
-}
-
-.container div {
-  width: var(--s);
-  margin: var(--mv) var(--mh);
-  height: calc(var(--s)*var(--r));
-  display: inline-block;
-  font-size: initial;
-  clip-path: polygon(var(--hc) 0, calc(100% - var(--hc)) 0, 100% var(--vc), 100% calc(100% - var(--vc)), calc(100% - var(--hc)) 100%, var(--hc) 100%, 0 calc(100% - var(--vc)), 0 var(--vc));
-  margin-bottom: calc(var(--mv) - var(--vc));
-  position: relative;
-
-  cursor: pointer;
-
-  .dark-mode & {
-    background-color: theme(skillHighlight, 1);
-  }
-
-  .light-mode & {
-    background-color: theme(skillHighlight, 2);
-  }
-
-  transition: background-color $default-animation-time ease-in-out;
-
-  &:hover {
-    .dark-mode & {
-      color: theme(color, 2);
-      background: linear-gradient(150deg, rgba(217, 217, 217, 1) 0%, rgba(148, 148, 148, 1) 100%);
-    }
-
-    .light-mode & {
-      color: theme(color, 1);
-      background: linear-gradient(150deg, rgba(217, 217, 217, 1) 0%, rgba(104, 157, 208, 1) 100%);
-    }
-  }
-}
-
-.container::before {
-  content: "";
-  width: calc(var(--s)/2 + var(--mh));
-  float: left;
-  height: 135%;
-  shape-outside: repeating-linear-gradient(#0000 0 calc(var(--f) - 2px),
-      #000 0 var(--f));
-}
-
 img {
-  width: 2.5rem;
+  width: 30%;
   height: auto;
-  display: inline-block;
+  display: block;
   position: absolute;
   left: 50%;
-  transform: translate(-50%, -50%);
   top: 50%;
+  transform: translate(-50%, -50%);
+}
 
-  &[alt] {
-    font-size: 0.8rem;
-    word-wrap: break-word;
+.hexGrid {
+  width: 60%;
+  margin: 2rem 5rem;
+  transform: translateX(-2.5%);
+
+  @media (min-width: 40em) {
+    width: 40%;
+  }
+
+  .hexGridA,
+  .hexGridB {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    pointer-events: none;
+  }
+
+  .hexGridB {
+    transform: translateX(calc(100% / 6));
+    margin: calc(-9.62% + 2px) auto; /* 100%*cos(30)/9 */
+  }
+
+  .hex {
+    display: flex;
+    pointer-events: initial;
+    width: calc(100% * 2 / 3 - 2px);
+    background-color: #424242;
+    clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+    position: relative;
+
+    &::before {
+      content: '';
+      padding-top: 86.6%; /* 100%*cos(30) */
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0 0;
+      background: linear-gradient(150deg, #d9d9d9, #949494);
+      opacity: 0;
+      transition: opacity $default-animation-time ease-in-out;
+      z-index: -1;
+    }
+
+    &:hover::after {
+      opacity: 1;
+    }
   }
 }
 </style>
