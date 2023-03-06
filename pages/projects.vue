@@ -30,8 +30,6 @@ useServerSeoMeta({
 
 <style lang="scss" scoped>
 .container {
-  margin: 6rem 0;
-
   h1 {
     font-size: 4rem;
     margin: 0 6rem;
