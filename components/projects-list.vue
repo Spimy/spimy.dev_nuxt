@@ -140,7 +140,7 @@ watch(
       }
 
       .technologies {
-        font-size: clamp(0.9375rem, 0.905rem + 0.137vw, 1.5625rem);
+        font-size: clamp(0.75rem, 0.724rem + 0.1096vw, 1.25rem);
         margin: 0;
       }
     }
