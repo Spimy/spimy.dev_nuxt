@@ -38,6 +38,8 @@
 </template>
 
 <script lang="ts" setup>
+scrollTo({ top: 0 });
+
 function calculateAge(date: string) {
   const timeDiff = Math.abs(Date.now() - new Date(date).getTime());
   return Math.floor(timeDiff / (1000 * 3600 * 24) / 365);
@@ -75,7 +77,7 @@ h2 {
   justify-content: center;
   align-items: center;
   min-height: calc(100vh - 6rem);
-  gap: 5rem;
+  gap: 5 rem;
 
   @media (min-width: 50em) {
     flex-direction: row;
