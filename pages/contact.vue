@@ -52,7 +52,9 @@
 import VueHcaptcha from '@hcaptcha/vue3-hcaptcha';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
-scrollTo({ top: 0 });
+onMounted(() => {
+  window.scrollTo(0, 0);
+});
 
 const formData = reactive({
   name: '',

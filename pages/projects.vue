@@ -6,7 +6,9 @@
 </template>
 
 <script lang="ts" setup>
-scrollTo({ top: 0 });
+onMounted(() => {
+  window.scrollTo(0, 0);
+});
 const route = useRoute();
 
 // Setup meta for SEO
