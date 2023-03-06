@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div id="past-projects">
+    <div v-if="!showPlaceholder" id="past-projects">
       <div class="card" v-for="project in data?.projects">
         <img class="preview" :src="project.previewImageUrl" />
         <div class="header">
@@ -14,7 +14,7 @@
       </div>
     </div>
 
-    <div id="placeholder" v-if="showPlaceholder">
+    <div v-if="showPlaceholder" id="placeholder">
       <h2 v-if="pending">Projects are currently being fetched...</h2>
       <h2 v-else>No projects have been uploaded for display yet.</h2>
     </div>
@@ -186,7 +186,7 @@ watch(
 
 #placeholder {
   background-color: theme(secondary, 1);
-  padding: 1em;
+  padding: 1.5em;
   border-radius: 0.5rem;
   text-align: center;
 
