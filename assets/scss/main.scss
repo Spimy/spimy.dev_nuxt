@@ -56,6 +56,16 @@ body {
   }
 }
 
+.tag {
+  font-size: 0.8rem;
+  border-radius: 0.3em;
+  padding: 0.3em 0.5em;
+  margin-right: 0.2em;
+  margin-block: 0.2em;
+  display: inline-block;
+  background-color: theme(accentColor, 1);
+}
+
 h1 {
   font-size: 3.5rem;
 }
