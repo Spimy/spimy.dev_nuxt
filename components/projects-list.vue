@@ -99,7 +99,6 @@ watch(
 <style lang="scss" scoped>
 #past-projects {
   --animation-delay: 0.15s;
-  margin-block: 1rem;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
   gap: 2rem;
