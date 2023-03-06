@@ -34,7 +34,7 @@
 
     <section id="projects">
       <h1>Latest <br /><span class="highlight">Projects</span></h1>
-      <ProjectsList :perPage="6" :showPaginator="false" />
+      <ProjectsList id="projects-list" :perPage="6" :showPaginator="false" />
     </section>
   </div>
 </template>
@@ -146,6 +146,17 @@ h2 {
     place-items: center;
     background-color: theme(secondary, 1);
     margin: 2rem -6rem;
+    margin-top: 0;
+  }
+}
+
+#projects {
+  h1 {
+    line-height: 4rem;
+  }
+
+  #projects-list {
+    margin-block: 1rem;
   }
 }
 </style>
