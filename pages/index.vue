@@ -14,14 +14,12 @@
           first programming language.
         </p>
       </div>
-      <div>
-        <div class="logo-container">
-          <div class="avatar-border"></div>
-          <div class="avatar-border"></div>
-          <img src="/logos/character.png" alt="spimy's character logo" />
-          <div class="avatar-border"></div>
-          <div class="avatar-border"></div>
-        </div>
+      <div class="logo-container">
+        <div class="avatar-border"></div>
+        <div class="avatar-border"></div>
+        <img src="/logos/character.png" alt="spimy's character logo" />
+        <div class="avatar-border"></div>
+        <div class="avatar-border"></div>
       </div>
     </section>
 
