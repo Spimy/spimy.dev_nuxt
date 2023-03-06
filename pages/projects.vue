@@ -27,16 +27,3 @@ useServerSeoMeta({
   twitterDescription: description
 });
 </script>
-
-<style lang="scss" scoped>
-.container {
-  h1 {
-    font-size: 4rem;
-    margin: 0 6rem;
-
-    @media screen and (max-width: 900px) {
-      margin: 0 2rem;
-    }
-  }
-}
-</style>
