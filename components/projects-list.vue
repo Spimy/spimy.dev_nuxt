@@ -107,21 +107,13 @@ watch(
     display: flex;
     flex-direction: column;
     padding: 1em;
-    gap: 1em;
+    gap: 2rem;
     border-radius: 0.3em;
     background-color: theme(secondary, 1);
     overflow: hidden;
     position: relative;
     isolation: isolate;
     aspect-ratio: 1;
-
-    @media (min-width: 530px) and (max-width: 919px) {
-      gap: 5em;
-    }
-
-    @media (min-width: 1249px) and (max-width: 1359px) {
-      gap: 3em;
-    }
 
     .preview {
       position: absolute;
@@ -139,6 +131,7 @@ watch(
     .header {
       margin-left: 60%;
       transform: translateX(10%);
+      flex: 0.5;
 
       .title {
         font-size: clamp(1.25rem, 1.2175rem + 0.137vw, 1.875rem);
@@ -153,8 +146,9 @@ watch(
     }
 
     .description {
-      font-size: clamp(0.75rem, 0.737rem + 0.0548vw, 1rem);
+      font-size: clamp(0.875rem, 0.8555rem + 0.0822vw, 1.25rem);
       transform: translateY(10%);
+      max-width: 75ch;
     }
 
     .header,
@@ -168,8 +162,8 @@ watch(
     &:focus-within {
       .preview {
         z-index: -1;
-        height: 50%;
-        transform: scale(50%) translate(-40%, -25%);
+        height: 60%;
+        transform: scale(50%) translate(-40%, -30%);
         transition-delay: 0s;
       }
 
