@@ -83,13 +83,16 @@ const messageConfig = reactive({
 const config = useRuntimeConfig();
 
 // Delay in seconds
-const showMessage = (message: string, type: MessageType, delay: number) => {
+const showMessage = (message: string, type: MessageType, delay?: number) => {
   messageConfig.message = message;
   messageConfig.show = true;
   messageConfig.type = type;
-  setTimeout(() => {
-    messageConfig.show = false;
-  }, delay * 1000);
+
+  if (delay) {
+    setTimeout(() => {
+      messageConfig.show = false;
+    }, delay * 1000);
+  }
 };
 
 const resetForm = () => {
@@ -107,7 +110,7 @@ const onVerify = (token: string, ekey: string) => {
     method: 'POST',
     body: { formData: { ...formData }, hCaptcha: { ...hCaptcha } }
   });
-  showMessage('Attemping to email your message...', 'inprogress', 15);
+  showMessage('Attemping to email your message...', 'inprogress');
 
   watch(data, (newData) => {
     if (newData !== null) {
