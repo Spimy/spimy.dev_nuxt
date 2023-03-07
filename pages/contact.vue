@@ -280,5 +280,9 @@ useServerSeoMeta({
       }
     }
   }
+
+  .disclaimer {
+    z-index: 9999;
+  }
 }
 </style>
