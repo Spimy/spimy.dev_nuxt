@@ -178,6 +178,7 @@ useServerSeoMeta({
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-bottom: 1rem;
 
   .title {
     h1 {
