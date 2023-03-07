@@ -43,7 +43,7 @@ defineProps({
   transition: all 0.8s cubic-bezier(0.5, 0.08, 0.43, 1.31);
   font-size: 0.5rem;
   user-select: none;
-  cursor: default;
+  opacity: 0;
 
   @media (min-width: 80em) {
     right: -100%;
@@ -60,11 +60,10 @@ defineProps({
   }
 
   &.isShow {
-    user-select: auto;
-    cursor: auto;
     top: 6rem;
     left: 10%;
     right: 10%;
+    opacity: 1;
 
     @media (min-width: 80em) {
       top: 6rem;
