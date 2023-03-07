@@ -188,11 +188,11 @@ useServerSeoMeta({
     h2 {
       font-size: clamp(1.25rem, 1.1849rem + 0.274vw, 2.5rem);
       font-weight: normal;
-      margin-top: 0;
     }
 
     h1,
     h2 {
+      margin-top: 0;
       text-align: center;
     }
   }
@@ -201,7 +201,6 @@ useServerSeoMeta({
     display: flex;
     font-size: 1.25rem;
     width: 100%;
-    margin-top: 2em;
 
     .illustration {
       display: none;
