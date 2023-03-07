@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <main class="container">
     <section id="hero">
       <div>
         <h1>Hi there!</h1>
@@ -34,7 +34,7 @@
       <h1>Latest <br /><span class="highlight">Projects</span></h1>
       <ProjectsList id="projects-list" :perPage="6" :showPaginator="false" />
     </section>
-  </div>
+  </main>
 </template>
 
 <script lang="ts" setup>

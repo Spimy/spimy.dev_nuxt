@@ -1,8 +1,8 @@
 <template>
-  <div class="container">
+  <main class="container">
     <h1 class="highlight">Projects</h1>
     <ProjectsList :page="Number(route.query.page)" />
-  </div>
+  </main>
 </template>
 
 <script lang="ts" setup>
