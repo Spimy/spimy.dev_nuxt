@@ -107,7 +107,7 @@ const onVerify = (token: string, ekey: string) => {
     method: 'POST',
     body: { formData: { ...formData }, hCaptcha: { ...hCaptcha } }
   });
-  showMessage('Attemping to email your message...', 'inprogress', 10);
+  showMessage('Attemping to email your message...', 'inprogress', 15);
 
   watch(data, (newData) => {
     if (newData !== null) {
