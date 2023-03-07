@@ -6,7 +6,7 @@
   <slot />
 
   <footer>
-    <div class="container">
+    <div class="link-container">
       <NuxtLink rel="external" href="https://youtube.com/@OfficialSpimy" target="_blank">
         <FontAwesomeIcon icon="fa-brands fa-youtube" />
       </NuxtLink>
@@ -46,7 +46,7 @@ footer {
     padding: 2rem;
   }
 
-  .container {
+  .link-container {
     display: flex;
     gap: 0.5em;
 

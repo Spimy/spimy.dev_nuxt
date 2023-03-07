@@ -1,61 +1,67 @@
 <template>
-  <div id="past-projects">
-    <div class="card" v-for="project in data?.projects">
-      <div class="header">
-        <img :src="project.previewImageUrl" />
-        <div class="text">
-          <NuxtLink rel="external" :href="project.link" target="_blank"
-            ><h2>{{ project.title }}</h2>
-          </NuxtLink>
-          <h4>Technology: {{ getTechnologies(project) }}</h4>
+  <div>
+    <div v-if="!showPlaceholder" id="past-projects">
+      <div class="card" v-for="project in data?.projects">
+        <img class="preview" :src="project.previewImageUrl" />
+        <div class="header">
+          <NuxtLink class="title" rel="external" :href="project.link" target="_blank">{{ project.title }} </NuxtLink>
+          <p class="technologies">
+            Technology:
+            <span class="tag" v-for="technology in project.technologies">{{ technology }}</span>
+          </p>
         </div>
+        <p class="description">{{ project.description }}</p>
       </div>
-      <p class="description">{{ project.description }}</p>
     </div>
 
-    <div class="placeholder" v-if="showPlaceholder">
+    <div v-else id="placeholder">
       <h2 v-if="pending">Projects are currently being fetched...</h2>
       <h2 v-else>No projects have been uploaded for display yet.</h2>
     </div>
-  </div>
 
-  <div id="paginator" v-if="showPaginator && data !== null && data.paginate.pageCount > 1">
-    <NuxtLink
-      class="pagination-item prev"
-      :class="{ disable: data.paginate.currentPage === 1 }"
-      @click="refresh"
-      :href="`?page=${data.paginate.currentPage === 1 ? 1 : data.paginate.currentPage - 1}`"
-    >
-      <FontAwesomeIcon icon="fa-solid fa-angle-left" />
-    </NuxtLink>
+    <div id="more-container">
+      <div id="paginator" v-if="showPaginator && data !== null && data.paginate.pageCount > 1">
+        <NuxtLink
+          class="pagination-item prev"
+          :class="{ disable: data.paginate.currentPage === 1 }"
+          @click="refresh"
+          :href="`?page=${data.paginate.currentPage === 1 ? 1 : data.paginate.currentPage - 1}`"
+        >
+          <FontAwesomeIcon icon="fa-solid fa-angle-left" />
+        </NuxtLink>
 
-    <NuxtLink
-      v-for="(_, index) in data.paginate.pageRange"
-      class="pagination-item"
-      :class="{ current: index + data.paginate.pageMin === data.paginate.currentPage }"
-      @click="refresh"
-      :href="`?page=${index + data.paginate.pageMin}`"
-    >
-      {{ index + data.paginate.pageMin }}
-    </NuxtLink>
+        <NuxtLink
+          v-for="(_, index) in data.paginate.pageRange"
+          class="pagination-item"
+          :class="{ current: index + data.paginate.pageMin === data.paginate.currentPage }"
+          @click="refresh"
+          :href="`?page=${index + data.paginate.pageMin}`"
+        >
+          {{ index + data.paginate.pageMin }}
+        </NuxtLink>
 
-    <NuxtLink
-      class="pagination-item next"
-      :class="{ disable: data.paginate.currentPage === data.paginate.pageCount }"
-      @click="refresh"
-      :href="`?page=${
-        data.paginate.currentPage === data.paginate.pageCount ? data.paginate.pageCount : data.paginate.currentPage + 1
-      }`"
-    >
-      <FontAwesomeIcon icon="fa-solid fa-angle-right" />
-    </NuxtLink>
+        <NuxtLink
+          class="pagination-item next"
+          :class="{ disable: data.paginate.currentPage === data.paginate.pageCount }"
+          @click="refresh"
+          :href="`?page=${
+            data.paginate.currentPage === data.paginate.pageCount
+              ? data.paginate.pageCount
+              : data.paginate.currentPage + 1
+          }`"
+        >
+          <FontAwesomeIcon icon="fa-solid fa-angle-right" />
+        </NuxtLink>
+      </div>
+
+      <div v-if="!showPaginator && hasProjects" id="more-btn">
+        <NuxtLink rel="next" href="/projects" class="btn">View More</NuxtLink>
+      </div>
+    </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { IProjects } from '@/server/database/models/projects.model';
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-
 const props = defineProps({
   perPage: {
     type: Number,
@@ -71,8 +77,7 @@ const props = defineProps({
   }
 });
 
-const emit = defineEmits(['hasProjects']);
-
+const hasProjects = ref(false);
 const showPlaceholder = ref(false);
 
 let { pending, data, refresh } = useLazyFetch(() => `/api/projects?perPage=${props.perPage}&page=${props.page || 1}`);
@@ -80,181 +85,156 @@ watch(
   data,
   (newProjects) => {
     if (newProjects === null || newProjects.projects.length === 0) {
+      hasProjects.value = false;
       showPlaceholder.value = true;
     } else {
+      hasProjects.value = true;
       showPlaceholder.value = false;
-      emit('hasProjects');
     }
   },
   { immediate: true }
 );
-
-const getTechnologies = (project: IProjects) => project.technologies.join(', ');
 </script>
 
 <style lang="scss" scoped>
 #past-projects {
-  font-size: 1rem;
+  --animation-delay: 0.15s;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(25em, 1fr));
-  margin: 2em 6em;
-  place-items: center;
-  gap: 1.5em;
-
-  @media screen and (max-width: 900px) {
-    margin: 2em;
-  }
+  grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+  gap: 2rem;
 
   .card {
     display: flex;
     flex-direction: column;
-    width: 26em;
-    height: 26em;
-    position: relative;
+    padding: 1em;
+    gap: 2rem;
+    border-radius: 0.3em;
     background-color: theme(secondary, 1);
-    border-radius: 0.5em;
-    filter: drop-shadow(0.2em 0.2em 0.2em #0f0f0f);
+    overflow: hidden;
+    position: relative;
+    isolation: isolate;
+    aspect-ratio: 1;
 
-    .light-mode & {
-      color: theme(color, 1);
-      background-color: theme(secondary, 2);
+    .preview {
+      position: absolute;
+      inset: 0 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+      border-radius: inherit;
+      transition: all $default-animation-time ease-in-out;
+      transition-delay: var(--animation-delay);
     }
 
     .header {
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      width: inherit;
-      height: inherit;
-      transition: all $default-animation-time ease-in-out;
-      text-align: center;
+      margin-left: 60%;
+      transform: translateX(10%);
+      flex: 0.5;
 
-      img {
-        object-fit: cover;
-        object-position: top;
-        border-radius: 0.5em;
-        width: 100%;
-        height: 100%;
-        transition: all $default-animation-time ease-in-out 0.3s;
+      .title {
+        font-size: clamp(1.25rem, 1.2175rem + 0.137vw, 1.875rem);
+        font-weight: bold;
+        display: inline-block;
       }
 
-      .text {
-        display: none;
-      }
-
-      a,
-      h2 {
-        line-height: 1em;
-      }
-
-      a,
-      h4 {
+      .technologies {
+        font-size: clamp(0.75rem, 0.724rem + 0.1096vw, 1.25rem);
         margin: 0;
-        display: none;
-        width: fit-content;
       }
     }
 
     .description {
-      margin-top: -3em;
-      padding: 2em;
-      opacity: 1;
-      display: none;
-      transition: height $default-animation-time ease-in-out;
+      font-size: clamp(0.875rem, 0.8555rem + 0.0822vw, 1.25rem);
+      transform: translateY(10%);
+      max-width: 75ch;
     }
 
-    &:hover {
-      .header {
-        padding: 2em;
-        gap: 1em;
-        height: 50%;
+    .header,
+    .description {
+      opacity: 0;
+      transition: all $default-animation-time ease-in-out;
+      transition-delay: 0s;
+    }
 
-        img {
-          width: 14em;
-          height: 9em;
-          align-self: center;
-          transition: all $default-animation-time ease-in-out;
-        }
-
-        .text {
-          display: initial;
-        }
-
-        a,
-        h4 {
-          display: inline;
-          -webkit-animation: fadeInFromNone 0.5s ease-in-out;
-          -moz-animation: fadeInFromNone 0.5s ease-in-out;
-          -o-animation: fadeInFromNone 0.5s ease-in-out;
-          animation: fadeInFromNone 0.5s ease-in-out;
-        }
+    &:hover,
+    &:focus-within {
+      .preview {
+        z-index: -1;
+        height: 60%;
+        transform: scale(50%) translate(-40%, -30%);
+        transition-delay: 0s;
       }
 
+      .header,
       .description {
         opacity: 1;
-        display: inline;
-        -webkit-animation: fadeInFromNone 0.5s ease-in-out;
-        -moz-animation: fadeInFromNone 0.5s ease-in-out;
-        -o-animation: fadeInFromNone 0.5s ease-in-out;
-        animation: fadeInFromNone 0.5s ease-in-out;
+        transform: translate(0, 0);
+        transition-delay: var(--animation-delay);
       }
-    }
-  }
-
-  .placeholder {
-    background-color: theme(secondary, 1);
-    border-radius: 0.5em;
-    padding: 2em;
-    width: 100%;
-    text-align: center;
-
-    .light-mode & {
-      color: theme(color, 1);
-      background-color: theme(secondary, 2);
     }
   }
 }
 
-#paginator {
+#placeholder {
+  background-color: theme(secondary, 1);
+  padding: 1.5em;
+  border-radius: 0.5rem;
+  text-align: center;
+
+  h2 {
+    font-size: 1.2rem;
+  }
+}
+
+#more-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 1rem;
 
-  .pagination-item {
-    cursor: pointer;
-    font-size: 1rem;
-    background-color: theme(secondary, 1);
-    border-radius: 0.2rem;
-    text-align: center;
-    text-decoration: none;
-    padding: 1rem;
-    transition: background-color $default-animation-time ease-in-out;
-    color: theme(color, 1);
+  #paginator {
+    display: flex;
+    gap: 1rem;
 
-    &.disable {
-      color: grey;
-    }
+    .pagination-item {
+      cursor: pointer;
+      font-size: 1rem;
+      background-color: theme(secondary, 1);
+      border-radius: 0.2rem;
+      text-align: center;
+      text-decoration: none;
+      padding: 1rem;
+      transition: background-color $default-animation-time ease-in-out;
+      color: theme(color, 1);
 
-    &.current,
-    &:hover:not(.disable),
-    &:focus:not(.disable) {
-      background-color: theme(accentColor, 1);
-    }
-
-    .light-mode & {
-      background-color: theme(secondary, 2);
-
-      &:not(.disable) {
-        color: theme(color, 1);
+      &.disable {
+        color: grey;
       }
 
       &.current,
       &:hover:not(.disable),
       &:focus:not(.disable) {
-        background-color: theme(accentColor, 2);
+        background-color: theme(accentColor, 1);
+      }
+
+      .light-mode & {
+        background-color: theme(secondary, 2);
+
+        &:not(.disable) {
+          color: theme(color, 1);
+        }
+
+        &.current,
+        &:hover:not(.disable),
+        &:focus:not(.disable) {
+          background-color: theme(accentColor, 2);
+        }
       }
     }
+  }
+
+  #more-btn {
+    margin-block: 2rem;
   }
 }
 </style>

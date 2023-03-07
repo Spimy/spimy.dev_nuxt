@@ -7,21 +7,73 @@
 }
 
 html {
+  -webkit-text-size-adjust: none; /* for iOS Safari */
+  text-size-adjust: none; /* for other mobile browsers */
   font-family: 'Fira Code', monospace;
-  font-size: 16px;
-  scroll-behavior: smooth;
+  font-size: clamp(1rem, 0.9545rem + 0.1918vw, 1.875rem);
+
+  @media (prefers-reduced-motion: no-preference) {
+    scroll-behavior: smooth;
+  }
 }
 
 body {
-  font-size: clamp(2.25rem, 2vw + 1.5rem, 4rem);
-  text-size-adjust: auto;
   margin: 0;
   padding: 0;
+  overflow-x: hidden;
 
   -webkit-transition: all $default-animation-time ease-in-out, color $default-animation-time ease-in-out;
   -moz-transition: all $default-animation-time ease-in-out, color $default-animation-time ease-in-out;
   -o-transition: all $default-animation-time ease-in-out, color $default-animation-time ease-in-out;
   transition: all $default-animation-time ease-in-out, color $default-animation-time ease-in-out;
+}
+
+.container {
+  margin: 6rem 2rem;
+
+  @media (min-width: 40em) {
+    margin: 6rem;
+  }
+}
+
+.btn {
+  cursor: pointer;
+  padding: 0.8em 1.5em;
+  color: theme(accentColor, 1);
+  border: 0.1em solid theme(accentColor, 1);
+  text-decoration: none;
+  border-radius: 0.2em;
+  background-color: transparent;
+
+  -webkit-transition: all $default-animation-time ease-in-out !important;
+  -moz-transition: all $default-animation-time ease-in-out !important;
+  -o-transition: all $default-animation-time ease-in-out !important;
+  -ms-transition: all $default-animation-time ease-in-out !important;
+  transition: all $default-animation-time ease-in-out !important;
+
+  &:hover,
+  &:focus {
+    color: theme(color, 1) !important;
+    background-color: theme(accentColor, 1);
+  }
+}
+
+.tag {
+  font-size: 0.8rem;
+  border-radius: 0.3em;
+  padding: 0.3em 0.5em;
+  margin-right: 0.2em;
+  margin-block: 0.2em;
+  display: inline-block;
+  background-color: theme(accentColor, 1);
+}
+
+h1 {
+  font-size: 3.5rem;
+}
+
+h2 {
+  font-size: 3rem;
 }
 
 a,
@@ -37,5 +89,5 @@ a:visited {
 .page-enter-from,
 .page-leave-to {
   opacity: 0;
-  transform: translateX(-50%);
+  transform: translateY(20%);
 }

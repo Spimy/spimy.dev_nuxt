@@ -1,10 +1,10 @@
 <template>
-  <div>
+  <main class="container">
     <section id="hero">
-      <div class="left">
-        <h6>Hi there!</h6>
-        <h1 class="highlight shadow">I'm Spimy</h1>
-        <p>
+      <div>
+        <h1>Hi there!</h1>
+        <h2 class="highlight shadow">I'm Spimy</h2>
+        <p class="introduction">
           At least that's the username that I've grown quite fond of. My name is actually William and I am
           {{ calculateAge('2003/01/30') }} years old. Coding since 2016 (~{{ calculateAge('2016') }}
           years of experience) and I got into programming for trying to code a
@@ -14,10 +14,12 @@
           first programming language.
         </p>
       </div>
-      <div class="right">
-        <div class="logo-container">
-          <img src="/logos/character.png" alt="spimy's character logo" />
-        </div>
+      <div class="logo-container">
+        <div class="avatar-border"></div>
+        <div class="avatar-border"></div>
+        <img src="/logos/character.png" alt="spimy's character logo" />
+        <div class="avatar-border"></div>
+        <div class="avatar-border"></div>
       </div>
     </section>
 
@@ -29,19 +31,16 @@
     </section>
 
     <section id="projects">
-      <h1>Latest</h1>
-      <h1 class="highlight">Projects</h1>
-      <ProjectsList :perPage="6" :showPaginator="false" @hasProjects="showMoreBtn = true" />
-
-      <div v-if="showMoreBtn" class="button-container">
-        <NuxtLink rel="next" href="/projects" class="btn">View More</NuxtLink>
-      </div>
+      <h1>Latest <br /><span class="highlight">Projects</span></h1>
+      <ProjectsList id="projects-list" :perPage="6" :showPaginator="false" />
     </section>
-  </div>
+  </main>
 </template>
 
 <script lang="ts" setup>
-const showMoreBtn = ref(false);
+onMounted(() => {
+  window.scrollTo(0, 0);
+});
 
 function calculateAge(date: string) {
   const timeDiff = Math.abs(Date.now() - new Date(date).getTime());
@@ -69,166 +68,98 @@ useServerSeoMeta({
 </script>
 
 <style lang="scss" scoped>
-h1 {
-  margin: 0 6rem;
-  font-weight: 600;
-
-  @media screen and (max-width: 900px) {
-    margin: 0 2rem;
-  }
+h1,
+h2 {
+  margin: 0;
 }
 
 #hero {
   display: flex;
+  flex-direction: column-reverse;
+  justify-content: center;
   align-items: center;
-  justify-content: space-around;
-  margin: 18rem 6rem;
+  min-height: calc(100vh - 6rem);
+  gap: 5rem;
 
-  @media screen and (max-width: 900px) {
-    flex-direction: column-reverse;
-    justify-content: center;
-    margin: 10rem 2rem;
+  @media (min-width: 50em) {
+    flex-direction: row;
+    justify-content: space-between;
   }
 
-  .left {
-    h1 {
-      margin: revert;
-    }
-
-    h1,
-    h6 {
-      line-height: 0;
-    }
-
-    p {
-      font-size: 1rem;
-      max-width: 75ch;
-    }
-  }
-
-  .right {
+  .logo-container {
     position: relative;
 
     img {
-      width: 20rem;
-      height: auto;
+      max-width: 20rem;
+      aspect-ratio: 1;
     }
 
-    &::before,
-    &::after,
-    & > :first-child:before,
-    & > :first-child:after {
-      content: ' ';
+    .avatar-border {
+      --border-width: 0.3rem;
+
       position: absolute;
-      width: 4rem;
-      height: 4rem;
       border-style: solid;
       border-radius: 5%;
-    }
+      height: 4rem;
+      aspect-ratio: 1;
+      border-style: solid;
 
-    &::before {
-      top: 0;
-      left: 0;
-      border-width: 0.3rem 0 0 0.3rem;
-    }
+      &:nth-of-type(1) {
+        border-width: var(--border-width) 0 0 var(--border-width);
+        top: 0;
+        left: 0;
+      }
 
-    &::after {
-      top: 0;
-      right: 0;
-      border-width: 0.3rem 0.3rem 0 0;
-    }
+      &:nth-of-type(2) {
+        border-width: 0 0 var(--border-width) var(--border-width);
+        bottom: 0;
+        left: 0;
+      }
 
-    & > :first-child:before {
-      bottom: 0;
-      right: 0;
-      border-width: 0 0.3rem 0.3rem 0;
-    }
+      &:nth-of-type(3) {
+        border-width: var(--border-width) var(--border-width) 0 0;
+        top: 0;
+        right: 0;
+      }
 
-    & > :first-child:after {
-      bottom: 0;
-      left: 0;
-      border-width: 0 0 0.3rem 0.3rem;
+      &:nth-of-type(4) {
+        border-width: 0 var(--border-width) var(--border-width) 0;
+        bottom: 0;
+        right: 0;
+      }
     }
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 4rem;
+  }
+
+  .introduction {
+    max-width: 75ch;
   }
 }
 
 #skills {
-  margin-bottom: 15rem;
-
-  .skills-container {
-    width: 100%;
-    transition: background-color $default-animation-time ease-in-out;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    padding: 1rem;
-
-    .dark-mode & {
-      background-color: theme(secondary, 1);
-    }
-
-    .light-mode & {
-      background-color: theme(secondary, 2);
-    }
-
-    &::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      width: 100%;
-      background-color: inherit;
-      height: calc((135% + 50vh) / 1.8);
-      z-index: -1;
-      transition: background-color $default-animation-time ease-in-out;
-    }
-
-    #skill-tree {
-      width: 55%;
-      transform: translateY(calc((35% + 50vh) / 9));
-
-      @media screen and (max-width: 900px) {
-        transform: translateY(calc((35% + 50vh) / 30));
-        width: 100%;
-      }
-    }
+  #skill-tree {
+    display: grid;
+    place-items: center;
+    background-color: theme(secondary, 1);
+    margin: 2rem -6rem;
+    margin-top: 0;
   }
 }
 
 #projects {
-  margin-bottom: 5rem;
-
   h1 {
-    line-height: 100%;
+    line-height: 4rem;
   }
 
-  .button-container {
-    display: flex;
-    justify-content: center;
-
-    .btn {
-      text-decoration: none;
-      font-size: 1rem;
-      padding: 1rem 3rem;
-      border: 0.1em solid theme(accentColor, 1);
-      border-radius: 0.2em;
-      transition: all $default-animation-time ease-in-out;
-
-      &:hover,
-      &:focus {
-        color: theme(color, 1);
-        background-color: theme(accentColor, 1);
-      }
-
-      .light-mode & {
-        border: 0.1em solid theme(accentColor, 2);
-
-        &:hover {
-          color: theme(color, 1);
-          background-color: theme(accentColor, 2);
-        }
-      }
-    }
+  #projects-list {
+    margin-block: 1rem;
   }
 }
 </style>

@@ -1,8 +1,10 @@
 <template>
-  <div
-    :class="{ isShow: show, success: type === 'success', error: type === 'error', inprogress: type === 'inprogress' }"
-    id="message"
-  >
+  <div :class="`${show ? 'isShow' : ''} ${type}`" id="message">
+    <div class="icon">
+      <FontAwesomeIcon v-if="type === 'inprogress'" icon="fa-regular fa-clock" />
+      <FontAwesomeIcon v-else-if="type === 'error'" icon="fa-regular fa-circle-xmark" />
+      <FontAwesomeIcon v-else icon="fa-regular fa-circle-check" />
+    </div>
     <h3>{{ message }}</h3>
   </div>
 </template>
@@ -28,45 +30,64 @@ defineProps({
 
 <style lang="scss" scoped>
 #message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
   position: fixed;
-  bottom: -10%;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 1.2rem;
-  background-color: rgba(0, 0, 0, 0.7);
+  top: -100%;
+  right: unset;
+  padding: 2em;
   border-radius: 0.5rem;
   line-height: normal;
-  opacity: 0;
-  transition: all $default-animation-time ease-in-out;
-  font-size: 1rem;
+  transition: all 0.8s cubic-bezier(0.5, 0.08, 0.43, 1.31);
+  font-size: 0.5rem;
   user-select: none;
-  cursor: default;
+  opacity: 0;
 
-  @media screen and (max-width: 900px) {
-    width: 80%;
+  @media (min-width: 80em) {
+    right: -100%;
+    top: 6rem;
   }
 
   h3 {
     margin: 0;
   }
 
+  h3,
+  .icon {
+    font-size: 1.5em;
+  }
+
   &.isShow {
-    user-select: auto;
-    cursor: auto;
+    top: 6rem;
+    left: 10%;
+    right: 10%;
     opacity: 1;
-    bottom: 5%;
+
+    @media (min-width: 80em) {
+      top: 6rem;
+      left: unset;
+      right: 6rem;
+    }
   }
 
   &.success {
     color: green;
+    border: 0.1rem solid green;
+    background-color: #002400;
   }
 
   &.error {
     color: red;
+    border: 0.1rem solid red;
+    background-color: #390000;
   }
 
   &.inprogress {
     color: orange;
+    border: 0.1rem solid orange;
+    background-color: #523500;
   }
 }
 </style>

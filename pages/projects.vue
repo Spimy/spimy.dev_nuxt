@@ -1,11 +1,14 @@
 <template>
-  <div class="container">
+  <main class="container">
     <h1 class="highlight">Projects</h1>
     <ProjectsList :page="Number(route.query.page)" />
-  </div>
+  </main>
 </template>
 
 <script lang="ts" setup>
+onMounted(() => {
+  window.scrollTo(0, 0);
+});
 const route = useRoute();
 
 // Setup meta for SEO
@@ -27,18 +30,3 @@ useServerSeoMeta({
   twitterDescription: description
 });
 </script>
-
-<style lang="scss" scoped>
-.container {
-  margin: 6rem 0;
-
-  h1 {
-    font-size: 4rem;
-    margin: 0 6rem;
-
-    @media screen and (max-width: 900px) {
-      margin: 0 2rem;
-    }
-  }
-}
-</style>
