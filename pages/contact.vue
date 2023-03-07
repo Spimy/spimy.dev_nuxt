@@ -252,10 +252,7 @@ useServerSeoMeta({
     .btn {
       font-weight: bold;
       font-size: 1em;
-      width: 100%;
-      border-width: 0.1em;
       border-radius: 1em;
-      padding: 1em 2em;
     }
 
     @media (min-width: 70em) {
