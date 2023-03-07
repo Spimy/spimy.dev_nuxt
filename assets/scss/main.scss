@@ -39,9 +39,11 @@ body {
 .btn {
   cursor: pointer;
   padding: 0.5em 1em;
-  border: 0.2rem solid theme(accentColor, 1);
+  color: theme(accentColor, 1);
+  border: 0.2em solid theme(accentColor, 1);
   text-decoration: none;
-  border-radius: 0.2rem;
+  border-radius: 0.2em;
+  background-color: transparent;
 
   -webkit-transition: all $default-animation-time ease-in-out !important;
   -moz-transition: all $default-animation-time ease-in-out !important;
