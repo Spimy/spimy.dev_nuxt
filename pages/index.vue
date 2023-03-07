@@ -79,7 +79,7 @@ h2 {
   justify-content: center;
   align-items: center;
   min-height: calc(100vh - 6rem);
-  gap: 5 rem;
+  gap: 5rem;
 
   @media (min-width: 50em) {
     flex-direction: row;
