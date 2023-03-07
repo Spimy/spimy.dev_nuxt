@@ -1,9 +1,11 @@
 <template>
-  <main id="contact">
-    <h1>Get in touch!</h1>
-    <p>I'll get back you as soon as possible.</p>
-    <div class="container">
-      <IllustrationsContact id="illustration" />
+  <main class="container">
+    <div class="title">
+      <h1>Get in touch!</h1>
+      <h2>I'll get back you as soon as possible.</h2>
+    </div>
+    <div class="contact">
+      <IllustrationsContact class="illustration" />
       <form>
         <div class="input">
           <FontAwesomeIcon class="icon" icon="fa-solid fa-user" />
@@ -25,7 +27,7 @@
             v-model="formData.message"
           />
         </div>
-        <button @click.prevent="submit">Send</button>
+        <button class="btn" @click.prevent="submit">Send</button>
       </form>
     </div>
     <p class="disclaimer">
@@ -168,163 +170,116 @@ useServerSeoMeta({
 </script>
 
 <style lang="scss" scoped>
-#contact {
-  margin: 6rem 0;
+.container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-size: 1.5rem;
-  text-align: center;
 
-  @media screen and (max-width: 900px) {
-    margin: 10rem 2rem;
-    display: block;
-  }
+  .title {
+    h1 {
+      font-size: clamp(3.125rem, 3.0274rem + 0.411vw, 5rem);
+      margin-bottom: 0;
+    }
 
-  h1 {
-    margin: 0 6rem;
+    h2 {
+      font-size: clamp(1.25rem, 1.1849rem + 0.274vw, 2.5rem);
+      font-weight: normal;
+      margin-top: 0;
+    }
 
-    @media screen and (max-width: 900px) {
-      margin: 0;
+    h1,
+    h2 {
+      text-align: center;
     }
   }
 
-  p:first-of-type {
-    margin-top: 0;
-  }
-
-  .disclaimer {
-    font-size: 1rem;
-    z-index: 1;
-  }
-
-  .container {
+  .contact {
     display: flex;
-    background-color: theme(secondary, 1);
-    padding: 2rem 5rem;
-    border-radius: 0.5rem;
+    font-size: 1.25rem;
+    width: 100%;
+    margin-top: 2em;
 
-    .light-mode & {
-      background-color: theme(secondary, 2);
-    }
-
-    @media screen and (max-width: 900px) {
-      padding: 0;
-    }
-
-    #illustration {
-      width: 40rem;
-      height: auto;
-      transform: translate(-50%, 20%);
-
-      @media screen and (max-width: 900px) {
-        display: none;
-      }
-
-      @media screen and (max-width: 1300px) {
-        width: 20rem;
-        transform: translate(-60%, 35%);
-      }
+    .illustration {
+      display: none;
     }
 
     form {
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      background-color: theme(backgroundColor, 1);
-      border-radius: 0.5rem;
-      padding: 2rem;
-      gap: 1rem;
+      gap: 1em;
       width: 100%;
-      transition: all $default-animation-time ease-in-out;
-
-      .light-mode & {
-        background-color: theme(backgroundColor, 2);
-      }
-
-      @media screen and (max-width: 900px) {
-        padding: 0;
-      }
-
-      button {
-        align-self: center;
-        width: 100%;
-        background-color: transparent;
-        border: 0.15rem solid theme(accentColor, 1);
-        color: theme(color, 1);
-        border-radius: 0.5rem;
-        font-size: 1rem;
-        font-weight: bold;
-        padding: 0.8rem;
-        transition: all $default-animation-time ease-in-out;
-        cursor: pointer;
-
-        .light-mode & {
-          color: theme(color, 2);
-          border: 0.15 solid theme(accentColor, 2);
-        }
-
-        &:hover,
-        &:focus {
-          background-color: theme(accentColor, 1);
-
-          .light-mode & {
-            color: theme(color, 1);
-            background-color: theme(accentColor, 2);
-          }
-        }
-      }
 
       .input {
-        border: 0.1rem solid theme(color, 1);
-        border-radius: 0.5rem;
         display: flex;
-        transition: all $default-animation-time ease-in-out;
-
-        .light-mode & {
-          border: 0.1rem solid theme(color, 2);
-        }
-
-        &:focus-within {
-          border: 0.1rem solid theme(accentColor, 1);
-          .light-mode & {
-            border: 0.1rem solid theme(accentColor, 2);
-          }
-        }
+        flex-direction: row;
+        gap: 0.5em;
+        padding: 1em;
+        border: 0.1em solid theme(color, 1);
+        border-radius: 1em;
 
         .icon {
-          font-size: 1.5rem;
-          padding: 1rem;
-          padding-right: 0;
-        }
-
-        input {
-          width: 100%;
-          border: none;
+          padding-block: 0.25em;
         }
 
         textarea {
-          width: 100%;
-          height: 10rem;
+          min-height: 10em;
           resize: none;
-          border: none;
         }
 
         input,
         textarea {
-          background-color: theme(backgroundColor, 1);
+          font-size: 1em;
+          background-color: transparent;
+          border: none;
           color: theme(color, 1);
-          font-size: 1rem;
-          padding: 1rem;
           outline: none;
-          transition: all $default-animation-time ease-in-out;
-
-          .light-mode & {
-            background-color: theme(backgroundColor, 2);
-            color: theme(color, 2);
-          }
+          width: 100%;
         }
+
+        input,
+        textarea,
+        .icon {
+          font-size: 1em;
+        }
+
+        &:focus-within {
+          border-color: theme(accentColor, 1);
+        }
+      }
+    }
+
+    .btn {
+      font-weight: bold;
+      font-size: 1em;
+      width: 100%;
+      border-width: 0.1em;
+      border-radius: 1em;
+      padding: 1em 2em;
+    }
+
+    @media (min-width: 70em) {
+      width: auto;
+      border-radius: 1em;
+      background-color: theme(secondary, 1);
+      padding: 1em 5vw;
+      justify-content: space-between;
+      position: relative;
+
+      .illustration {
+        display: inline;
+        width: 100%;
+        height: 100%;
+        position: sticky;
+        bottom: 0;
+        transform: translate(-7vw, 15%);
+      }
+
+      form {
+        font-size: 0.8em;
+        background-color: theme(backgroundColor, 1);
+        padding: 2em;
+        border-radius: inherit;
       }
     }
   }
