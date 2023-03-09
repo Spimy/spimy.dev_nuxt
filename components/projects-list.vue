@@ -193,6 +193,7 @@ watch(
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-block: 2rem;
 
   #paginator {
     display: flex;
@@ -219,10 +220,6 @@ watch(
         background-color: var(--primary-clr);
       }
     }
-  }
-
-  #more-btn {
-    margin-block: 2rem;
   }
 }
 </style>
