@@ -54,16 +54,6 @@ export default defineNuxtConfig({
   modules: ['@nuxtjs/color-mode'],
   css: ['@/assets/scss/main.scss', '@/assets/scss/theme.scss', '@fortawesome/fontawesome-svg-core/styles.css'],
 
-  vite: {
-    css: {
-      preprocessorOptions: {
-        scss: {
-          additionalData: '@import "@/assets/scss/colors.scss";'
-        }
-      }
-    }
-  },
-
   nitro: {
     plugins: ['~/server/database/index.ts']
   },
