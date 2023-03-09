@@ -14,7 +14,7 @@
       </div>
     </div>
 
-    <div v-else id="placeholder">
+    <div v-if="showPlaceholder" id="placeholder">
       <h2 v-if="pending">Projects are currently being fetched...</h2>
       <h2 v-else>No projects have been uploaded for display yet.</h2>
     </div>
