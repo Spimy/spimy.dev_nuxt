@@ -4,6 +4,11 @@
 *::before,
 *::after {
   box-sizing: border-box;
+
+  @media (prefers-reduced-motion) {
+    transition: none !important;
+    animation: none !important;
+  }
 }
 
 html {
