@@ -248,6 +248,10 @@ useServerSeoMeta({
 
         &:focus-within {
           border-color: var(--primary-clr);
+
+          .icon {
+            color: var(--primary-clr);
+          }
         }
       }
     }
