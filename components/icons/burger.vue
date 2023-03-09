@@ -37,7 +37,7 @@ defineProps({
 
 <style lang="scss" scoped>
 path {
-  transition: fill $default-animation-time ease-in-out;
+  transition: fill var(--default-animation-time) ease-in-out;
   fill: var(--text-clr);
 
   &.scrolled {

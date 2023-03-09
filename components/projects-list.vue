@@ -125,7 +125,7 @@ watch(
       object-fit: cover;
       object-position: top;
       border-radius: inherit;
-      transition: all $default-animation-time ease-in-out;
+      transition: all var(--default-animation-time) ease-in-out;
       transition-delay: var(--animation-delay);
     }
 
@@ -155,7 +155,7 @@ watch(
     .header,
     .description {
       opacity: 0;
-      transition: all $default-animation-time ease-in-out;
+      transition: all var(--default-animation-time) ease-in-out;
       transition-delay: 0s;
     }
 
@@ -206,7 +206,7 @@ watch(
       text-align: center;
       text-decoration: none;
       padding: 1rem;
-      transition: background-color $default-animation-time ease-in-out;
+      transition: background-color var(--default-animation-time) ease-in-out;
       color: var(--text-clr);
 
       &.disable {

@@ -114,7 +114,7 @@ img {
       inset: 0 0;
       background: linear-gradient(150deg, #d9d9d9, var(--skill-highlight-clr));
       opacity: 0;
-      transition: opacity $default-animation-time ease-in-out;
+      transition: opacity var(--default-animation-time) ease-in-out;
       z-index: -1;
     }
 

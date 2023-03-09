@@ -50,7 +50,7 @@ onMounted(() => {
   right: 0;
   bottom: 0;
   width: 100%;
-  transition: width $default-animation-time ease-in-out, left $default-animation-time ease-in-out;
+  transition: width var(--default-animation-time) ease-in-out, left var(--default-animation-time) ease-in-out;
   background-color: var(--primary-clr);
 }
 
@@ -71,7 +71,7 @@ ul {
   left: 0;
   width: 100%;
   z-index: 9999;
-  transition: background-color $default-animation-time ease-in-out;
+  transition: background-color var(--default-animation-time) ease-in-out;
 
   &.scrolled {
     background-color: var(--secondary-clr);

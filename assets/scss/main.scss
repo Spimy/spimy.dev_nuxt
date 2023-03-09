@@ -5,10 +5,10 @@
 *::after {
   box-sizing: border-box;
 
-  -webkit-transition: all $default-animation-time ease-in-out;
-  -moz-transition: all $default-animation-time ease-in-out;
-  -o-transition: all $default-animation-time ease-in-out;
-  transition: all $default-animation-time ease-in-out;
+  -webkit-transition: all var(--default-animation-time) ease-in-out;
+  -moz-transition: all var(--default-animation-time) ease-in-out;
+  -o-transition: all var(--default-animation-time) ease-in-out;
+  transition: all var(--default-animation-time) ease-in-out;
 
   @media (prefers-reduced-motion) {
     transition: none !important;
@@ -98,7 +98,7 @@ a,
 
 .highlight,
 .shadow {
-  transition: color $default-animation-time ease-in-out, text-shadow $default-animation-time ease-in-out;
+  transition: color var(--default-animation-time) ease-in-out, text-shadow var(--default-animation-time) ease-in-out;
 }
 
 .page-enter-active,
