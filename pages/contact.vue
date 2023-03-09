@@ -8,15 +8,21 @@
       <IllustrationsContact class="illustration" />
       <form>
         <div class="input">
-          <FontAwesomeIcon class="icon" icon="fa-solid fa-user" />
+          <label for="name">
+            <FontAwesomeIcon class="icon" icon="fa-solid fa-user" />
+          </label>
           <input required type="text" name="name" placeholder="Name" id="name" v-model="formData.name" />
         </div>
         <div class="input">
-          <FontAwesomeIcon class="icon" icon="fa-solid fa-envelope" />
+          <label for="email">
+            <FontAwesomeIcon class="icon" icon="fa-solid fa-envelope" />
+          </label>
           <input required type="text" name="email" placeholder="Email" id="email" v-model="formData.email" />
         </div>
         <div class="input">
-          <FontAwesomeIcon class="icon" icon="fa-solid fa-message" />
+          <label for="message">
+            <FontAwesomeIcon class="icon" icon="fa-solid fa-message" />
+          </label>
           <textarea
             required
             name="message"
@@ -218,11 +224,12 @@ useServerSeoMeta({
         flex-direction: row;
         gap: 0.5em;
         padding: 1em;
-        border: 0.1em solid theme(color, 1);
+        border: 0.1em solid var(--border-clr);
         border-radius: 1em;
 
         .icon {
           padding-block: 0.25em;
+          cursor: pointer;
         }
 
         textarea {
@@ -235,7 +242,7 @@ useServerSeoMeta({
           font-size: 1em;
           background-color: transparent;
           border: none;
-          color: theme(color, 1);
+          color: var(--text-clr);
           outline: none;
           width: 100%;
         }
@@ -247,7 +254,11 @@ useServerSeoMeta({
         }
 
         &:focus-within {
-          border-color: theme(accentColor, 1);
+          border-color: var(--primary-clr);
+
+          .icon {
+            color: var(--primary-clr);
+          }
         }
       }
     }
@@ -261,7 +272,7 @@ useServerSeoMeta({
     @media (min-width: 70em) {
       width: auto;
       border-radius: 1em;
-      background-color: theme(secondary, 1);
+      background-color: var(--secondary-clr);
       padding: 1em 5vw;
       justify-content: space-between;
       position: relative;
@@ -277,7 +288,7 @@ useServerSeoMeta({
 
       form {
         font-size: 0.8em;
-        background-color: theme(backgroundColor, 1);
+        background-color: var(--background-clr);
         padding: 2em;
         border-radius: inherit;
       }

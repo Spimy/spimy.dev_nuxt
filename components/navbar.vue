@@ -1,13 +1,23 @@
 <template>
   <div id="navbar" :class="{ scrolled: scrollPosition > 50 }">
-    <NuxtLink href="/"><img id="icon" src="/logos/icon.png" alt="icon logo" /></NuxtLink>
-    <div id="right-bar">
-      <LazyThemeToggler id="toggler" v-if="showThemeSelector" />
-      <IconsBurger id="burger-menu" @click="toggleMobileNav" :scrolled="scrollPosition > 50" />
-      <nav :class="{ mobileShow: showNavBar === true }">
-        <NuxtLink href="/">Home</NuxtLink>
-        <NuxtLink href="/projects">Past Projects</NuxtLink>
-        <NuxtLink href="/contact">Contact</NuxtLink>
+    <NuxtLink href="/"><img class="logo" src="/logos/icon.png" alt="icon logo" /></NuxtLink>
+    <div class="util-bar">
+      <div class="icons">
+        <LazyThemeToggler class="toggler" v-if="showThemeSelector" />
+        <IconsBurger
+          tabindex="0"
+          class="burger-menu"
+          @keyup.enter="toggleMobileNav"
+          @click="toggleMobileNav"
+          :scrolled="scrollPosition > 50"
+        />
+      </div>
+      <nav :class="{ mobileShow: showNavBar === true, scrolled: scrollPosition > 50 }">
+        <ul>
+          <li><NuxtLink href="/">Home</NuxtLink></li>
+          <li><NuxtLink href="/projects">Past Projects</NuxtLink></li>
+          <li><NuxtLink href="/contact">Contact</NuxtLink></li>
+        </ul>
       </nav>
     </div>
   </div>
@@ -40,15 +50,12 @@ onMounted(() => {
   right: 0;
   bottom: 0;
   width: 100%;
-  transition: width $default-animation-time ease-in-out, left $default-animation-time ease-in-out;
+  transition: width var(--default-animation-time) ease-in-out, left var(--default-animation-time) ease-in-out;
+  background-color: var(--primary-clr);
+}
 
-  .dark-mode & {
-    background-color: theme(accentColor, 1);
-  }
-
-  .light-mode & {
-    background-color: theme(accentColor, 2);
-  }
+ul {
+  list-style: none;
 }
 
 #navbar {
@@ -57,131 +64,126 @@ onMounted(() => {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem 6rem;
   margin-bottom: 1rem;
+  padding: 1rem 2rem;
   position: fixed;
-  left: 0;
   top: 0;
-  right: 0;
-  z-index: 100;
-  transition: background-color $default-animation-time ease-in-out;
-
-  @media screen and (max-width: 900px) {
-    padding: 1rem 2rem;
-  }
+  left: 0;
+  width: 100%;
+  z-index: 9999;
+  transition: background-color var(--default-animation-time) ease-in-out;
 
   &.scrolled {
-    background-color: theme(secondary, 1);
-
-    .light-mode & {
-      background-color: theme(secondary, 2);
-      color: theme(color, 1);
-    }
-  }
-}
-
-#icon {
-  width: 3rem;
-  height: auto;
-}
-
-#right-bar {
-  display: flex;
-  position: relative;
-
-  #toggler {
-    margin: 0.3rem 0;
-
-    @media screen and (max-width: 900px) {
-      margin: 0.3rem 2rem;
-    }
+    background-color: var(--secondary-clr);
+    color: var(--secondary-text-clr);
   }
 
-  #burger-menu {
-    display: none;
+  @media (min-width: 50em) {
+    padding: 1rem 6rem;
+  }
 
-    .scrolled & {
-      fill: theme(color, 1);
-    }
+  .logo {
+    max-width: 3rem;
+    height: auto;
+  }
 
-    @media screen and (max-width: 900px) {
-      display: block;
+  .icons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+
+    .burger-menu {
       width: 2rem;
       height: 2rem;
       cursor: pointer;
+
+      @media (min-width: 50em) {
+        display: none;
+      }
     }
+  }
+
+  .util-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
   }
 
   nav {
-    @media screen and (max-width: 900px) {
-      position: fixed;
-      justify-content: space-between;
-      display: flex;
-      gap: 0.5rem;
-      opacity: 0;
-      top: -10%;
-      padding: 2rem;
-      left: 0;
-      width: 100%;
-      z-index: -1;
-      background-color: theme(backgroundColor, 1);
-      transition: all $default-animation-time ease-in-out;
+    background-color: var(--background-clr);
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    position: absolute;
+    top: -150%;
+    left: 0;
+    right: 0;
+    gap: 1rem;
+    z-index: -1;
+    transform: scaleY(0);
 
-      .light-mode & {
-        background-color: theme(backgroundColor, 2);
-      }
+    li {
+      margin-block: 0.7rem;
+    }
 
-      a {
-        padding: 0;
-        margin: 0;
-      }
+    &.mobileShow {
+      top: 50%;
+      transform: scaleY(100%);
 
-      &.mobileShow {
-        opacity: 1;
-        top: 3rem;
-
-        .scrolled & {
-          background-color: theme(secondary, 1);
-
-          .light-mode & {
-            background-color: theme(secondary, 2);
-          }
-        }
+      &.scrolled {
+        background-color: var(--secondary-clr);
       }
     }
-  }
 
-  a {
-    margin-left: 2em;
-    text-decoration: none;
-    position: relative;
-  }
+    @media (min-width: 50em) {
+      position: static;
+      transform: scaleY(100%);
+      z-index: 1;
+      background-color: transparent;
 
-  a:not(.router-link-active, .router-link-exact-active) {
-    color: inherit !important;
-  }
+      ul {
+        display: flex;
+        gap: 2rem;
+      }
 
-  a::after {
-    @include selected-page();
-    left: 0;
-  }
+      li {
+        margin-block: 0;
+      }
+    }
 
-  a:not(.router-link-active, .router-link-exact-active)::after {
-    width: 0;
-    left: 50%;
-  }
+    a {
+      text-decoration: none;
+      position: relative;
+    }
 
-  a:hover::after {
-    width: 100%;
-    left: 0;
-  }
+    a:not(.router-link-active, .router-link-exact-active) {
+      color: inherit !important;
+    }
 
-  .router-link-active,
-  .router-link-exact-active {
-    position: relative;
-
-    ::after {
+    a::after {
       @include selected-page();
+      left: 0;
+    }
+
+    a:not(.router-link-active, .router-link-exact-active)::after {
+      width: 0;
+      left: 50%;
+    }
+
+    a:hover::after {
+      width: 100%;
+      left: 0;
+    }
+
+    .router-link-active,
+    .router-link-exact-active {
+      position: relative;
+
+      ::after {
+        @include selected-page();
+      }
     }
   }
 }

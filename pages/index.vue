@@ -26,7 +26,11 @@
     <section id="skills">
       <h1 class="highlight">Skills</h1>
       <div class="skills-container">
+        <div class="texture" />
+        <div class="texture" />
         <Skills id="skill-tree" />
+        <div class="texture" />
+        <div class="texture" />
       </div>
     </section>
 
@@ -87,6 +91,7 @@ h2 {
   }
 
   .logo-container {
+    user-select: none;
     position: relative;
 
     img {
@@ -144,12 +149,69 @@ h2 {
 }
 
 #skills {
-  #skill-tree {
-    display: grid;
-    place-items: center;
-    background-color: theme(secondary, 1);
+  .skills-container {
+    background-color: var(--secondary-clr);
     margin: 2rem -6rem;
     margin-top: 0;
+    position: relative;
+    isolation: isolate;
+
+    .texture {
+      --radius: 8rem;
+      background-color: var(--skill-texture-clr);
+      position: absolute;
+      height: 50%;
+      width: var(--radius);
+      z-index: -1;
+
+      &::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: var(--radius);
+        left: 0;
+        background-color: inherit;
+        border-radius: 50%;
+      }
+
+      &:nth-child(even) {
+        height: 30%;
+        margin-inline: calc(1.5 * var(--radius));
+      }
+
+      &:nth-child(-n + 2) {
+        left: 0;
+        bottom: 0;
+
+        &::after {
+          top: calc(-0.5 * var(--radius));
+        }
+      }
+
+      &:nth-last-child(-n + 2) {
+        right: 0;
+        top: 0;
+
+        &::after {
+          bottom: calc(-0.5 * var(--radius));
+        }
+      }
+
+      @media (max-width: 40em) {
+        &:nth-child(odd) {
+          display: none;
+        }
+
+        &:nth-child(even) {
+          margin-inline: 0;
+        }
+      }
+    }
+
+    #skill-tree {
+      display: grid;
+      place-items: center;
+    }
   }
 }
 

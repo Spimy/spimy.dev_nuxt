@@ -52,22 +52,7 @@ export default defineNuxtConfig({
 
   typescript: { shim: false },
   modules: ['@nuxtjs/color-mode'],
-  css: [
-    '@/assets/scss/main.scss',
-    '@/assets/scss/theme.scss',
-    '@/assets/scss/animations/block-fade-in.scss',
-    '@fortawesome/fontawesome-svg-core/styles.css'
-  ],
-
-  vite: {
-    css: {
-      preprocessorOptions: {
-        scss: {
-          additionalData: '@import "@/assets/scss/colors.scss";'
-        }
-      }
-    }
-  },
+  css: ['@/assets/scss/main.scss', '@/assets/scss/theme.scss', '@fortawesome/fontawesome-svg-core/styles.css'],
 
   nitro: {
     plugins: ['~/server/database/index.ts']

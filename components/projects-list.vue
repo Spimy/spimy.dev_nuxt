@@ -14,7 +14,7 @@
       </div>
     </div>
 
-    <div v-else id="placeholder">
+    <div v-if="showPlaceholder" id="placeholder">
       <h2 v-if="pending">Projects are currently being fetched...</h2>
       <h2 v-else>No projects have been uploaded for display yet.</h2>
     </div>
@@ -109,13 +109,15 @@ watch(
     padding: 1em;
     gap: 2rem;
     border-radius: 0.3em;
-    background-color: theme(secondary, 1);
+    color: var(--secondary-text-clr);
+    background-color: var(--secondary-clr);
     overflow: hidden;
     position: relative;
     isolation: isolate;
     aspect-ratio: 1;
 
     .preview {
+      user-select: none;
       position: absolute;
       inset: 0 0;
       width: 100%;
@@ -123,7 +125,7 @@ watch(
       object-fit: cover;
       object-position: top;
       border-radius: inherit;
-      transition: all $default-animation-time ease-in-out;
+      transition: all var(--default-animation-time) ease-in-out;
       transition-delay: var(--animation-delay);
     }
 
@@ -153,7 +155,7 @@ watch(
     .header,
     .description {
       opacity: 0;
-      transition: all $default-animation-time ease-in-out;
+      transition: all var(--default-animation-time) ease-in-out;
       transition-delay: 0s;
     }
 
@@ -177,7 +179,7 @@ watch(
 }
 
 #placeholder {
-  background-color: theme(secondary, 1);
+  background-color: var(--secondary-clr);
   padding: 1.5em;
   border-radius: 0.5rem;
   text-align: center;
@@ -199,13 +201,13 @@ watch(
     .pagination-item {
       cursor: pointer;
       font-size: 1rem;
-      background-color: theme(secondary, 1);
+      background-color: var(--secondary-clr);
       border-radius: 0.2rem;
       text-align: center;
       text-decoration: none;
       padding: 1rem;
-      transition: background-color $default-animation-time ease-in-out;
-      color: theme(color, 1);
+      transition: background-color var(--default-animation-time) ease-in-out;
+      color: var(--text-clr);
 
       &.disable {
         color: grey;
@@ -214,21 +216,7 @@ watch(
       &.current,
       &:hover:not(.disable),
       &:focus:not(.disable) {
-        background-color: theme(accentColor, 1);
-      }
-
-      .light-mode & {
-        background-color: theme(secondary, 2);
-
-        &:not(.disable) {
-          color: theme(color, 1);
-        }
-
-        &.current,
-        &:hover:not(.disable),
-        &:focus:not(.disable) {
-          background-color: theme(accentColor, 2);
-        }
+        background-color: var(--primary-clr);
       }
     }
   }

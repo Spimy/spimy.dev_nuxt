@@ -94,10 +94,11 @@ img {
   }
 
   .hex {
+    user-select: none;
     display: flex;
     pointer-events: initial;
     width: calc(100% * 2 / 3 - 2px);
-    background-color: #424242;
+    background-color: var(--skill-clr);
     clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
     position: relative;
     cursor: pointer;
@@ -111,9 +112,9 @@ img {
       content: '';
       position: absolute;
       inset: 0 0;
-      background: linear-gradient(150deg, #d9d9d9, #949494);
+      background: linear-gradient(150deg, #d9d9d9, var(--skill-highlight-clr));
       opacity: 0;
-      transition: opacity $default-animation-time ease-in-out;
+      transition: opacity var(--default-animation-time) ease-in-out;
       z-index: -1;
     }
 
