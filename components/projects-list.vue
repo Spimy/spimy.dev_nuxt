@@ -179,6 +179,7 @@ watch(
 }
 
 #placeholder {
+  color: var(--secondary-text-clr);
   background-color: var(--secondary-clr);
   padding: 1.5em;
   border-radius: 0.5rem;
