@@ -158,7 +158,7 @@ h2 {
 
     .texture {
       --radius: 8rem;
-      background-color: var(--primary-clr);
+      background-color: var(--skill-texture-clr);
       position: absolute;
       height: 50%;
       width: var(--radius);
