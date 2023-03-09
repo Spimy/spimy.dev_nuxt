@@ -109,7 +109,8 @@ watch(
     padding: 1em;
     gap: 2rem;
     border-radius: 0.3em;
-    background-color: theme(secondary, 1);
+    color: var(--secondary-text-clr);
+    background-color: var(--secondary-clr);
     overflow: hidden;
     position: relative;
     isolation: isolate;
@@ -177,7 +178,7 @@ watch(
 }
 
 #placeholder {
-  background-color: theme(secondary, 1);
+  background-color: var(--secondary-clr);
   padding: 1.5em;
   border-radius: 0.5rem;
   text-align: center;
@@ -199,13 +200,13 @@ watch(
     .pagination-item {
       cursor: pointer;
       font-size: 1rem;
-      background-color: theme(secondary, 1);
+      background-color: var(--secondary-clr);
       border-radius: 0.2rem;
       text-align: center;
       text-decoration: none;
       padding: 1rem;
       transition: background-color $default-animation-time ease-in-out;
-      color: theme(color, 1);
+      color: var(--text-clr);
 
       &.disable {
         color: grey;
@@ -214,21 +215,7 @@ watch(
       &.current,
       &:hover:not(.disable),
       &:focus:not(.disable) {
-        background-color: theme(accentColor, 1);
-      }
-
-      .light-mode & {
-        background-color: theme(secondary, 2);
-
-        &:not(.disable) {
-          color: theme(color, 1);
-        }
-
-        &.current,
-        &:hover:not(.disable),
-        &:focus:not(.disable) {
-          background-color: theme(accentColor, 2);
-        }
+        background-color: var(--primary-clr);
       }
     }
   }

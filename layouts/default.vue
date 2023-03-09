@@ -51,18 +51,10 @@ footer {
     gap: 0.5em;
 
     a {
-      color: theme(color, 1);
+      color: var(--text-clr);
 
       &:hover {
-        color: theme(accentColor, 1);
-      }
-
-      .light-mode & {
-        color: theme(color, 2);
-
-        &:hover {
-          color: theme(accentColor, 2);
-        }
+        color: var(--primary-clr);
       }
     }
   }

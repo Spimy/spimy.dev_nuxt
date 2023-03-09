@@ -147,7 +147,7 @@ h2 {
   #skill-tree {
     display: grid;
     place-items: center;
-    background-color: theme(secondary, 1);
+    background-color: var(--secondary-clr);
     margin: 2rem -6rem;
     margin-top: 0;
   }

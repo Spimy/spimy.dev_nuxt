@@ -1,48 +1,25 @@
-html.dark-mode {
-  body {
-    color: theme(color, 1);
-    background-color: theme(backgroundColor, 1);
+html {
+  --secondary-text-clr: #efefef;
+
+  &.dark-mode {
+    --background-clr: #212121;
+    --primary-clr: #3760dc;
+    --secondary-clr: #2e2e2e;
+    --text-clr: #efefef;
+    --shadow-clr: #efefef;
+    --border-clr: #efefef;
+    --skill-clr: #505050;
+    --skill-highlight-clr: rgba(148, 148, 148, 1);
   }
 
-  a,
-  :visited,
-  .router-link-active,
-  .router-link-exact-active,
-  .highlight,
-  &.highlight {
-    color: theme(accentColor, 1);
-    transition: color $default-animation-time ease-in-out;
+  &.light-mode {
+    --background-clr: #efefef;
+    --primary-clr: #005aaf;
+    --secondary-clr: #15102e;
+    --text-clr: #212121;
+    --shadow-clr: #212121;
+    --border-clr: #212121;
+    --skill-clr: #ffffff;
+    --skill-highlight-clr: rgba(104, 157, 208, 1);
   }
-
-  .shadow,
-  &.shadow {
-    text-shadow: 0.01rem 0.01rem 0.2rem theme(shadowColor, 1);
-    transition: text-shadow $default-animation-time ease-in-out;
-  }
-
-  border-color: theme(borderColor, 2);
-}
-
-html.light-mode {
-  body {
-    background-color: theme(backgroundColor, 2);
-  }
-
-  a,
-  :visited,
-  .router-link-active,
-  .router-link-exact-active,
-  .highlight,
-  &.highlight {
-    color: theme(accentColor, 2);
-    transition: color $default-animation-time ease-in-out;
-  }
-
-  .shadow,
-  &.shadow {
-    text-shadow: 0.01rem 0.01rem 0.2rem theme(shadowColor, 2);
-    transition: text-shadow $default-animation-time ease-in-out;
-  }
-
-  border-color: theme(borderColor, 2);
 }

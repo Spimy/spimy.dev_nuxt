@@ -1,8 +1,10 @@
 // Colors to be used
 $dark: #212121;
+$dark-2: #2e2e2e;
 $light: #efefef;
 $blue: #3760dc;
-$blue-darker: #005aaf;
+$blue-2: #005aaf;
+$blue-3: #15102e;
 
 $default-animation-time: 0.3s;
 
@@ -11,13 +13,34 @@ $default-animation-time: 0.3s;
   Index 2: Light theme
 */
 $theme: (
-  backgroundColor: ($dark, $light),
-  borderColor: ($light, $dark),
-  color: ($light, $dark),
-  accentColor: ($blue, $blue-darker),
-  shadowColor: ($light, $dark),
-  secondary: (#2e2e2e, #15102e),
-  skillHighlight: (#505050, #ffffff)
+  backgroundColor: (
+    $dark,
+    $light
+  ),
+  borderColor: (
+    $light,
+    $dark
+  ),
+  color: (
+    $light,
+    $dark
+  ),
+  accentColor: (
+    $blue,
+    $blue-2
+  ),
+  shadowColor: (
+    $light,
+    $dark
+  ),
+  secondary: (
+    $dark-2,
+    $blue-3
+  ),
+  skillHighlight: (
+    #505050,
+    #ffffff
+  )
 );
 
 @function theme($property, $index) {
