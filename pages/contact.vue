@@ -8,15 +8,21 @@
       <IllustrationsContact class="illustration" />
       <form>
         <div class="input">
-          <FontAwesomeIcon class="icon" icon="fa-solid fa-user" />
+          <label for="name">
+            <FontAwesomeIcon class="icon" icon="fa-solid fa-user" />
+          </label>
           <input required type="text" name="name" placeholder="Name" id="name" v-model="formData.name" />
         </div>
         <div class="input">
-          <FontAwesomeIcon class="icon" icon="fa-solid fa-envelope" />
+          <label for="email">
+            <FontAwesomeIcon class="icon" icon="fa-solid fa-envelope" />
+          </label>
           <input required type="text" name="email" placeholder="Email" id="email" v-model="formData.email" />
         </div>
         <div class="input">
-          <FontAwesomeIcon class="icon" icon="fa-solid fa-message" />
+          <label for="message">
+            <FontAwesomeIcon class="icon" icon="fa-solid fa-message" />
+          </label>
           <textarea
             required
             name="message"
@@ -223,6 +229,7 @@ useServerSeoMeta({
 
         .icon {
           padding-block: 0.25em;
+          cursor: pointer;
         }
 
         textarea {
