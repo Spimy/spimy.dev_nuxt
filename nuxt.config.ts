@@ -52,12 +52,7 @@ export default defineNuxtConfig({
 
   typescript: { shim: false },
   modules: ['@nuxtjs/color-mode'],
-  css: [
-    '@/assets/scss/main.scss',
-    '@/assets/scss/theme.scss',
-    '@/assets/scss/animations/block-fade-in.scss',
-    '@fortawesome/fontawesome-svg-core/styles.css'
-  ],
+  css: ['@/assets/scss/main.scss', '@/assets/scss/theme.scss', '@fortawesome/fontawesome-svg-core/styles.css'],
 
   vite: {
     css: {
