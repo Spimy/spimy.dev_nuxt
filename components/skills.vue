@@ -94,6 +94,7 @@ img {
   }
 
   .hex {
+    user-select: none;
     display: flex;
     pointer-events: initial;
     width: calc(100% * 2 / 3 - 2px);

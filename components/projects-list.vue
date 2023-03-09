@@ -117,6 +117,7 @@ watch(
     aspect-ratio: 1;
 
     .preview {
+      user-select: none;
       position: absolute;
       inset: 0 0;
       width: 100%;

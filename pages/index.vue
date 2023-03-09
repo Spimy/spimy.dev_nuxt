@@ -87,6 +87,7 @@ h2 {
   }
 
   .logo-container {
+    user-select: none;
     position: relative;
 
     img {
