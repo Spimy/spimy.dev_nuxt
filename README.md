@@ -17,7 +17,7 @@ Tileable hexagons CSS in skill section by [Temani Afif](https://stackoverflow.co
 
 Coded by [Spimy](https://github.com/Spimy) aka myself
 
-Built on [Nuxt 3.0](https://nuxt.com) and soon to be hosted on [Vercel](https://vercel.com)
+Built on [Nuxt 3.0](https://nuxt.com) and hosted on [Vercel](https://vercel.com)
 
 ## Why I Used Nuxt 3.0
 
