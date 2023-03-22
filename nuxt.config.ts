@@ -51,7 +51,7 @@ export default defineNuxtConfig({
   },
 
   typescript: { shim: false },
-  modules: ['@nuxtjs/color-mode'],
+  modules: ['@nuxtjs/color-mode', '@nuxt/image-edge'],
   css: ['@/assets/scss/main.scss', '@/assets/scss/theme.scss', '@fortawesome/fontawesome-svg-core/styles.css'],
 
   nitro: {
@@ -61,5 +61,9 @@ export default defineNuxtConfig({
   colorMode: {
     preference: 'system',
     fallback: 'light'
+  },
+
+  image: {
+    domains: ['static.spimy.dev']
   }
 });
