@@ -17,7 +17,7 @@
       <div class="logo-container">
         <div class="avatar-border"></div>
         <div class="avatar-border"></div>
-        <img src="/logos/character.png" alt="spimy's character logo" />
+        <NuxtImg src="/logos/character.png" alt="spimy's character logo" format="webp" quality="80" />
         <div class="avatar-border"></div>
         <div class="avatar-border"></div>
       </div>

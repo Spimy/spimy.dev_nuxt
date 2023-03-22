@@ -7,7 +7,7 @@
         :class="index % 2 === 0 ? 'hexGridA' : 'hexGridB'"
       >
         <div v-for="(skill, i) in skillArr" :key="i" class="hex">
-          <img :src="skill.src" :alt="`${skill.name} logo`" />
+          <NuxtImg :src="skill.src" :alt="`${skill.name} logo`" format="webp" />
         </div>
       </div>
     </div>

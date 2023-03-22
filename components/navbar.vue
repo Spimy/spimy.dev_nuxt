@@ -1,6 +1,6 @@
 <template>
   <div id="navbar" :class="{ scrolled: scrollPosition > 50 }">
-    <NuxtLink href="/"><img class="logo" src="/logos/icon.png" alt="icon logo" /></NuxtLink>
+    <NuxtLink href="/"><NuxtImg class="logo" src="/logos/icon.png" alt="icon logo" format="webp" /></NuxtLink>
     <div class="util-bar">
       <div class="icons">
         <LazyThemeToggler class="toggler" v-if="showThemeSelector" />

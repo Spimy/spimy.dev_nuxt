@@ -2,7 +2,13 @@
   <div>
     <div v-if="!showPlaceholder" id="past-projects">
       <div class="card" v-for="project in data?.projects">
-        <img class="preview" :src="project.previewImageUrl" />
+        <NuxtImg
+          class="preview"
+          :src="project.previewImageUrl"
+          :alt="`${project.title} preview`"
+          format="webp"
+          quality="50"
+        />
         <div class="header">
           <NuxtLink class="title" rel="external" :href="project.link" target="_blank">{{ project.title }} </NuxtLink>
           <p class="technologies">
