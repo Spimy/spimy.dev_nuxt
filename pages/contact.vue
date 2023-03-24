@@ -44,7 +44,7 @@
     </p>
     <VueHcaptcha
       ref="captcha"
-      :sitekey="config.public.hcaptcha_sitekey"
+      :sitekey="config.public.hcaptcha_sitekeys.contact"
       :theme="$colorMode.value"
       size="invisible"
       @verify="onVerify"
