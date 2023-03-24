@@ -49,7 +49,11 @@ export default defineNuxtConfig({
     hcaptcha_secret: process.env.HCAPTCHA_SECRET,
 
     public: {
-      hcaptcha_sitekey: process.env.HCAPTCHA_SITEKEY
+      hcaptcha_sitekeys: {
+        contact: process.env.HCAPTCHA_SITEKEY_CONTACT,
+        login: process.env.HCAPTCHA_SITEKEY_LOGIN
+      },
+      auth_backend: process.env.AUTH_BACKEND
     }
   },
 
