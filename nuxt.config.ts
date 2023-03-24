@@ -20,7 +20,10 @@ export default defineNuxtConfig({
         { name: 'twitter:image', content: `${DOMAIN}/logos/character.png` },
         { name: 'theme-color', content: '#3760dc' }
       ],
-      link: [{ rel: 'canonical', href: DOMAIN }]
+      link: [
+        { rel: 'canonical', href: DOMAIN },
+        { rel: 'icon', href: 'favicon.ico' }
+      ]
     },
     pageTransition: { name: 'page', mode: 'out-in' }
   },
