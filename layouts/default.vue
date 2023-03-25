@@ -3,7 +3,7 @@
     <Navbar />
   </header>
 
-  <slot />
+  <NuxtPage :key="$route.fullPath" />
 
   <footer>
     <div class="link-container">
