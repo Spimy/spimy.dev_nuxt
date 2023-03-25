@@ -47,10 +47,10 @@
       :sitekey="config.public.hcaptcha_sitekeys.contact"
       :theme="$colorMode.value"
       size="invisible"
-      @verify="onVerify"
-      @expired="onExpire"
-      @challengeExpired="onExpire"
-      @error="onError"
+      @verify="hcaptchaHandler.onVerify"
+      @expired="hcaptchaHandler.onExpire"
+      @challengeExpired="hcaptchaHandler.onExpire"
+      @error="hcaptchaHandler.onError"
     />
     <Message :show="messageConfig.show" :message="messageConfig.message" :type="messageConfig.type" />
   </main>
@@ -79,6 +79,28 @@ const hCaptcha = reactive({
   error: new Error()
 });
 
+const hcaptchaHandler = new HCaptchaHandler(hCaptcha, () => {
+  const { data, error } = useFetch('/api/contact', {
+    method: 'POST',
+    body: { formData: { ...formData }, hCaptcha: { ...hCaptcha } }
+  });
+  showMessage('Attemping to email your message...', 'inprogress');
+
+  watch(data, (newData) => {
+    if (newData !== null) {
+      resetForm();
+      showMessage(newData.message, 'success', 3);
+    }
+  });
+
+  watch(error, (newError) => {
+    if (newError !== null) {
+      resetForm();
+      showMessage(newError.data.message, 'error', 3);
+    }
+  });
+});
+
 type MessageType = 'success' | 'error' | 'inprogress';
 const messageConfig = reactive({
   show: false,
@@ -105,47 +127,6 @@ const resetForm = () => {
   formData.name = '';
   formData.email = '';
   formData.message = '';
-};
-
-const onVerify = (token: string, ekey: string) => {
-  hCaptcha.verified = true;
-  hCaptcha.token = token;
-  hCaptcha.eKey = ekey;
-
-  const { data, error } = useFetch('/api/contact', {
-    method: 'POST',
-    body: { formData: { ...formData }, hCaptcha: { ...hCaptcha } }
-  });
-  showMessage('Attemping to email your message...', 'inprogress');
-
-  watch(data, (newData) => {
-    if (newData !== null) {
-      resetForm();
-      showMessage(newData.message, 'success', 3);
-    }
-  });
-
-  watch(error, (newError) => {
-    if (newError !== null) {
-      resetForm();
-      showMessage(newError.data.message, 'error', 3);
-    }
-  });
-};
-
-const onExpire = () => {
-  hCaptcha.verified = false;
-  hCaptcha.token = '';
-  hCaptcha.eKey = '';
-  hCaptcha.expired = true;
-  console.log('hCaptcha has expired...');
-};
-
-const onError = (err: Error) => {
-  hCaptcha.token = '';
-  hCaptcha.eKey = '';
-  hCaptcha.error = err;
-  console.log(`Error submitting hCaptcha: ${err}`);
 };
 
 const submit = async () => {
