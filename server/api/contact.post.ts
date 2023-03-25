@@ -1,4 +1,4 @@
-import { FormBody } from '../types/form-body';
+import { FormBody } from '@/utils/types/form-body';
 import { verify } from 'hcaptcha';
 import { createTransport } from 'nodemailer';
 
