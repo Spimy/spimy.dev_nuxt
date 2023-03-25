@@ -88,11 +88,12 @@ const showMessage = (message: string, type: MessageType, delay?: number /* in se
 };
 
 const hcaptchaHandler = new HCaptchaHandler(hCaptcha, () => {
-  useAuthFetch<LoginResponse>('/login', { method: 'POST', body: { ...formData, captcha: hCaptcha } }).then(
+  useAuthFetch<LoginResponse>('/auth/login', { method: 'POST', body: { ...formData, captcha: hCaptcha } }).then(
     (response) => {
       if (response.status === 200) {
         localStorage.setItem('accessToken', response._data!.tokens.access);
         localStorage.setItem('refreshToken', response._data!.tokens.refresh);
+        localStorage.setItem('sessionId', response._data!.sessionId);
 
         showMessage(response._data!.message, 'success', 3);
         navigateTo('/admin');
