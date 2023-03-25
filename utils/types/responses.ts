@@ -5,6 +5,7 @@ export interface LoginResponse {
     access: string;
     refresh: string;
   };
+  sessionId: string;
   message: string;
 }
 
