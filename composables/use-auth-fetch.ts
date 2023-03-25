@@ -21,7 +21,7 @@ const instance = $fetch.create({
         body: { refreshToken: localStorage.getItem('refreshToken') }
       });
 
-      if (error) return localLogout();
+      if (error.value) return localLogout();
       localStorage.setItem('accessToken', (data.value! as any).accessToken);
     }
   }
