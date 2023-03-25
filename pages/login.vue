@@ -86,9 +86,9 @@ const hCaptcha: HCaptcha = reactive({
 
 const hcaptchaHandler = new HCaptchaHandler(hCaptcha, () => {
   useAuthFetch('/login', { method: 'POST', body: { ...formData, captcha: hCaptcha } }).then((response: any) => {
-    localStorage.setItem('accessToken', response.tokens.access);
-    localStorage.setItem('refreshToken', response.tokens.refresh);
-    showMessage(response.message, 'success', 3);
+    localStorage.setItem('accessToken', response._data.tokens.access);
+    localStorage.setItem('refreshToken', response._data.tokens.refresh);
+    showMessage(response._data.message, 'success', 3);
     navigateTo('/admin');
   });
 });
