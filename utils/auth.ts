@@ -1,4 +1,4 @@
-import { AuthCheckResponse } from '@/utils/types/auth-check';
+import { AuthCheckResponse } from '@/utils/types/responses/auth-check';
 
 export const localLogout = () => {
   localStorage.removeItem('accessToken');
