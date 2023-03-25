@@ -20,7 +20,7 @@
         <FontAwesomeIcon icon="fa-brands fa-github" />
       </NuxtLink>
     </div>
-    <h3>Copyright &#169 2023 Spimy - All Rights Reserved.</h3>
+    <h3>Copyright &#169 {{ new Date().getFullYear() }} Spimy - All Rights Reserved.</h3>
   </footer>
 </template>
 
