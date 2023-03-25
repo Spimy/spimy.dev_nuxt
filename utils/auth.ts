@@ -23,9 +23,12 @@ export const logout = () => {
 export const checkAuthentication = async () => {
   return await useAuthFetch<AuthCheckResponse>('/auth/check').then((response) => {
     if (response?.status === 200) {
+      const { setUserData } = useUser();
+      setUserData(response._data!.user);
+
       return {
         isAuthenticated: true,
-        user: response._data?.user
+        user: response._data!.user
       };
     }
     return {
