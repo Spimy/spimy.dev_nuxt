@@ -38,7 +38,8 @@ import VueHcaptcha from '@hcaptcha/vue3-hcaptcha';
 import { HCaptcha } from '@/utils/types/hcaptcha';
 
 definePageMeta({
-  layout: 'admin'
+  layout: 'admin',
+  middleware: ['auth']
 });
 
 const formData = reactive({
