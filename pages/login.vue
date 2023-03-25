@@ -36,7 +36,7 @@
 <script lang="ts" setup>
 import VueHcaptcha from '@hcaptcha/vue3-hcaptcha';
 import { HCaptcha } from '@/utils/types/hcaptcha';
-import { LoginResponse } from '@/utils/types/responses/login';
+import { LoginResponse } from '@/utils/types/responses';
 
 definePageMeta({
   layout: 'admin',
