@@ -86,7 +86,9 @@ const props = defineProps({
 const hasProjects = ref(false);
 const showPlaceholder = ref(false);
 
-let { pending, data, refresh } = useLazyFetch(() => `/api/projects?perPage=${props.perPage}&page=${props.page || 1}`);
+let { pending, data, refresh } = useLazyFetch(
+  () => `/api/projects?perPage=${props.perPage || 9}&page=${props.page || 1}`
+);
 watch(
   data,
   (newProjects) => {
