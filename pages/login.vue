@@ -42,12 +42,32 @@ definePageMeta({
   layout: 'admin',
   middleware: ['auth']
 });
+type MessageType = 'success' | 'error' | 'inprogress';
+
+// -- Data definitions --
+const config = useRuntimeConfig();
 
 const formData = reactive({
   email: '',
   password: ''
 });
 
+const messageConfig = reactive({
+  show: false,
+  message: '',
+  type: 'inprogress' as MessageType
+});
+
+const captcha = ref<VueHcaptcha | null>(null);
+const hCaptcha: HCaptcha = reactive({
+  verified: false,
+  expired: false,
+  token: '',
+  eKey: '',
+  error: new Error()
+});
+
+// -- Methods --
 const submit = () => {
   if (captcha.value) {
     console.log('Submitting hCaptcha and contact form...');
@@ -55,17 +75,7 @@ const submit = () => {
   }
 };
 
-const config = useRuntimeConfig();
-
-type MessageType = 'success' | 'error' | 'inprogress';
-const messageConfig = reactive({
-  show: false,
-  message: '',
-  type: 'inprogress' as MessageType
-});
-
-// Delay in seconds
-const showMessage = (message: string, type: MessageType, delay?: number) => {
+const showMessage = (message: string, type: MessageType, delay?: number /* in seconds */) => {
   messageConfig.message = message;
   messageConfig.show = true;
   messageConfig.type = type;
@@ -76,15 +86,6 @@ const showMessage = (message: string, type: MessageType, delay?: number) => {
     }, delay * 1000);
   }
 };
-
-const captcha = ref<VueHcaptcha | null>(null);
-const hCaptcha: HCaptcha = reactive({
-  verified: false,
-  expired: false,
-  token: '',
-  eKey: '',
-  error: new Error()
-});
 
 const hcaptchaHandler = new HCaptchaHandler(hCaptcha, () => {
   useAuthFetch<LoginResponse>('/login', { method: 'POST', body: { ...formData, captcha: hCaptcha } }).then(
