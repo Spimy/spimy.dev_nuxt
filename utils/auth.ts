@@ -1,3 +1,5 @@
+import { AuthCheckResponse } from '@/utils/types/auth-check';
+
 export const localLogout = () => {
   localStorage.removeItem('accessToken');
   localStorage.removeItem('refreshToken');
@@ -5,6 +7,9 @@ export const localLogout = () => {
 };
 
 // Check if user is authenticated locally
-export const isAuthenticated = () => {
-  return !(!localStorage.getItem('accessToken') && !localStorage.getItem('refreshToken'));
+export const checkAuthentication = async () => {
+  return await useAuthFetch<AuthCheckResponse>('/check').then((response) => {
+    if (response.status === 200) return true;
+    return false;
+  });
 };
