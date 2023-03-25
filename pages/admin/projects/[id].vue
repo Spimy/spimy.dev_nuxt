@@ -29,7 +29,8 @@
 
 <script lang="ts" setup>
 definePageMeta({
-  layout: 'admin'
+  layout: 'admin',
+  middleware: ['auth']
 });
 
 // -- Custom Directives --
@@ -48,7 +49,6 @@ const edit = ref(false);
 const route = useRoute();
 
 const { data } = useFetch(`/api/project?id=${route.params.id}`);
-console.log(JSON.stringify({ test: data.value?.description }));
 </script>
 
 <style lang="scss" scoped>
