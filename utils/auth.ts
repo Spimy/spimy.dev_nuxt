@@ -6,10 +6,18 @@ export const localLogout = () => {
   navigateTo('/login');
 };
 
-// Check if user is authenticated locally
+// Check if user is authenticated with auth backend
 export const checkAuthentication = async () => {
-  return await useAuthFetch<AuthCheckResponse>('/check').then((response) => {
-    if (response.status === 200) return true;
-    return false;
+  return await useAuthFetch<AuthCheckResponse>('/auth/check').then((response) => {
+    if (response?.status === 200) {
+      return {
+        isAuthenticated: true,
+        user: response._data?.user
+      };
+    }
+    return {
+      isAuthenticated: false,
+      user: null
+    };
   });
 };
