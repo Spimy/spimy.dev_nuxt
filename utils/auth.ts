@@ -9,12 +9,14 @@ export const localLogout = () => {
 
 // Delete the session on the auth backen and logout locally
 export const logout = () => {
-  const sessionId = localStorage.getItem('sessionId');
-  if (!sessionId) return localLogout();
+  if (process.client) {
+    const sessionId = localStorage?.getItem('sessionId');
+    if (!sessionId) return localLogout();
 
-  useAuthFetch(`/sessions?id=${sessionId}`, { method: 'DELETE' }).then((response) => {
-    if (response.status === 200) return localLogout();
-  });
+    useAuthFetch(`/sessions?id=${sessionId}`, { method: 'DELETE' }).then((response) => {
+      if (response.status === 200) return localLogout();
+    });
+  }
 };
 
 // Check if user is authenticated with auth backend
