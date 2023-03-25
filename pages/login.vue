@@ -36,6 +36,7 @@
 <script lang="ts" setup>
 import VueHcaptcha from '@hcaptcha/vue3-hcaptcha';
 import { HCaptcha } from '@/utils/types/hcaptcha';
+import { LoginResponse } from '@/utils/types/responses/login';
 
 definePageMeta({
   layout: 'admin',
@@ -86,12 +87,23 @@ const hCaptcha: HCaptcha = reactive({
 });
 
 const hcaptchaHandler = new HCaptchaHandler(hCaptcha, () => {
-  useAuthFetch('/login', { method: 'POST', body: { ...formData, captcha: hCaptcha } }).then((response: any) => {
-    localStorage.setItem('accessToken', response._data.tokens.access);
-    localStorage.setItem('refreshToken', response._data.tokens.refresh);
-    showMessage(response._data.message, 'success', 3);
-    navigateTo('/admin');
-  });
+  useAuthFetch<LoginResponse>('/login', { method: 'POST', body: { ...formData, captcha: hCaptcha } }).then(
+    (response) => {
+      if (response.status === 200) {
+        localStorage.setItem('accessToken', response._data!.tokens.access);
+        localStorage.setItem('refreshToken', response._data!.tokens.refresh);
+
+        showMessage(response._data!.message, 'success', 3);
+        navigateTo('/admin');
+
+        return;
+      }
+
+      formData.email = '';
+      formData.password = '';
+      showMessage(response._data!.message, 'error', 3);
+    }
+  );
 });
 </script>
 
