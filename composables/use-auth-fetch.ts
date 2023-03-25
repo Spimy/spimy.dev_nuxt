@@ -15,7 +15,7 @@ const instance = $fetch.create({
   },
   onResponseError: async ({ response, options }) => {
     if (response?.status === 401) {
-      const { data, error } = await useFetch('/refresh', {
+      const { data, error } = await useFetch('/auth/refresh', {
         ...options,
         method: 'POST',
         body: { refreshToken: localStorage.getItem('refreshToken') }
@@ -32,7 +32,7 @@ export default async <T>(
   options: NitroFetchOptions<string> = {}
 ): Promise<FetchResponse<T>> => {
   const config = useRuntimeConfig();
-  const baseURL = `${config.public.auth_backend}/api/auth`;
+  const baseURL = `${config.public.auth_backend}/api`;
 
   options = { ...options, baseURL };
 
