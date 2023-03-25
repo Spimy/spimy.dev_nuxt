@@ -1,14 +1,13 @@
 export default defineNuxtRouteMiddleware((to) => {
-  // skip middleware on server
-  if (process.server) return;
+  checkAuthentication().then((isAuthenticated) => {
+    if (!isAuthenticated && to.path === '/admin') {
+      navigateTo('/login');
+      return isAuthenticated;
+    }
 
-  const authenticated = isAuthenticated();
-
-  if (!authenticated && to.path === '/admin') {
-    return navigateTo('/login');
-  }
-
-  if (authenticated && to.path === '/login') {
-    return navigateTo('/admin');
-  }
+    if (isAuthenticated && to.path === '/login') {
+      navigateTo('/admin');
+      return isAuthenticated;
+    }
+  });
 });
