@@ -1,4 +1,6 @@
 import { User } from '@/utils/types/user';
+import { IProject } from '@/server/database/models/projects.model';
+import { Paginator } from '@/utils/types/paginator';
 
 export interface LoginResponse {
   tokens: {
@@ -13,4 +15,9 @@ export interface LoginResponse {
 export interface AuthCheckResponse {
   message: string;
   user: User;
+}
+
+export interface ProjectsResponse {
+  projects: IProject[];
+  paginate: Paginator;
 }
