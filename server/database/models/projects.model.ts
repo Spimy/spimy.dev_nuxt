@@ -1,6 +1,6 @@
 import { Document, Schema, model } from 'mongoose';
 
-export interface IProjects extends Document {
+export interface IProject extends Document {
   title: string;
   link: string;
   description: string;
@@ -8,7 +8,7 @@ export interface IProjects extends Document {
   technologies: string[];
 }
 
-const projectsSchema = new Schema<IProjects>(
+const projectsSchema = new Schema<IProject>(
   {
     title: { type: String, required: true },
     link: { type: String, required: true },
@@ -19,4 +19,4 @@ const projectsSchema = new Schema<IProjects>(
   { timestamps: { createdAt: true, updatedAt: true } }
 );
 
-export const Projects = model<IProjects>('projects', projectsSchema);
+export const Projects = model<IProject>('projects', projectsSchema);
