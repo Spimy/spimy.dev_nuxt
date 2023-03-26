@@ -87,26 +87,31 @@ const showMessage = (message: string, type: MessageType, delay?: number /* in se
   }
 };
 
-const { setUserData } = useUser();
-
 const hcaptchaHandler = new HCaptchaHandler(hCaptcha, () => {
   useAuthFetch<LoginResponse>('/auth/login', { method: 'POST', body: { ...formData, captcha: hCaptcha } }).then(
     (response) => {
+      formData.email = '';
+      formData.password = '';
+
       if (response.status === 200) {
         localStorage.setItem('accessToken', response._data!.tokens.access);
         localStorage.setItem('refreshToken', response._data!.tokens.refresh);
         localStorage.setItem('sessionId', response._data!.sessionId);
 
-        setUserData(response._data!.user);
+        // Only allow admin users to be logged in
+        if (response._data?.user.role === 'admin') {
+          const { setUserData } = useUser();
+          setUserData(response._data!.user);
 
-        showMessage(response._data!.message, 'success', 3);
-        navigateTo('/admin');
+          navigateTo('/admin');
+          return showMessage(response._data!.message, 'success', 3);
+        }
 
-        return;
+        // If the user is not admin, log them out and delete their session
+        logout();
+        return showMessage('Please login with an admin account', 'error', 3);
       }
 
-      formData.email = '';
-      formData.password = '';
       showMessage(response._data!.message, 'error', 3);
     }
   );
