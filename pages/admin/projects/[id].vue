@@ -28,6 +28,8 @@
 </template>
 
 <script lang="ts" setup>
+import { IProject } from '@/server/database/models/projects.model';
+
 definePageMeta({
   layout: 'admin',
   middleware: ['auth']
@@ -48,7 +50,7 @@ const vAutogrow = {
 const edit = ref(false);
 const route = useRoute();
 
-const { data } = useFetch(`/api/project?id=${route.params.id}`);
+const { data } = useFetch<IProject>(`/api/project?id=${route.params.id}`);
 </script>
 
 <style lang="scss" scoped>
