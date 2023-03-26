@@ -11,7 +11,7 @@
     "@nuxt/image-edge": "^1.0.0-27991759.1a5eea1",
     "@nuxtjs/color-mode": "^3.2.0",
     "@types/nodemailer": "^6.4.7",
-    "nuxt": "^3.1.1",
+    "nuxt": "^3.3.2",
     "sass": "^1.58.0"
   },
   "dependencies": {
