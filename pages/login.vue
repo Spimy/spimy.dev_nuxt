@@ -88,33 +88,34 @@ const showMessage = (message: string, type: MessageType, delay?: number /* in se
 };
 
 const hcaptchaHandler = new HCaptchaHandler(hCaptcha, () => {
-  useAuthFetch<LoginResponse>('/auth/login', { method: 'POST', body: { ...formData, captcha: hCaptcha } }).then(
-    (response) => {
-      formData.email = '';
-      formData.password = '';
+  useAuthFetch<LoginResponse>('/auth/login', {
+    method: 'POST',
+    body: { ...formData, captcha: hCaptcha, service: 'Portfolio Admin Dashboard' }
+  }).then((response) => {
+    formData.email = '';
+    formData.password = '';
 
-      if (response.status === 200) {
-        localStorage.setItem('accessToken', response._data!.tokens.access);
-        localStorage.setItem('refreshToken', response._data!.tokens.refresh);
-        localStorage.setItem('sessionId', response._data!.sessionId);
+    if (response.status === 200) {
+      localStorage.setItem('accessToken', response._data!.tokens.access);
+      localStorage.setItem('refreshToken', response._data!.tokens.refresh);
+      localStorage.setItem('sessionId', response._data!.sessionId);
 
-        // Only allow admin users to be logged in
-        if (response._data?.user.role === 'admin') {
-          const { setUserData } = useUser();
-          setUserData(response._data!.user);
+      // Only allow admin users to be logged in
+      if (response._data?.user.role === 'admin') {
+        const { setUserData } = useUser();
+        setUserData(response._data!.user);
 
-          navigateTo('/admin');
-          return showMessage(response._data!.message, 'success', 3);
-        }
-
-        // If the user is not admin, log them out and delete their session
-        logout();
-        return showMessage('Please login with an admin account', 'error', 3);
+        navigateTo('/admin');
+        return showMessage(response._data!.message, 'success', 3);
       }
 
-      showMessage(response._data!.message, 'error', 3);
+      // If the user is not admin, log them out and delete their session
+      logout();
+      return showMessage('Please login with an admin account', 'error', 3);
     }
-  );
+
+    showMessage(response._data!.message, 'error', 3);
+  });
 });
 </script>
 
