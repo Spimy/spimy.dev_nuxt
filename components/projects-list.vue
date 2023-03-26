@@ -68,6 +68,8 @@
 </template>
 
 <script lang="ts" setup>
+import { ProjectsResponse } from '@/utils/types/responses';
+
 const props = defineProps({
   perPage: {
     type: Number,
@@ -86,7 +88,7 @@ const props = defineProps({
 const hasProjects = ref(false);
 const showPlaceholder = ref(false);
 
-let { pending, data, refresh } = useLazyFetch(
+let { pending, data, refresh } = useLazyFetch<ProjectsResponse>(
   () => `/api/projects?perPage=${props.perPage || 9}&page=${props.page || 1}`
 );
 watch(
