@@ -1,9 +1,8 @@
-export default defineNuxtRouteMiddleware((to) => {
-  checkAuthentication().then((response) => {
-    const { isAuthenticated, user } = response;
-    const isAdmin = user?.role === 'admin';
+export default defineNuxtRouteMiddleware((to, from) => {
+  if (to.path === '/login' && from.path !== 'login') return;
 
-    if ((!isAuthenticated || (isAuthenticated && !isAdmin)) && to.path !== '/login') {
+  checkAuthentication().then((isAuthenticated) => {
+    if (!isAuthenticated && to.path !== '/login') {
       logout();
     } else if (isAuthenticated && to.path === '/login') {
       navigateTo('/admin');
