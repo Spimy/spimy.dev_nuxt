@@ -15,10 +15,13 @@ const instance = $fetch.create({
   },
   onResponseError: async ({ response, options }) => {
     if (response?.status === 401) {
+      const refreshToken = localStorage.getItem('refreshToken');
+      if (!refreshToken) return localLogout();
+
       const { data, error } = await useFetch('/auth/refresh', {
         ...options,
         method: 'POST',
-        body: { refreshToken: localStorage.getItem('refreshToken') }
+        body: { refreshToken }
       });
 
       if (error.value) return localLogout();
