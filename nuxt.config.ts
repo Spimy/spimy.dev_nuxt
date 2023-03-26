@@ -35,8 +35,8 @@ export default defineNuxtConfig({
   build: { transpile: ['@fortawesome/vue-fontawesome'] },
 
   runtimeConfig: {
-    secret: process.env.SECRET,
     mongoUrl: process.env.MONGODB_URI,
+    static_secret: process.env.STATIC_SECRET,
 
     email: {
       host: process.env.EMAIL_HOST,
