@@ -1,6 +1,6 @@
-import { Schema, model } from 'mongoose';
+import { Document, Schema, model } from 'mongoose';
 
-export interface IProjects {
+export interface IProjects extends Document {
   title: string;
   link: string;
   description: string;
