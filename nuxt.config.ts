@@ -36,7 +36,7 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     secret: process.env.SECRET,
-    mongoUrl: process.env.MONGO_URL,
+    mongoUrl: process.env.MONGODB_URI,
 
     email: {
       host: process.env.EMAIL_HOST,
