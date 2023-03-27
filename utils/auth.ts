@@ -1,4 +1,5 @@
 import { AuthCheckResponse } from '@/utils/types/responses';
+import { FetchResponse, FetchError } from 'ofetch';
 
 export const localLogout = () => {
   localStorage.removeItem('accessToken');
@@ -13,7 +14,7 @@ export const logout = () => {
     const sessionId = localStorage?.getItem('sessionId');
     if (!sessionId) return localLogout();
 
-    useAuthFetch(`/sessions?id=${sessionId}`, { method: 'DELETE' }).then((response) => {
+    useAuthFetch<{ status: number }>(`/sessions?id=${sessionId}`, { method: 'DELETE' }).then((response) => {
       if (response.status === 200) return localLogout();
     });
   }
