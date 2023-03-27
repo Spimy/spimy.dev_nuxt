@@ -3,7 +3,6 @@ import { FetchError, FetchRequest, FetchResponse } from 'ofetch';
 
 const instance = $fetch.create({
   credentials: 'include',
-  headers: { 'Content-Type': 'application/json' },
   onRequest: async ({ options }) => {
     const accessToken = localStorage.getItem('accessToken');
     if (!accessToken) return;
@@ -20,6 +19,7 @@ const instance = $fetch.create({
 
       const { data, error } = await useFetch('/auth/refresh', {
         ...options,
+        baseURL: `${useRuntimeConfig().public.auth_backend}/api`,
         method: 'POST',
         body: { refreshToken }
       });
@@ -32,10 +32,11 @@ const instance = $fetch.create({
 
 export default async <T>(
   endpoint: FetchRequest,
-  options: NitroFetchOptions<string> = {}
+  options: NitroFetchOptions<string> = {},
+  authBackend: boolean = true
 ): Promise<FetchResponse<T>> => {
   const config = useRuntimeConfig();
-  const baseURL = `${config.public.auth_backend}/api`;
+  const baseURL = authBackend ? `${config.public.auth_backend}/api` : window.location.origin;
 
   options = { ...options, baseURL };
 
