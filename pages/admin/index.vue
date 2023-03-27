@@ -6,6 +6,7 @@
         <h2>{{ project.title }}</h2>
         <NuxtLink :to="`/admin/projects/${project._id}`">Edit</NuxtLink>
       </div>
+      <NuxtLink to="/admin/projects" class="btn">Add new project</NuxtLink>
     </div>
   </main>
 </template>
@@ -50,6 +51,15 @@ main {
       h2 {
         font-size: 1em;
       }
+    }
+
+    .btn {
+      text-align: center;
+      display: block;
+      font-weight: bold;
+      border-radius: inherit;
+      margin-bottom: 1em;
+      width: 100%;
     }
   }
 }
