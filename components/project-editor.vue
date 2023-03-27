@@ -144,6 +144,12 @@ textarea {
     object-position: top;
     border-radius: 0.5em;
 
+    // For when there's no image in preview to center the alt text
+    background-color: var(--primary-clr);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     @media (min-width: 50em) {
       aspect-ratio: 3/2;
     }
