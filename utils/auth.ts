@@ -25,8 +25,8 @@ export const checkAuthentication = async () => {
     if (response?.status === 200) {
       const { setUserData } = useUser();
       setUserData(response._data!.user);
-      return true;
+      return { isAuthenticated: true, data: response._data };
     }
-    return false;
+    return { isAuthenticated: false, data: response._data };
   });
 };
