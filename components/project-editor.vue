@@ -19,7 +19,10 @@
 
     <textarea class="description" v-model="projectInfo.description" placeholder="Project Description..." v-autogrow />
 
-    <button type="submit" class="btn" @click.prevent="save">Save</button>
+    <div class="buttons">
+      <button type="submit" class="btn" @click.prevent="save">Save</button>
+      <button class="btn" @click.prevent="handleBackButton">Back</button>
+    </div>
   </form>
 </template>
 
@@ -98,6 +101,11 @@ const save = async () => {
       if (props.type === 'edit') return emit('edited', response._data);
     })
     .catch((error: FetchError) => emit('error', error.response?._data));
+};
+
+const handleBackButton = () => {
+  if (props.type === 'edit') return emit('edited');
+  else navigateTo('/admin');
 };
 </script>
 
@@ -183,20 +191,25 @@ textarea {
   }
 }
 
-.btn {
-  border-width: 0.2em;
-  width: 100%;
-  font-weight: bold;
-}
-
-@media (min-width: 50em) {
-  img {
-    aspect-ratio: 3/2;
-    width: 50%;
-  }
+.buttons {
+  display: flex;
+  gap: 1em;
 
   .btn {
-    width: 10em;
+    border-width: 0.2em;
+    width: 100%;
+    font-weight: bold;
+  }
+
+  @media (min-width: 50em) {
+    img {
+      aspect-ratio: 3/2;
+      width: 50%;
+    }
+
+    .btn {
+      width: 10em;
+    }
   }
 }
 </style>
