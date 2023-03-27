@@ -12,6 +12,7 @@ interface EditProjectData extends FieldsAndFiles {
   fields: {
     _id: string[];
     title: string[];
+    link: string[];
     technologies: string[];
     description: string[];
   };
@@ -22,17 +23,19 @@ interface EditProjectData extends FieldsAndFiles {
 
 interface CleanedData {
   title: string | undefined;
+  link: string | undefined;
   technologies: string[];
   description: string | undefined;
 }
 
-const getMissingFields = ({ title, technologies, description }: CleanedData, files: PersistentFile[]) => {
+const getMissingFields = ({ title, link, technologies, description }: CleanedData, files: PersistentFile[]) => {
   const missingFields: (keyof CleanedData | 'previewImage')[] = [];
 
   if (!title) missingFields.push('title');
+  if (!link) missingFields.push('link');
   if (technologies.length === 0) missingFields.push('technologies');
-  if (!description) missingFields.push('description');
   if (files.length === 0) missingFields.push('previewImage');
+  if (!description) missingFields.push('description');
 
   return missingFields;
 };
@@ -40,11 +43,12 @@ const getMissingFields = ({ title, technologies, description }: CleanedData, fil
 export const cleanProjectData = async (event: H3Event, isAdd: boolean) => {
   const projectData = (await readFiles(event, { includeFields: true })) as EditProjectData;
   const { fields, files } = projectData;
-  const { _id, title, technologies, description } = fields;
+  const { _id, title, link, technologies, description } = fields;
 
   const cleanedData = {
     _id: _id?.shift(),
     title: title?.shift(),
+    link: link?.shift(),
     technologies: JSON.parse(technologies?.shift() || '[]') as string[],
     description: description?.shift()
   };
