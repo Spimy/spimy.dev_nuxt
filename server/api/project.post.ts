@@ -14,6 +14,14 @@ export default defineEventHandler(async (event) => {
       });
     }
 
+    if (data?.user.role !== 'admin') {
+      throw createError({
+        statusCode: 403,
+        statusMessage: 'Forbidden',
+        message: 'You do not have permissions to add a project.'
+      });
+    }
+
     // Clean up the form inputs and return only the necessary data
     const { _id, ...projectData } = await cleanProjectData(event, true);
 
