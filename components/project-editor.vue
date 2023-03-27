@@ -42,11 +42,17 @@ const emit = defineEmits<{
 // -- Custom Directives --
 const vAutogrow = {
   mounted: (element: HTMLTextAreaElement) => {
-    const initialHeight = element.scrollHeight;
-    element.style.height = `${initialHeight}px`;
+    let previousHeight = element.scrollHeight;
+    element.style.height = `${previousHeight}px`;
 
     element.addEventListener('input', () => {
-      if (element.scrollHeight > initialHeight) {
+      if (element.scrollHeight > previousHeight) {
+        previousHeight = element.scrollHeight;
+        element.style.height = `${element.scrollHeight}px`;
+      }
+
+      if (element.value.length === 0) {
+        previousHeight = 38;
         element.style.height = `${element.scrollHeight}px`;
       }
     });
@@ -54,7 +60,7 @@ const vAutogrow = {
 };
 
 // -- Data declarations --
-const previewImageUrl = ref(props.project?.previewImageUrl || '');
+const previewImageUrl = ref(props.project?.previewImageUrl || 'empty');
 const projectInfo = reactive({
   _id: props.project?._id || '',
   title: props.project?.title || '',
