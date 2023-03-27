@@ -25,8 +25,7 @@ export default defineEventHandler(async (event) => {
     // Clean up the form inputs and return only the necessary data
     const { _id, ...projectData } = await cleanProjectData(event, true);
 
-    // TODO: need to get link of project from form, temporarily always setting the link to portfolio
-    const project = await new Projects({ ...projectData, link: 'https://spimy.dev' }).save();
+    const project = await new Projects({ ...projectData }).save();
     return { project, message: `Successfully added project '${project.title}'` };
   });
 });
