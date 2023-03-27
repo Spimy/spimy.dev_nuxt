@@ -12,7 +12,7 @@
         <div class="header">
           <NuxtLink class="title" rel="external" :href="project.link" target="_blank">{{ project.title }} </NuxtLink>
           <p class="technologies">
-            {{ project.technologies.length > 1 ? 'Technologies:' : 'Technology:' }}:
+            {{ project.technologies.length > 1 ? 'Technologies:' : 'Technology:' }}
             <span class="tag" v-for="technology in project.technologies">{{ technology }}</span>
           </p>
         </div>
