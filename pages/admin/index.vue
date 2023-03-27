@@ -28,12 +28,12 @@ const { userData } = useUser();
 
 const { data, refresh } = useFetch<ProjectsResponse>('/api/projects');
 
-const deleteProject = async (id: string) => {
+const deleteProject = async (projectId: string) => {
   await useAuthFetch<{ message: string }>(
     '/api/project',
     {
       method: 'DELETE',
-      body: { id }
+      body: { id: projectId }
     },
     false
   )
