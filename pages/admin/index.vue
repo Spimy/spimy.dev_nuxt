@@ -7,6 +7,7 @@
         <NuxtLink :to="`/admin/projects/${project._id}`">Edit</NuxtLink>
       </div>
       <NuxtLink to="/admin/projects" class="btn">Add new project</NuxtLink>
+      <button class="btn logout" @click="logout">Logout</button>
     </div>
   </main>
 </template>
@@ -60,6 +61,17 @@ main {
       border-radius: inherit;
       margin-bottom: 1em;
       width: 100%;
+
+      &.logout {
+        border-color: red;
+        color: red;
+        font-size: inherit;
+
+        &:hover {
+          color: var(--secondary-text-clr);
+          background-color: red;
+        }
+      }
     }
   }
 }
