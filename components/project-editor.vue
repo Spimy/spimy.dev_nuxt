@@ -39,8 +39,13 @@ const emit = defineEmits(['saved']);
 // -- Custom Directives --
 const vAutogrow = {
   mounted: (element: HTMLTextAreaElement) => {
+    const initialHeight = element.scrollHeight;
+    element.style.height = `${initialHeight}px`;
+
     element.addEventListener('input', () => {
-      element.style.height = `${element.scrollHeight}px`;
+      if (element.scrollHeight > initialHeight) {
+        element.style.height = `${element.scrollHeight}px`;
+      }
     });
   }
 };
@@ -88,6 +93,7 @@ input {
 
 textarea {
   height: max-content;
+  overflow: hidden;
   margin-block: 1em;
   margin-inline: -0.1em;
 }
@@ -96,7 +102,7 @@ input,
 textarea {
   color: inherit;
   font-family: inherit;
-  font-size: inherit;
+  font-size: 1rem;
   background-color: transparent;
   border: none;
   border-bottom: 0.15rem solid var(--secondary-text-clr);
