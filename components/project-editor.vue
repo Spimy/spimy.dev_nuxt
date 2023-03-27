@@ -29,12 +29,15 @@
 
 <script lang="ts" setup>
 import { IProject } from '@/server/database/models/projects.model';
+import { ProjectEditResponse } from '@/utils/types/responses';
 
 const props = defineProps<{
   project?: IProject;
   type: 'edit' | 'add';
 }>();
-const emit = defineEmits(['saved']);
+const emit = defineEmits<{
+  (event: 'edited', response?: ProjectEditResponse): void;
+}>();
 
 // -- Custom Directives --
 const vAutogrow = {
@@ -73,14 +76,14 @@ const save = async () => {
     formData.append(key, value);
   }
 
-  await useAuthFetch(
+  await useAuthFetch<ProjectEditResponse>(
     '/api/project',
     {
       method: 'PUT',
       body: formData
     },
     false
-  ).then(() => emit('saved'));
+  ).then((response) => emit('edited', response._data));
 };
 </script>
 
