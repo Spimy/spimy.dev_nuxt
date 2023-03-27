@@ -1,7 +1,7 @@
 <template>
   <div v-if="project">
     <div class="card">
-      <ProjectEditor v-if="edit" :project="project" type="edit" @edited="updatePreview" />
+      <ProjectEditor v-if="edit" :project="project" type="edit" @edited="updatePreview" @error="handleError" />
       <div v-else>
         <h1 class="title">{{ project.title }}</h1>
         Link: <NuxtLink rel="external" :to="project.link" target="_blank">{{ project.link }}</NuxtLink>
@@ -24,6 +24,7 @@
 
 <script lang="ts" setup>
 import { IProject } from '@/server/database/models/projects.model';
+import { ProjectResponse } from '@/utils/types/responses';
 
 definePageMeta({
   layout: 'admin',
@@ -40,6 +41,10 @@ const { data: project, refresh } = useFetch<IProject>(`/api/project?id=${route.p
 const updatePreview = () => {
   refresh();
   edit.value = false;
+};
+
+const handleError = (response?: Omit<ProjectResponse, 'project'>) => {
+  console.log(response?.message);
 };
 </script>
 
