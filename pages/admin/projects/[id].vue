@@ -1,7 +1,7 @@
 <template>
   <div v-if="project">
     <div class="card">
-      <ProjectEditor v-if="edit" :project="project" type="edit" @saved="updatePreview" />
+      <ProjectEditor v-if="edit" :project="project" type="edit" @edited="updatePreview" />
       <div v-else>
         <h1 class="title">{{ project.title }}</h1>
         <p>
