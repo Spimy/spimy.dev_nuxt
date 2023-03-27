@@ -13,7 +13,7 @@
         <p class="description">{{ project.description }}</p>
 
         <div class="buttons">
-          <button class="btn" @click="edit = !edit">Edit</button>
+          <button class="btn" @click="edit = true">Edit</button>
           <button class="btn" @click="navigateTo('/admin')">Back</button>
         </div>
       </div>
@@ -38,7 +38,7 @@ const { data: project, refresh } = useFetch<IProject>(`/api/project?id=${route.p
 // -- Methods --
 const updatePreview = () => {
   refresh();
-  edit.value = !edit.value;
+  edit.value = false;
 };
 </script>
 
