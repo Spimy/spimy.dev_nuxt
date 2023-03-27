@@ -7,7 +7,7 @@ You can contact me via the contact form on the site.
 
 Icon Logo Design by OmniFX (current username unknown unfortunately)
 
-Character Logo Design by SuchHaste (current username unknown unfortunately)
+Character Logo Design by [dotonBurii](https://twitter.com/dotonBurii)
 
 Portfolio Design by [Nikhil Kumar Swain](https://github.com/nikhilswain) using [Figma](https://www.figma.com)
 
