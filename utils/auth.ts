@@ -1,5 +1,4 @@
 import { AuthCheckResponse } from '@/utils/types/responses';
-import { FetchResponse, FetchError } from 'ofetch';
 
 export const localLogout = () => {
   localStorage.removeItem('accessToken');
