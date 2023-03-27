@@ -68,6 +68,18 @@ export const cleanProjectData = async (event: H3Event, isAdd: boolean) => {
         message: `The following fields cannot be empty: [${missingFields.join(', ')}]`
       });
     }
+  } else {
+    /**
+     * List of technologies should never be made blank,
+     * therefore a check is made to make sure it is not empty
+     */
+    if (cleanedData.technologies.length === 0) {
+      throw createError({
+        statusCode: 400,
+        statusMessage: 'Bad Request',
+        message: `List of technologies should never be blank.`
+      });
+    }
   }
 
   // If there was a file, then upload it to the static host
