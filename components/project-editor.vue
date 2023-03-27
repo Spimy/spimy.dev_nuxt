@@ -28,15 +28,18 @@
 </template>
 
 <script lang="ts" setup>
+import { FetchError } from 'ofetch';
 import { IProject } from '@/server/database/models/projects.model';
-import { ProjectEditResponse } from '@/utils/types/responses';
+import { ProjectResponse } from '@/utils/types/responses';
 
 const props = defineProps<{
   project?: IProject;
   type: 'edit' | 'add';
 }>();
 const emit = defineEmits<{
-  (event: 'edited', response?: ProjectEditResponse): void;
+  (event: 'edited', response?: ProjectResponse): void;
+  (event: 'added', response?: ProjectResponse): void;
+  (event: 'error', response?: Omit<ProjectResponse, 'project'>): void;
 }>();
 
 // -- Custom Directives --
@@ -82,14 +85,20 @@ const save = async () => {
     formData.append(key, value);
   }
 
-  await useAuthFetch<ProjectEditResponse>(
+  await useAuthFetch<ProjectResponse>(
     '/api/project',
     {
-      method: 'PUT',
+      method: props.type === 'edit' ? 'PUT' : 'POST',
       body: formData
     },
     false
-  ).then((response) => emit('edited', response._data));
+  )
+    .then((response) => {
+      if (response.status !== 200) return emit('error', response._data);
+      if (props.type === 'add') return emit('added', response._data);
+      if (props.type === 'edit') return emit('edited', response._data);
+    })
+    .catch((error: FetchError) => emit('error', error.response?._data));
 };
 </script>
 
