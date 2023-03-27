@@ -57,8 +57,6 @@ const projectInfo = reactive({
 
 // -- Methods --
 const save = async () => {
-  emit('saved');
-
   // Convert project info from json to formdata
   const formData = new FormData();
   for (const [key, value] of Object.entries(projectInfo)) {
@@ -73,7 +71,7 @@ const save = async () => {
   await useFetch('/api/project', {
     method: 'PUT',
     body: formData
-  });
+  }).then(() => emit('saved'));
 };
 </script>
 
