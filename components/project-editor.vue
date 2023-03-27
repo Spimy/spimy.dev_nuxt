@@ -1,10 +1,11 @@
 <template>
   <form class="project-editor">
-    <input type="text" class="title-edit" v-model="projectInfo.title" placeholder="Project Title..." />
+    <input type="text" class="title" v-model="projectInfo.title" placeholder="Project Title..." />
+    <input type="text" class="link" v-model="projectInfo.link" placeholder="Project Link..." />
 
     <TagInput :tags="projectInfo.technologies" />
 
-    <div class="image-edit">
+    <div class="image">
       <NuxtImg :src="previewImageUrl" alt="Project Preview" format="webp" />
       <Dropzone
         @change="
@@ -16,12 +17,7 @@
       />
     </div>
 
-    <textarea
-      class="description-edit"
-      v-model="projectInfo.description"
-      placeholder="Project Description..."
-      v-autogrow
-    />
+    <textarea class="description" v-model="projectInfo.description" placeholder="Project Description..." v-autogrow />
 
     <button type="submit" class="btn" @click.prevent="save">Save</button>
   </form>
@@ -69,6 +65,7 @@ const previewImageUrl = ref(props.project?.previewImageUrl || 'empty');
 const projectInfo = reactive({
   _id: props.project?._id || '',
   title: props.project?.title || '',
+  link: props.project?.link || '',
   technologies: props.project?.technologies || ([] as string[]),
   previewImage: null as File | null,
   description: props.project?.description || ''
@@ -126,6 +123,7 @@ textarea {
   background-color: transparent;
   border: none;
   border-bottom: 0.15rem solid var(--secondary-text-clr);
+  border-radius: 0.2em;
   outline: none;
   transition: all 0.1s ease-in;
   width: 100%;
@@ -137,12 +135,26 @@ textarea {
   }
 }
 
-.title-edit {
+.title {
   font-size: 2.5em;
+}
+
+.link {
+  color: var(--primary-clr);
+  font-size: 1em;
+  margin-bottom: 1em;
+
+  &::placeholder {
+    color: var(--secondary-text-clr);
+  }
+}
+
+.title,
+.link {
   margin-top: 0;
 }
 
-.image-edit {
+.image {
   display: flex;
   gap: 1em;
   margin-block: 1em;
