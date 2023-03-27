@@ -68,10 +68,14 @@ const save = async () => {
     formData.append(key, value);
   }
 
-  await useFetch('/api/project', {
-    method: 'PUT',
-    body: formData
-  }).then(() => emit('saved'));
+  await useAuthFetch(
+    '/api/project',
+    {
+      method: 'PUT',
+      body: formData
+    },
+    false
+  ).then(() => emit('saved'));
 };
 </script>
 
