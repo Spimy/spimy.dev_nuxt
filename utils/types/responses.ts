@@ -21,3 +21,8 @@ export interface ProjectsResponse {
   projects: IProject[];
   paginate: Paginator;
 }
+
+export interface ProjectEditResponse {
+  project: IProject;
+  message: string;
+}
