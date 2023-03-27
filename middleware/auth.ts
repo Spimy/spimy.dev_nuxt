@@ -1,4 +1,4 @@
-export default defineNuxtRouteMiddleware((to, from) => {
+export default defineNuxtRouteMiddleware((to) => {
   checkAuthentication().then(({ isAuthenticated, data }) => {
     if (!isAuthenticated && to.path !== '/login') {
       logout();
