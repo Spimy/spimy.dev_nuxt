@@ -45,7 +45,9 @@ const emit = defineEmits<{
 // -- Custom Directives --
 const vAutogrow = {
   mounted: (element: HTMLTextAreaElement) => {
-    let previousHeight = element.scrollHeight;
+    const INITIAL_EMPTY_HEIGHT = 38;
+    let previousHeight = element.scrollHeight || INITIAL_EMPTY_HEIGHT;
+
     element.style.height = `${previousHeight}px`;
 
     element.addEventListener('input', () => {
@@ -55,8 +57,8 @@ const vAutogrow = {
       }
 
       if (element.value.length === 0) {
-        previousHeight = 38;
-        element.style.height = `${element.scrollHeight}px`;
+        previousHeight = INITIAL_EMPTY_HEIGHT;
+        element.style.height = `${previousHeight}px`;
       }
     });
   }
