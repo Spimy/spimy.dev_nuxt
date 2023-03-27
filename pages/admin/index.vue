@@ -4,7 +4,10 @@
     <div v-if="userData?.role === 'admin' && !!data" class="card">
       <div v-for="project in data.projects" :key="project._id.toString()" class="project-container">
         <h2>{{ project.title }}</h2>
-        <NuxtLink :to="`/admin/projects/${project._id}`">Edit</NuxtLink>
+        <div class="actions">
+          <NuxtLink :to="`/admin/projects/${project._id}`">Edit</NuxtLink>
+          <button class="delete-btn" @click="deleteProject(project._id)">Delete</button>
+        </div>
       </div>
       <NuxtLink to="/admin/projects" class="btn">Add new project</NuxtLink>
       <button class="btn logout" @click="logout">Logout</button>
@@ -13,6 +16,7 @@
 </template>
 
 <script lang="ts" setup>
+import { FetchError } from 'ofetch';
 import { ProjectsResponse } from '@/utils/types/responses';
 
 definePageMeta({
@@ -22,7 +26,24 @@ definePageMeta({
 
 const { userData } = useUser();
 
-const { data } = useFetch<ProjectsResponse>('/api/projects');
+const { data, refresh } = useFetch<ProjectsResponse>('/api/projects');
+
+const deleteProject = async (id: string) => {
+  await useAuthFetch<{ message: string }>(
+    '/api/project',
+    {
+      method: 'DELETE',
+      body: { id }
+    },
+    false
+  )
+    .then((response) => {
+      if (response.status !== 200) return console.log('error', response._data?.message);
+      console.log(response._data?.message);
+      refresh();
+    })
+    .catch((error: FetchError) => console.log(error.response?._data.message));
+};
 </script>
 
 <style lang="scss" scoped>
@@ -51,6 +72,21 @@ main {
 
       h2 {
         font-size: 1em;
+      }
+
+      .actions {
+        display: flex;
+        gap: 1em;
+
+        .delete-btn {
+          background: none;
+          border: none;
+          color: red;
+          font-size: 1em;
+          font-family: 'Fira Code', monospace;
+          text-decoration: underline;
+          cursor: pointer;
+        }
       }
     }
 
