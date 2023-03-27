@@ -22,7 +22,7 @@ export interface ProjectsResponse {
   paginate: Paginator;
 }
 
-export interface ProjectEditResponse {
+export interface ProjectResponse {
   project: IProject;
   message: string;
 }
