@@ -47,10 +47,10 @@
       :sitekey="config.public.hcaptcha_sitekeys.contact"
       :theme="$colorMode.value"
       size="invisible"
-      @verify="hcaptchaHandler.onVerify"
-      @expired="hcaptchaHandler.onExpire"
-      @challengeExpired="hcaptchaHandler.onExpire"
-      @error="hcaptchaHandler.onError"
+      @verify="onVerify"
+      @expired="onExpire"
+      @challengeExpired="onExpire"
+      @error="onError"
     />
     <Message :show="messageConfig.show" :message="messageConfig.message" :type="messageConfig.type" />
   </main>
@@ -65,25 +65,17 @@ onMounted(() => {
 });
 const config = useRuntimeConfig();
 
-// -- Data definition --
+// -- Data definitions --
+const captcha = ref<VueHcaptcha | null>(null);
 const formData = reactive({
   name: '',
   email: '',
   message: ''
 });
 
-const captcha = ref<VueHcaptcha | null>(null);
-const hCaptcha = reactive({
-  verified: false,
-  expired: false,
-  token: '',
-  eKey: '',
-  error: new Error()
-});
-
 // -- Handlers --
 const { messageConfig, showMessage } = new MessageHandler();
-const hcaptchaHandler = new HCaptchaHandler(hCaptcha, () => {
+const { hCaptcha, onError, onExpire, onVerify } = new HCaptchaHandler(() => {
   const { data, error } = useFetch('/api/contact', {
     method: 'POST',
     body: { formData: { ...formData }, hCaptcha: { ...hCaptcha } }

@@ -23,10 +23,10 @@
       :sitekey="config.public.hcaptcha_sitekeys.login"
       :theme="$colorMode.value"
       size="invisible"
-      @verify="hcaptchaHandler.onVerify"
-      @expired="hcaptchaHandler.onExpire"
-      @challengeExpired="hcaptchaHandler.onExpire"
-      @error="hcaptchaHandler.onError"
+      @verify="onVerify"
+      @expired="onExpire"
+      @challengeExpired="onExpire"
+      @error="onError"
     />
 
     <Message :show="messageConfig.show" :message="messageConfig.message" :type="messageConfig.type" />
@@ -35,30 +35,19 @@
 
 <script lang="ts" setup>
 import VueHcaptcha from '@hcaptcha/vue3-hcaptcha';
-import { HCaptcha } from '@/utils/types/hcaptcha';
 import { LoginResponse } from '@/utils/types/responses';
 
 definePageMeta({
   layout: 'admin',
   middleware: ['auth']
 });
-type MessageType = 'success' | 'error' | 'inprogress';
-
-// -- Data definitions --
 const config = useRuntimeConfig();
 
+// -- Data definitions --
+const captcha = ref<VueHcaptcha | null>(null);
 const formData = reactive({
   email: '',
   password: ''
-});
-
-const captcha = ref<VueHcaptcha | null>(null);
-const hCaptcha: HCaptcha = reactive({
-  verified: false,
-  expired: false,
-  token: '',
-  eKey: '',
-  error: new Error()
 });
 
 // -- Methods --
@@ -71,7 +60,7 @@ const submit = () => {
 
 // -- Handlers --
 const { messageConfig, showMessage } = new MessageHandler();
-const hcaptchaHandler = new HCaptchaHandler(hCaptcha, () => {
+const { hCaptcha, onError, onExpire, onVerify } = new HCaptchaHandler(() => {
   useAuthFetch<LoginResponse>('/auth/login', {
     method: 'POST',
     body: { ...formData, captcha: hCaptcha, service: 'Portfolio Admin Dashboard' }
