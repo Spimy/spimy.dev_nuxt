@@ -96,7 +96,9 @@ const { hCaptcha, onError, onExpire, onVerify } = new HCaptchaHandler({
         showMessage(newError.data.message, 'error', 3);
       }
     });
-  }
+  },
+  errorHandler: (error) => showMessage(`Error submitting hCaptcha: ${error.message}`, 'error', 3),
+  expireHandler: () => showMessage('hCaptcha has expired...', 'error', 3)
 });
 
 // -- Methods --
