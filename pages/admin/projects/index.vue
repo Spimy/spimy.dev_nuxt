@@ -19,7 +19,7 @@ const { messageConfig, showMessage } = new MessageHandler();
 // -- Methods --
 const handleAddedProject = (response: ProjectResponse | undefined) => {
   if (response) showMessage(response.message, 'success', 3);
-  navigateTo(`/admin/projects/${response?.project._id}`);
+  setTimeout(() => navigateTo(`/admin/projects/${response?.project._id}`), 3 * 1000);
 };
 
 const handleError = (response?: Omit<ProjectResponse, 'project'>) => {
