@@ -89,8 +89,8 @@ const hcaptchaHandler = new HCaptchaHandler(hCaptcha, () => {
         const { setUserData } = useUser();
         setUserData(response._data!.user);
 
-        navigateTo('/admin');
-        return showMessage(response._data!.message, 'success', 3);
+        showMessage(response._data!.message, 'success', 1);
+        return setTimeout(() => navigateTo('/admin'), 1 * 1000);
       }
 
       // If the user is not admin, log them out and delete their session
