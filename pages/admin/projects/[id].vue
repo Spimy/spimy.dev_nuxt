@@ -38,8 +38,8 @@ const route = useRoute();
 const { data: project, refresh } = useFetch<IProject>(`/api/project?id=${route.params.id}`);
 
 // -- Methods --
-const updatePreview = (response?: ProjectResponse) => {
-  if (response) refresh();
+const updatePreview = () => {
+  refresh();
   edit.value = false;
 };
 
