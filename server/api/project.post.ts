@@ -1,4 +1,4 @@
-import { Projects } from '../database/models/projects.model';
+import { Project } from '../database/models/projects.model';
 
 export default defineEventHandler(async (event) => {
   const authHeader = getHeader(event, 'Authorization');
@@ -25,7 +25,7 @@ export default defineEventHandler(async (event) => {
     // Clean up the form inputs and return only the necessary data
     const { _id, ...projectData } = await cleanProjectData(event, true);
 
-    const project = await new Projects({ ...projectData }).save();
+    const project = await new Project({ ...projectData }).save();
     return { project, message: `Successfully added project '${project.title}'` };
   });
 });

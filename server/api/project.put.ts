@@ -1,4 +1,4 @@
-import { Projects } from '@/server/database/models/projects.model';
+import { Project } from '@/server/database/models/projects.model';
 import { cleanProjectData } from '../utils/clean-project-data';
 
 export default defineEventHandler(async (event) => {
@@ -27,7 +27,7 @@ export default defineEventHandler(async (event) => {
     const { _id, ...projectData } = await cleanProjectData(event, false);
 
     // Can return null if project does not exist
-    const updatedProject = await Projects.findByIdAndUpdate(_id, { $set: { ...projectData } }, { new: true });
+    const updatedProject = await Project.findByIdAndUpdate(_id, { $set: { ...projectData } }, { new: true });
 
     return {
       project: updatedProject,

@@ -1,4 +1,4 @@
-import { Projects } from '../database/models/projects.model';
+import { Project } from '../database/models/projects.model';
 
 export default defineEventHandler(async (event) => {
   const authHeader = getHeader(event, 'Authorization');
@@ -23,7 +23,7 @@ export default defineEventHandler(async (event) => {
     }
 
     const { id } = (await readBody(event)) as { id: string };
-    const deletedProject = await Projects.findByIdAndDelete(id);
+    const deletedProject = await Project.findByIdAndDelete(id);
 
     return {
       message: deletedProject

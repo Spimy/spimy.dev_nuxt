@@ -21,4 +21,4 @@ const projectsSchema = new Schema<IProject>(
   { timestamps: { createdAt: true, updatedAt: true } }
 );
 
-export const Projects = model<IProject>('projects', projectsSchema);
+export const Project = model<IProject>('projects', projectsSchema);

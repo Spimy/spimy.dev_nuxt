@@ -1,9 +1,9 @@
 import { ProjectQuery } from '@/utils/types/project-query';
-import { Projects } from '@/server/database/models/projects.model';
+import { Project } from '@/server/database/models/projects.model';
 
 export default defineEventHandler(async (event) => {
   const query = (<unknown>getQuery(event)) as ProjectQuery;
-  const numProjects = await Projects.count();
+  const numProjects = await Project.count();
 
   query.perPage ??= numProjects;
 
@@ -23,7 +23,7 @@ export default defineEventHandler(async (event) => {
     pageMin = currentPage - 2;
   }
 
-  const projects = await Projects.find({})
+  const projects = await Project.find({})
     .limit(query.perPage)
     .skip(query.perPage * (currentPage - 1))
     .sort({ createdAt: -1 });
