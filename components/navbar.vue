@@ -24,10 +24,18 @@
 </template>
 
 <script lang="ts" setup>
+// -- Lifecycle hooks --
+onMounted(() => {
+  showThemeSelector.value = true;
+  window.addEventListener('scroll', updateScroll);
+});
+
+// -- Data defintions --
 const showNavBar = ref(false);
 const showThemeSelector = ref(false);
 const scrollPosition = ref(0);
 
+// -- Methods --
 const updateScroll = () => {
   scrollPosition.value = window.scrollY;
 };
@@ -35,11 +43,6 @@ const updateScroll = () => {
 const toggleMobileNav = () => {
   showNavBar.value = !showNavBar.value;
 };
-
-onMounted(() => {
-  showThemeSelector.value = true;
-  window.addEventListener('scroll', updateScroll);
-});
 </script>
 
 <style lang="scss" scoped>
