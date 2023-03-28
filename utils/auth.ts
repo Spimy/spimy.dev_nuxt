@@ -24,10 +24,9 @@ export const checkAuthentication = async () => {
   return await useAuthFetch<AuthCheckResponse>('/auth/check').then((response) => {
     if (response?.status === 200) {
       const { setUserData } = useUser();
-      if (response?._data) setUserData(response._data?.user);
-
+      setUserData(response._data!.user);
       return { isAuthenticated: true, data: response._data };
     }
-    return { isAuthenticated: false, data: response._data };
+    return { isAuthenticated: false, data: response?._data };
   });
 };
