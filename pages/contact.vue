@@ -65,7 +65,7 @@ onMounted(() => {
 });
 const config = useRuntimeConfig();
 
-// -- Date declarations --
+// -- Data definition --
 const formData = reactive({
   name: '',
   email: '',
