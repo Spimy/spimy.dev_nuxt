@@ -2,13 +2,15 @@
   <main>
     <h1>Admin Dashboard - Projects</h1>
     <div v-if="userData?.role === 'admin' && !!data" class="card">
-      <div v-for="project in data.projects" :key="project._id.toString()" class="project-container">
-        <h2>{{ project.title }}</h2>
-        <div class="actions">
-          <NuxtLink :to="`/admin/projects/${project._id}`">Edit</NuxtLink>
-          <button class="delete-btn" @click="deleteProject(project._id)">Delete</button>
+      <TransitionGroup name="list">
+        <div v-for="project in data.projects" :key="project._id.toString()" class="project-container">
+          <h2>{{ project.title }}</h2>
+          <div class="actions">
+            <NuxtLink :to="`/admin/projects/${project._id}`">Edit</NuxtLink>
+            <button class="delete-btn" @click="deleteProject(project._id)">Delete</button>
+          </div>
         </div>
-      </div>
+      </TransitionGroup>
       <NuxtLink to="/admin/projects" class="btn">Add new project</NuxtLink>
       <button class="btn logout" @click="logout">Logout</button>
     </div>
@@ -47,6 +49,25 @@ const deleteProject = async (projectId: string) => {
 </script>
 
 <style lang="scss" scoped>
+.list-move, /* apply transition to moving elements */
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.5s ease;
+}
+
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
+  transform: translateX(10rem);
+}
+
+/* ensure leaving items are taken out of layout flow so that moving
+   animations can be calculated correctly. */
+.list-leave-active {
+  width: 100%;
+  position: absolute;
+}
+
 main {
   margin-block: -3rem;
 
@@ -59,6 +80,7 @@ main {
     padding: 0.5em 1em;
     background-color: var(--secondary-clr);
     border-radius: 0.5em;
+    position: relative;
 
     .project-container {
       display: flex;
