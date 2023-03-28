@@ -5,3 +5,9 @@ export interface HCaptcha {
   eKey: string;
   error: Error;
 }
+
+export interface HCaptchaHandlerOptions {
+  verifyHandler: Function;
+  errorHandler?: Function;
+  expireHandler?: Function;
+}
