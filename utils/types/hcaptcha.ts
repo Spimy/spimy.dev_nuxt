@@ -7,7 +7,7 @@ export interface HCaptcha {
 }
 
 export interface HCaptchaHandlerOptions {
-  verifyHandler: Function;
-  errorHandler?: Function;
-  expireHandler?: Function;
+  verifyHandler: () => void;
+  errorHandler?: (error: Error) => void;
+  expireHandler?: () => void;
 }
