@@ -53,6 +53,24 @@ const deleteProject = async (projectId: string) => {
     })
     .catch((error: FetchError) => console.log(error.response?._data.message));
 };
+
+// Setup meta for SEO
+const title = "Spimy's Portfolio - Admin";
+const description = 'Login to admin dashboard to add, edit and remove projects displayed in the portfolio.';
+
+useHead({
+  title
+});
+
+useServerSeoMeta({
+  title,
+  description,
+  ogTitle: title,
+  ogDescription: description,
+  ogUrl: `${useRoute().fullPath}`,
+  twitterTitle: title,
+  twitterDescription: description
+});
 </script>
 
 <style lang="scss" scoped>

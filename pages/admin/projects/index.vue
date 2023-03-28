@@ -29,6 +29,24 @@ const handleSaving = (projectTitle: string) => {
 const handleError = (response?: Omit<ProjectResponse, 'project'>) => {
   if (response) showMessage(response.message, 'error', 3);
 };
+
+// Setup meta for SEO
+const title = `Spimy's Portfolio - Add Project`;
+const description = 'Login to admin dashboard to add, edit and remove projects displayed in the portfolio.';
+
+useHead({
+  title
+});
+
+useServerSeoMeta({
+  title,
+  description,
+  ogTitle: title,
+  ogDescription: description,
+  ogUrl: `${useRoute().fullPath}`,
+  twitterTitle: title,
+  twitterDescription: description
+});
 </script>
 
 <style lang="scss" scoped>

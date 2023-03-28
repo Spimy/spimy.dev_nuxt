@@ -52,8 +52,7 @@ onMounted(() => {
 // -- Data defintions --
 const edit = ref(false);
 const route = useRoute();
-const { data: project, refresh, error } = useFetch<IProject>(`/api/project?id=${route.params.id}`);
-
+const { data: project, refresh, error } = useAsyncData<IProject>(() => $fetch(`/api/project?id=${route.params.id}`));
 // -- Handlers --
 const { messageConfig, showMessage } = new MessageHandler();
 
@@ -69,6 +68,24 @@ const handleSaving = () => showMessage(`Saving changes made to '${project.value?
 const handleError = (response?: Omit<ProjectResponse, 'project'>) => {
   if (response) showMessage(response.message, 'error', 3);
 };
+
+// Setup meta for SEO
+const title = `Spimy's Portfolio - Project ${project.value?.title || ''}`;
+const description = 'Login to admin dashboard to add, edit and remove projects displayed in the portfolio.';
+
+useHead({
+  title
+});
+
+useServerSeoMeta({
+  title,
+  description,
+  ogTitle: title,
+  ogDescription: description,
+  ogUrl: `${useRoute().fullPath}`,
+  twitterTitle: title,
+  twitterDescription: description
+});
 </script>
 
 <style lang="scss" scoped>
