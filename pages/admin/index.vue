@@ -32,10 +32,11 @@ definePageMeta({
   middleware: ['auth']
 });
 
+// -- Data definitions --
 const { userData } = useUser();
-
 const { data, refresh } = useFetch<ProjectsResponse>('/api/projects');
 
+// -- Methods --
 const deleteProject = async (projectId: string) => {
   await useAuthFetch<{ message: string }>(
     '/api/project',

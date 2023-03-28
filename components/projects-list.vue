@@ -87,7 +87,7 @@ const props = defineProps({
   }
 });
 
-// -- Data declarations --
+// -- Data definitions --
 const hasProjects = ref(false);
 const showPlaceholder = ref(false);
 const transitionName = ref('projects-left');
@@ -109,6 +109,7 @@ watch(
   { immediate: true }
 );
 
+// -- Route handler --
 const router = useRouter();
 router.beforeResolve((to, from) => {
   if (parseInt(to.query.page as string) > parseInt(from.query.page as string)) {

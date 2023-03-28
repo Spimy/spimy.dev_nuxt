@@ -60,10 +60,12 @@
 import VueHcaptcha from '@hcaptcha/vue3-hcaptcha';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
+const config = useRuntimeConfig();
+
+// -- Lifecycle hooks --
 onMounted(() => {
   window.scrollTo(0, 0);
 });
-const config = useRuntimeConfig();
 
 // -- Data definitions --
 const captcha = ref<VueHcaptcha | null>(null);

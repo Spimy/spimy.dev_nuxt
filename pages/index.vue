@@ -42,10 +42,12 @@
 </template>
 
 <script lang="ts" setup>
+// -- Lifecycle hooks --
 onMounted(() => {
   window.scrollTo(0, 0);
 });
 
+// -- Methods --
 function calculateAge(date: string) {
   const timeDiff = Math.abs(Date.now() - new Date(date).getTime());
   return Math.floor(timeDiff / (1000 * 3600 * 24) / 365);
