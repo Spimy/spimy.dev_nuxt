@@ -6,8 +6,11 @@
 </template>
 
 <script lang="ts" setup>
-const emit = defineEmits(['change']);
+const emit = defineEmits<{
+  (event: 'change', newImage: { previewUrl: string; file: File }): void;
+}>();
 
+// -- Methods --
 const prepareImage = (event: Event) => {
   const target = event.target as HTMLInputElement;
   const file = target.files?.item(0);
