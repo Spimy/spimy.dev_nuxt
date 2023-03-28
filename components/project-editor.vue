@@ -41,7 +41,7 @@ const emit = defineEmits<{
   (event: 'error', response?: Omit<ProjectResponse, 'project'>): void;
 }>();
 
-// -- Custom Directives --
+// -- Custom directives --
 const vAutogrow = {
   mounted: (element: HTMLTextAreaElement) => {
     const INITIAL_EMPTY_HEIGHT = 38;
@@ -63,7 +63,7 @@ const vAutogrow = {
   }
 };
 
-// -- Data declarations --
+// -- Data definitions --
 const previewImageUrl = ref(props.project?.previewImageUrl || 'empty');
 const projectInfo = reactive({
   _id: props.project?._id || '',
