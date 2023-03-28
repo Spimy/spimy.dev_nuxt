@@ -1,23 +1,25 @@
 <template>
   <div>
     <div v-if="!showPlaceholder" id="past-projects">
-      <div class="card" v-for="project in data?.projects">
-        <NuxtImg
-          class="preview"
-          :src="project.previewImageUrl"
-          :alt="`${project.title} preview`"
-          format="webp"
-          quality="50"
-        />
-        <div class="header">
-          <NuxtLink class="title" rel="external" :href="project.link" target="_blank">{{ project.title }} </NuxtLink>
-          <p class="technologies">
-            {{ project.technologies.length > 1 ? 'Technologies:' : 'Technology:' }}
-            <span class="tag" v-for="technology in project.technologies">{{ technology }}</span>
-          </p>
+      <TransitionGroup :name="transitionName">
+        <div class="card" v-for="project in data?.projects" :key="project._id">
+          <NuxtImg
+            class="preview"
+            :src="project.previewImageUrl"
+            :alt="`${project.title} preview`"
+            format="webp"
+            quality="50"
+          />
+          <div class="header">
+            <NuxtLink class="title" rel="external" :href="project.link" target="_blank">{{ project.title }} </NuxtLink>
+            <p class="technologies">
+              {{ project.technologies.length > 1 ? 'Technologies:' : 'Technology:' }}
+              <span class="tag" v-for="technology in project.technologies">{{ technology }}</span>
+            </p>
+          </div>
+          <p class="description">{{ project.description }}</p>
         </div>
-        <p class="description">{{ project.description }}</p>
-      </div>
+      </TransitionGroup>
     </div>
 
     <div v-if="showPlaceholder" id="placeholder">
@@ -85,8 +87,10 @@ const props = defineProps({
   }
 });
 
+// -- Data declarations --
 const hasProjects = ref(false);
 const showPlaceholder = ref(false);
+const transitionName = ref('projects-left');
 
 let { pending, data, refresh } = useLazyFetch<ProjectsResponse>(
   () => `/api/projects?perPage=${props.perPage || 9}&page=${props.page || 1}`
@@ -104,9 +108,60 @@ watch(
   },
   { immediate: true }
 );
+
+const router = useRouter();
+router.beforeResolve((to, from) => {
+  if (parseInt(to.query.page as string) > parseInt(from.query.page as string)) {
+    transitionName.value = 'projects-right';
+  } else {
+    transitionName.value = 'projects-left';
+  }
+});
 </script>
 
 <style lang="scss" scoped>
+.projects-left-enter-active,
+.projects-left-leave-active,
+.projects-right-enter-active,
+.projects-right-leave-active {
+  opacity: 0;
+  transition: all 0.4s;
+}
+
+.projects-left-enter-from,
+.projects-left-leave-to {
+  transform: translateX(-100%);
+}
+
+.projects-right-enter-from,
+.projects-right-leave-to {
+  position: static;
+  transform: translateX(100%);
+}
+
+.projects-left-enter-active,
+.projects-right-enter-active {
+  position: absolute;
+  animation: delayShow 0.4s normal forwards step-end;
+}
+
+.projects-left-enter-active {
+  transform: translateX(100%);
+}
+
+.projects-right-enter-active {
+  transform: translateX(-100%);
+}
+
+@keyframes delayShow {
+  0% {
+    position: absolute;
+  }
+  100% {
+    position: static;
+  }
+}
+
 #past-projects {
   --animation-delay: 0.15s;
   display: grid;
