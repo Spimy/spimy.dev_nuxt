@@ -36,8 +36,8 @@ const props = defineProps<{
   type: 'edit' | 'add';
 }>();
 const emit = defineEmits<{
-  (event: 'edited', response?: ProjectResponse): void;
-  (event: 'added', response?: ProjectResponse): void;
+  (event: 'saving', projectTitle: string): void;
+  (event: 'saved', response?: ProjectResponse): void;
   (event: 'error', response?: Omit<ProjectResponse, 'project'>): void;
 }>();
 
@@ -87,6 +87,7 @@ const save = async () => {
     formData.append(key, value);
   }
 
+  emit('saving', projectInfo.title);
   await useAuthFetch<ProjectResponse>(
     '/api/project',
     {
@@ -97,14 +98,13 @@ const save = async () => {
   )
     .then((response) => {
       if (response.status !== 200) return emit('error', response._data);
-      if (props.type === 'add') return emit('added', response._data);
-      if (props.type === 'edit') return emit('edited', response._data);
+      return emit('saved', response._data);
     })
     .catch((error: FetchError) => emit('error', error.response?._data));
 };
 
 const handleBackButton = () => {
-  if (props.type === 'edit') return emit('edited');
+  if (props.type === 'edit') return emit('saved'); // this is to set 'edit' to false in the admin/projects/[id] page
   else navigateTo('/admin');
 };
 </script>
