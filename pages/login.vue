@@ -84,7 +84,7 @@ const { hCaptcha, onError, onExpire, onVerify } = new HCaptchaHandler(() => {
 
       // If the user is not admin, log them out and delete their session
       logout();
-      return showMessage('Please login with an admin account', 'error', 3);
+      return showMessage('Please login with an admin account.', 'error', 3);
     }
 
     showMessage(response._data!.message, 'error', 3);
