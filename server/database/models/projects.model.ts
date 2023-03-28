@@ -6,6 +6,8 @@ export interface IProject extends Document {
   description: string;
   previewImageUrl: string;
   technologies: string[];
+  createdAt: string;
+  updatedAt: string;
 }
 
 const projectsSchema = new Schema<IProject>(
