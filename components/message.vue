@@ -34,21 +34,22 @@ defineProps({
   justify-content: center;
   align-items: center;
   gap: 1em;
+
   position: fixed;
-  top: -100%;
-  right: unset;
+  @media (min-width: 80em) {
+    left: 50%;
+    transform: translate(-50%);
+  }
+
+  font-size: 0.5rem;
   padding: 2em;
   border-radius: 0.5rem;
-  line-height: normal;
-  transition: all 0.8s cubic-bezier(0.5, 0.08, 0.43, 1.31);
-  font-size: 0.5rem;
   user-select: none;
-  opacity: 0;
+  z-index: 9999;
 
-  @media (min-width: 80em) {
-    right: -100%;
-    top: 6rem;
-  }
+  opacity: 0;
+  bottom: -6rem;
+  transition: all 0.8s ease-in-out;
 
   h3 {
     margin: 0;
@@ -60,16 +61,9 @@ defineProps({
   }
 
   &.isShow {
-    top: 6rem;
-    left: 10%;
-    right: 10%;
+    bottom: 1rem;
     opacity: 1;
-
-    @media (min-width: 80em) {
-      top: 6rem;
-      left: unset;
-      right: 6rem;
-    }
+    user-select: text;
   }
 
   &.success {
