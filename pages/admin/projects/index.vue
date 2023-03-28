@@ -1,6 +1,6 @@
 <template>
   <div class="card">
-    <ProjectEditor type="add" @added="handleAddedProject" @error="handleError" />
+    <ProjectEditor type="add" @saving="handleSaving" @saved="handleAddedProject" @error="handleError" />
     <Message :message="messageConfig.message" :show="messageConfig.show" :type="messageConfig.type" />
   </div>
 </template>
@@ -20,6 +20,10 @@ const { messageConfig, showMessage } = new MessageHandler();
 const handleAddedProject = (response: ProjectResponse | undefined) => {
   if (response) showMessage(response.message, 'success', 3);
   setTimeout(() => navigateTo(`/admin/projects/${response?.project._id}`), 3 * 1000);
+};
+
+const handleSaving = (projectTitle: string) => {
+  showMessage(`Saving the new project '${projectTitle}'...`, 'inprogress');
 };
 
 const handleError = (response?: Omit<ProjectResponse, 'project'>) => {

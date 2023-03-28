@@ -1,7 +1,14 @@
 <template>
   <div v-if="project">
     <div class="card">
-      <ProjectEditor v-if="edit" :project="project" type="edit" @edited="updatePreview" @error="handleError" />
+      <ProjectEditor
+        v-if="edit"
+        :project="project"
+        type="edit"
+        @saving="handleSaving"
+        @saved="updatePreview"
+        @error="handleError"
+      />
       <div v-else>
         <h1 class="title">{{ project.title }}</h1>
         Link: <NuxtLink rel="external" :to="project.link" target="_blank">{{ project.link }}</NuxtLink>
@@ -46,6 +53,8 @@ const updatePreview = (response?: ProjectResponse) => {
   edit.value = false;
   if (response) showMessage(response.message, 'success', 3);
 };
+
+const handleSaving = () => showMessage(`Saving changes made to '${project.value?.title}'...`, 'inprogress');
 
 const handleError = (response?: Omit<ProjectResponse, 'project'>) => {
   if (response) showMessage(response.message, 'error', 3);
