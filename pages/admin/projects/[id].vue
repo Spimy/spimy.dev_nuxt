@@ -19,6 +19,7 @@
         </div>
       </div>
     </div>
+    <Message :message="messageConfig.message" :show="messageConfig.show" :type="messageConfig.type" />
   </div>
 </template>
 
@@ -34,17 +35,20 @@ definePageMeta({
 // -- Data defintions --
 const edit = ref(false);
 const route = useRoute();
-
 const { data: project, refresh } = useFetch<IProject>(`/api/project?id=${route.params.id}`);
 
+// -- Handlers --
+const { messageConfig, showMessage } = new MessageHandler();
+
 // -- Methods --
-const updatePreview = () => {
+const updatePreview = (response?: ProjectResponse) => {
   refresh();
   edit.value = false;
+  if (response) showMessage(response.message, 'success', 3);
 };
 
 const handleError = (response?: Omit<ProjectResponse, 'project'>) => {
-  console.log(response?.message);
+  if (response) showMessage(response.message, 'error', 3);
 };
 </script>
 

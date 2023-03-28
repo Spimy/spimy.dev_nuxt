@@ -1,6 +1,7 @@
 <template>
   <div class="card">
     <ProjectEditor type="add" @added="handleAddedProject" @error="handleError" />
+    <Message :message="messageConfig.message" :show="messageConfig.show" :type="messageConfig.type" />
   </div>
 </template>
 
@@ -12,14 +13,17 @@ definePageMeta({
   middleware: ['auth']
 });
 
+// -- Handlers --
+const { messageConfig, showMessage } = new MessageHandler();
+
 // -- Methods --
 const handleAddedProject = (response: ProjectResponse | undefined) => {
-  console.log(response?.message);
+  if (response) showMessage(response.message, 'success', 3);
   navigateTo(`/admin/projects/${response?.project._id}`);
 };
 
 const handleError = (response?: Omit<ProjectResponse, 'project'>) => {
-  console.log(response?.message);
+  if (response) showMessage(response.message, 'error', 3);
 };
 </script>
 
