@@ -3,8 +3,14 @@
     <h1>Admin Dashboard - Projects</h1>
     <div v-if="userData?.role === 'admin' && !!data" class="card">
       <TransitionGroup name="list">
-        <div v-for="project in data.projects" :key="project._id.toString()" class="project-container">
-          <h2>{{ project.title }}</h2>
+        <div v-for="(project, index) in data.projects" :key="project._id.toString()" class="project-container">
+          <h2>
+            {{ index + 1 }}. {{ project.title }}
+            <span>
+              (Added: {{ new Date(project.createdAt).toUTCString() }} | Updated:
+              {{ project.updatedAt ? new Date(project.updatedAt).toUTCString() : 'Never' }})
+            </span>
+          </h2>
           <div class="actions">
             <NuxtLink :to="`/admin/projects/${project._id}`">Edit</NuxtLink>
             <button class="delete-btn" @click="deleteProject(project._id)">Delete</button>
@@ -94,6 +100,11 @@ main {
 
       h2 {
         font-size: 1em;
+
+        & > span {
+          color: var(--primary-clr);
+          font-size: 0.7em;
+        }
       }
 
       .actions {
