@@ -1,9 +1,9 @@
-import { HCaptcha } from '@/utils/types/hcaptcha';
+import { HCaptcha, HCaptchaHandlerOptions } from '@/utils/types/hcaptcha';
 
 export class HCaptchaHandler {
   private hCaptchaConfig: HCaptcha;
 
-  constructor(private verifySuccessCallback: Function) {
+  constructor(private handlerOptions: HCaptchaHandlerOptions) {
     this.hCaptchaConfig = reactive({
       verified: false,
       expired: false,
@@ -18,6 +18,7 @@ export class HCaptchaHandler {
     this.hCaptchaConfig.token = '';
     this.hCaptchaConfig.eKey = '';
     this.hCaptchaConfig.expired = true;
+    this.handlerOptions.expireHandler?.();
     console.log('hCaptcha has expired...');
   };
 
@@ -25,6 +26,7 @@ export class HCaptchaHandler {
     this.hCaptchaConfig.token = '';
     this.hCaptchaConfig.eKey = '';
     this.hCaptchaConfig.error = err;
+    this.handlerOptions.errorHandler?.();
     console.log(`Error submitting hCaptcha: ${err}`);
   };
 
@@ -32,7 +34,7 @@ export class HCaptchaHandler {
     this.hCaptchaConfig.verified = true;
     this.hCaptchaConfig.token = token;
     this.hCaptchaConfig.eKey = ekey;
-    this.verifySuccessCallback();
+    this.handlerOptions.verifyHandler();
   };
 
   get hCaptcha(): HCaptcha {
