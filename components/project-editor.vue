@@ -9,9 +9,9 @@
       <NuxtImg :src="previewImageUrl" alt="Project Preview" format="webp" />
       <Dropzone
         @change="
-          (newPreview) => {
-            previewImageUrl = newPreview.previewUrl;
-            projectInfo.previewImage = newPreview.file;
+          (newImage) => {
+            previewImageUrl = newImage.previewUrl;
+            projectInfo.previewImage = newImage.file;
           }
         "
       />
