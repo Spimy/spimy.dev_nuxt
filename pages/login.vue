@@ -52,12 +52,6 @@ const formData = reactive({
   password: ''
 });
 
-const messageConfig = reactive({
-  show: false,
-  message: '',
-  type: 'inprogress' as MessageType
-});
-
 const captcha = ref<VueHcaptcha | null>(null);
 const hCaptcha: HCaptcha = reactive({
   verified: false,
@@ -75,18 +69,8 @@ const submit = () => {
   }
 };
 
-const showMessage = (message: string, type: MessageType, delay?: number /* in seconds */) => {
-  messageConfig.message = message;
-  messageConfig.show = true;
-  messageConfig.type = type;
-
-  if (delay) {
-    setTimeout(() => {
-      messageConfig.show = false;
-    }, delay * 1000);
-  }
-};
-
+// -- Handlers --
+const { messageConfig, showMessage } = new MessageHandler();
 const hcaptchaHandler = new HCaptchaHandler(hCaptcha, () => {
   useAuthFetch<LoginResponse>('/auth/login', {
     method: 'POST',
