@@ -1,32 +1,34 @@
 <template>
-  <div v-if="project">
-    <div class="card">
-      <ProjectEditor
-        v-if="edit"
-        :project="project"
-        type="edit"
-        @saving="handleSaving"
-        @saved="updatePreview"
-        @error="handleError"
-      />
-      <div v-else>
-        <h1 class="title">{{ project.title }}</h1>
-        Link: <NuxtLink rel="external" :to="project.link" target="_blank">{{ project.link }}</NuxtLink>
-        <p>
-          <span class="tag" v-for="technology in project.technologies">{{ technology }}</span>
-        </p>
+  <div>
+    <div v-if="project">
+      <div class="card">
+        <ProjectEditor
+          v-if="edit"
+          :project="project"
+          type="edit"
+          @saving="handleSaving"
+          @saved="updatePreview"
+          @error="handleError"
+        />
+        <div v-else>
+          <h1 class="title">{{ project.title }}</h1>
+          Link: <NuxtLink rel="external" :to="project.link" target="_blank">{{ project.link }}</NuxtLink>
+          <p>
+            <span class="tag" v-for="technology in project.technologies">{{ technology }}</span>
+          </p>
 
-        <NuxtImg :src="project.previewImageUrl" format="webp" />
+          <NuxtImg :src="project.previewImageUrl" format="webp" />
 
-        <p class="description">{{ project.description }}</p>
+          <p class="description">{{ project.description }}</p>
 
-        <div class="buttons">
-          <button class="btn" @click="edit = true">Edit</button>
-          <button class="btn" @click="navigateTo('/admin')">Back</button>
+          <div class="buttons">
+            <button class="btn" @click="edit = true">Edit</button>
+            <button class="btn" @click="navigateTo('/admin')">Back</button>
+          </div>
         </div>
       </div>
+      <Message :message="messageConfig.message" :show="messageConfig.show" :type="messageConfig.type" />
     </div>
-    <Message :message="messageConfig.message" :show="messageConfig.show" :type="messageConfig.type" />
   </div>
 </template>
 
