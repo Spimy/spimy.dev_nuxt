@@ -26,8 +26,6 @@ export default defineEventHandler(async (event) => {
     // Clean up the form inputs and return only the necessary data
     const { _id, ...projectData } = await cleanProjectData(event, false);
 
-    // TODO: make sure technologies list is not empty
-
     // Can return null if project does not exist
     const updatedProject = await Projects.findByIdAndUpdate(_id, { $set: { ...projectData } }, { new: true });
 
