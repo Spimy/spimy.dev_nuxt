@@ -75,26 +75,28 @@ const formData = reactive({
 
 // -- Handlers --
 const { messageConfig, showMessage } = new MessageHandler();
-const { hCaptcha, onError, onExpire, onVerify } = new HCaptchaHandler(() => {
-  const { data, error } = useFetch('/api/contact', {
-    method: 'POST',
-    body: { formData: { ...formData }, hCaptcha: { ...hCaptcha } }
-  });
-  showMessage('Attemping to email your message...', 'inprogress');
+const { hCaptcha, onError, onExpire, onVerify } = new HCaptchaHandler({
+  verifyHandler: () => {
+    const { data, error } = useFetch('/api/contact', {
+      method: 'POST',
+      body: { formData: { ...formData }, hCaptcha: { ...hCaptcha } }
+    });
+    showMessage('Attemping to email your message...', 'inprogress');
 
-  watch(data, (newData) => {
-    if (newData !== null) {
-      resetForm();
-      showMessage(newData.message, 'success', 3);
-    }
-  });
+    watch(data, (newData) => {
+      if (newData !== null) {
+        resetForm();
+        showMessage(newData.message, 'success', 3);
+      }
+    });
 
-  watch(error, (newError) => {
-    if (newError !== null) {
-      resetForm();
-      showMessage(newError.data.message, 'error', 3);
-    }
-  });
+    watch(error, (newError) => {
+      if (newError !== null) {
+        resetForm();
+        showMessage(newError.data.message, 'error', 3);
+      }
+    });
+  }
 });
 
 // -- Methods --
