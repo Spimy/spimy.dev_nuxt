@@ -63,7 +63,9 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 onMounted(() => {
   window.scrollTo(0, 0);
 });
+const config = useRuntimeConfig();
 
+// -- Date declarations --
 const formData = reactive({
   name: '',
   email: '',
@@ -79,6 +81,8 @@ const hCaptcha = reactive({
   error: new Error()
 });
 
+// -- Handlers --
+const { messageConfig, showMessage } = new MessageHandler();
 const hcaptchaHandler = new HCaptchaHandler(hCaptcha, () => {
   const { data, error } = useFetch('/api/contact', {
     method: 'POST',
@@ -101,28 +105,7 @@ const hcaptchaHandler = new HCaptchaHandler(hCaptcha, () => {
   });
 });
 
-type MessageType = 'success' | 'error' | 'inprogress';
-const messageConfig = reactive({
-  show: false,
-  message: '',
-  type: 'inprogress' as MessageType
-});
-
-const config = useRuntimeConfig();
-
-// Delay in seconds
-const showMessage = (message: string, type: MessageType, delay?: number) => {
-  messageConfig.message = message;
-  messageConfig.show = true;
-  messageConfig.type = type;
-
-  if (delay) {
-    setTimeout(() => {
-      messageConfig.show = false;
-    }, delay * 1000);
-  }
-};
-
+// -- Methods --
 const resetForm = () => {
   formData.name = '';
   formData.email = '';
