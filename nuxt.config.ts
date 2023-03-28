@@ -22,7 +22,7 @@ export default defineNuxtConfig({
       ],
       link: [
         { rel: 'canonical', href: DOMAIN },
-        { rel: 'icon', href: 'favicon.ico' }
+        { rel: 'icon', href: '/favicon.ico' }
       ]
     },
     pageTransition: { name: 'page', mode: 'out-in' }
