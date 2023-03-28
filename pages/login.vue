@@ -23,10 +23,10 @@
       :sitekey="config.public.hcaptcha_sitekeys.login"
       :theme="$colorMode.value"
       size="invisible"
-      @verify="onVerify"
-      @expired="onExpire"
-      @challengeExpired="onExpire"
-      @error="onError"
+      @verify="verifyHandler"
+      @expired="expireHandler"
+      @challengeExpired="expireHandler"
+      @error="errorHandler"
     />
 
     <Message :show="messageConfig.show" :message="messageConfig.message" :type="messageConfig.type" />
@@ -60,8 +60,8 @@ const submit = () => {
 
 // -- Handlers --
 const { messageConfig, showMessage } = new MessageHandler();
-const { hCaptcha, onError, onExpire, onVerify } = new HCaptchaHandler({
-  verifyHandler: () => {
+const { hCaptcha, errorHandler, expireHandler, verifyHandler } = new HCaptchaHandler({
+  onVerify: () => {
     useAuthFetch<LoginResponse>('/auth/login', {
       method: 'POST',
       body: { ...formData, captcha: hCaptcha, service: 'Portfolio Admin Dashboard' }
@@ -91,8 +91,8 @@ const { hCaptcha, onError, onExpire, onVerify } = new HCaptchaHandler({
       showMessage(response._data!.message, 'error', 3);
     });
   },
-  errorHandler: (error) => showMessage(`Error submitting hCaptcha: ${error.message}`, 'error', 3),
-  expireHandler: () => showMessage('hCaptcha has expired...', 'error', 3)
+  onError: (error) => showMessage(`Error submitting hCaptcha: ${error.message}`, 'error', 3),
+  onExpire: () => showMessage('hCaptcha has expired...', 'error', 3)
 });
 </script>
 

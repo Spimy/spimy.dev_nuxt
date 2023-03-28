@@ -47,10 +47,10 @@
       :sitekey="config.public.hcaptcha_sitekeys.contact"
       :theme="$colorMode.value"
       size="invisible"
-      @verify="onVerify"
-      @expired="onExpire"
-      @challengeExpired="onExpire"
-      @error="onError"
+      @verify="verifyHandler"
+      @expired="expireHandler"
+      @challengeExpired="expireHandler"
+      @error="errorHandler"
     />
     <Message :show="messageConfig.show" :message="messageConfig.message" :type="messageConfig.type" />
   </main>
@@ -75,8 +75,8 @@ const formData = reactive({
 
 // -- Handlers --
 const { messageConfig, showMessage } = new MessageHandler();
-const { hCaptcha, onError, onExpire, onVerify } = new HCaptchaHandler({
-  verifyHandler: () => {
+const { hCaptcha, errorHandler, expireHandler, verifyHandler } = new HCaptchaHandler({
+  onVerify: () => {
     const { data, error } = useFetch('/api/contact', {
       method: 'POST',
       body: { formData: { ...formData }, hCaptcha: { ...hCaptcha } }
@@ -97,8 +97,8 @@ const { hCaptcha, onError, onExpire, onVerify } = new HCaptchaHandler({
       }
     });
   },
-  errorHandler: (error) => showMessage(`Error submitting hCaptcha: ${error.message}`, 'error', 3),
-  expireHandler: () => showMessage('hCaptcha has expired...', 'error', 3)
+  onError: (error) => showMessage(`Error submitting hCaptcha: ${error.message}`, 'error', 3),
+  onExpire: () => showMessage('hCaptcha has expired...', 'error', 3)
 });
 
 // -- Methods --
