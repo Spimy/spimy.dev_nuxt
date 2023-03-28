@@ -27,8 +27,8 @@
           </div>
         </div>
       </div>
-      <Message :message="messageConfig.message" :show="messageConfig.show" :type="messageConfig.type" />
     </div>
+    <Message :message="messageConfig.message" :show="messageConfig.show" :type="messageConfig.type" />
   </div>
 </template>
 
@@ -41,10 +41,18 @@ definePageMeta({
   middleware: ['auth']
 });
 
+// -- Lifecycle hooks --
+onMounted(() => {
+  if (error.value) {
+    showMessage(error.value.message, 'error', 2);
+    setTimeout(() => navigateTo('/admin'), 3 * 1000);
+  }
+});
+
 // -- Data defintions --
 const edit = ref(false);
 const route = useRoute();
-const { data: project, refresh } = useFetch<IProject>(`/api/project?id=${route.params.id}`);
+const { data: project, refresh, error } = useFetch<IProject>(`/api/project?id=${route.params.id}`);
 
 // -- Handlers --
 const { messageConfig, showMessage } = new MessageHandler();
