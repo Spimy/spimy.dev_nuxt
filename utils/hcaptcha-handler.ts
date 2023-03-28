@@ -22,12 +22,12 @@ export class HCaptchaHandler {
     console.log('hCaptcha has expired...');
   };
 
-  onError = (err: Error) => {
+  onError = (error: Error) => {
     this.hCaptchaConfig.token = '';
     this.hCaptchaConfig.eKey = '';
-    this.hCaptchaConfig.error = err;
-    this.handlerOptions.errorHandler?.();
-    console.log(`Error submitting hCaptcha: ${err}`);
+    this.hCaptchaConfig.error = error;
+    this.handlerOptions.errorHandler?.(error);
+    console.log(`Error submitting hCaptcha: ${error}`);
   };
 
   onVerify = (token: string, ekey: string) => {
