@@ -17,7 +17,7 @@
               <span class="tag" v-for="technology in project.technologies">{{ technology }}</span>
             </p>
           </div>
-          <p class="description">{{ project.description }}</p>
+          <p class="description" v-html="$mdRenderer.render(project.description)" />
         </div>
       </TransitionGroup>
     </div>
