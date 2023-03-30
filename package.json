@@ -10,6 +10,7 @@
   "devDependencies": {
     "@nuxt/image-edge": "^1.0.0-27991759.1a5eea1",
     "@nuxtjs/color-mode": "^3.2.0",
+    "@types/markdown-it": "^12.2.3",
     "@types/nodemailer": "^6.4.7",
     "nuxt": "^3.3.2",
     "sass": "^1.58.0"
@@ -23,6 +24,7 @@
     "@hcaptcha/vue3-hcaptcha": "^1.2.1",
     "h3-formidable": "^0.2.2",
     "hcaptcha": "^0.1.1",
+    "markdown-it": "^13.0.1",
     "mongoose": "^6.9.1",
     "nodemailer": "^6.9.1"
   }
