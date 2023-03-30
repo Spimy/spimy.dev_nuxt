@@ -1,4 +1,4 @@
 export interface ProjectQuery {
-  perPage: number;
+  perPage?: number;
   page?: number;
 }

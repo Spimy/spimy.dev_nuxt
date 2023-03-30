@@ -7,7 +7,7 @@
         :class="index % 2 === 0 ? 'hexGridA' : 'hexGridB'"
       >
         <div v-for="(skill, i) in skillArr" :key="i" class="hex">
-          <img :src="skill.src" :alt="`${skill.name} logo`" />
+          <NuxtImg :src="skill.src" :alt="`${skill.name} logo`" format="webp" />
         </div>
       </div>
     </div>
@@ -20,6 +20,7 @@ interface SkillsList {
   src: string;
 }
 
+// -- Data defintions --
 const skills: SkillsList[] = [
   { name: 'html', src: '/skills/html.png' },
   { name: 'css', src: '/skills/css.png' },
@@ -49,6 +50,7 @@ const skills: SkillsList[] = [
   { name: 'certbot', src: '/skills/certbot.png' }
 ];
 
+// -- Methods --
 function chunk(array: SkillsList[], size: number): SkillsList[][] | SkillsList[] {
   if (!array) return [];
   const firstChunk = array.slice(0, size);

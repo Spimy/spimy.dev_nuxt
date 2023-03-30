@@ -1,6 +1,6 @@
 <template>
   <div id="navbar" :class="{ scrolled: scrollPosition > 50 }">
-    <NuxtLink href="/"><img class="logo" src="/logos/icon.png" alt="icon logo" /></NuxtLink>
+    <NuxtLink href="/"><NuxtImg class="logo" src="/logos/icon.png" alt="icon logo" format="webp" /></NuxtLink>
     <div class="util-bar">
       <div class="icons">
         <LazyThemeToggler class="toggler" v-if="showThemeSelector" />
@@ -24,10 +24,18 @@
 </template>
 
 <script lang="ts" setup>
+// -- Lifecycle hooks --
+onMounted(() => {
+  showThemeSelector.value = true;
+  window.addEventListener('scroll', updateScroll);
+});
+
+// -- Data defintions --
 const showNavBar = ref(false);
 const showThemeSelector = ref(false);
 const scrollPosition = ref(0);
 
+// -- Methods --
 const updateScroll = () => {
   scrollPosition.value = window.scrollY;
 };
@@ -35,11 +43,6 @@ const updateScroll = () => {
 const toggleMobileNav = () => {
   showNavBar.value = !showNavBar.value;
 };
-
-onMounted(() => {
-  showThemeSelector.value = true;
-  window.addEventListener('scroll', updateScroll);
-});
 </script>
 
 <style lang="scss" scoped>

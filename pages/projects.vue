@@ -6,6 +6,7 @@
 </template>
 
 <script lang="ts" setup>
+// -- Lifecycle hooks --
 onMounted(() => {
   window.scrollTo(0, 0);
 });

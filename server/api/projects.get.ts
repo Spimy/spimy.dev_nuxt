@@ -1,11 +1,14 @@
-import { ProjectQuery } from '../types/project-query';
-import { Projects } from '../database/models/projects.model';
+import { ProjectQuery } from '@/utils/types/project-query';
+import { Project } from '@/server/database/models/projects.model';
 
 export default defineEventHandler(async (event) => {
   const query = (<unknown>getQuery(event)) as ProjectQuery;
+  const numProjects = await Project.count();
+
+  query.perPage ??= numProjects;
 
   const currentPage = Math.max(1, query.page || 1);
-  const pageCount = Math.ceil((await Projects.count()) / query.perPage);
+  const pageCount = Math.ceil(numProjects / (query.perPage || numProjects));
 
   const pageRange = pageCount >= 5 ? 5 : pageCount;
 
@@ -20,7 +23,7 @@ export default defineEventHandler(async (event) => {
     pageMin = currentPage - 2;
   }
 
-  const projects = await Projects.find({})
+  const projects = await Project.find({})
     .limit(query.perPage)
     .skip(query.perPage * (currentPage - 1))
     .sort({ createdAt: -1 });

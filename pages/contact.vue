@@ -44,13 +44,13 @@
     </p>
     <VueHcaptcha
       ref="captcha"
-      :sitekey="config.public.hcaptcha_sitekey"
+      :sitekey="config.public.hcaptcha_sitekeys.contact"
       :theme="$colorMode.value"
       size="invisible"
-      @verify="onVerify"
-      @expired="onExpire"
-      @challengeExpired="onExpire"
-      @error="onError"
+      @verify="verifyHandler"
+      @expired="expireHandler"
+      @challengeExpired="expireHandler"
+      @error="errorHandler"
     />
     <Message :show="messageConfig.show" :message="messageConfig.message" :type="messageConfig.type" />
   </main>
@@ -60,92 +60,54 @@
 import VueHcaptcha from '@hcaptcha/vue3-hcaptcha';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
+const config = useRuntimeConfig();
+
+// -- Lifecycle hooks --
 onMounted(() => {
   window.scrollTo(0, 0);
 });
 
+// -- Data definitions --
+const captcha = ref<VueHcaptcha | null>(null);
 const formData = reactive({
   name: '',
   email: '',
   message: ''
 });
 
-const captcha = ref<VueHcaptcha | null>(null);
-const hCaptcha = reactive({
-  verified: false,
-  expired: false,
-  token: '',
-  eKey: '',
-  error: new Error()
+// -- Handlers --
+const { messageConfig, showMessage } = new MessageHandler();
+const { hCaptcha, errorHandler, expireHandler, verifyHandler } = new HCaptchaHandler({
+  onVerify: () => {
+    const { data, error } = useFetch('/api/contact', {
+      method: 'POST',
+      body: { formData: { ...formData }, hCaptcha: { ...hCaptcha } }
+    });
+    showMessage('Attemping to email your message...', 'inprogress');
+
+    watch(data, (newData) => {
+      if (newData !== null) {
+        resetForm();
+        showMessage(newData.message, 'success', 3);
+      }
+    });
+
+    watch(error, (newError) => {
+      if (newError !== null) {
+        resetForm();
+        showMessage(newError.data.message, 'error', 3);
+      }
+    });
+  },
+  onError: (error) => showMessage(`Error submitting hCaptcha: ${error.message}`, 'error', 3),
+  onExpire: () => showMessage('hCaptcha has expired...', 'error', 3)
 });
 
-type MessageType = 'success' | 'error' | 'inprogress';
-const messageConfig = reactive({
-  show: false,
-  message: '',
-  type: 'inprogress' as MessageType
-});
-
-const config = useRuntimeConfig();
-
-// Delay in seconds
-const showMessage = (message: string, type: MessageType, delay?: number) => {
-  messageConfig.message = message;
-  messageConfig.show = true;
-  messageConfig.type = type;
-
-  if (delay) {
-    setTimeout(() => {
-      messageConfig.show = false;
-    }, delay * 1000);
-  }
-};
-
+// -- Methods --
 const resetForm = () => {
   formData.name = '';
   formData.email = '';
   formData.message = '';
-};
-
-const onVerify = (token: string, ekey: string) => {
-  hCaptcha.verified = true;
-  hCaptcha.token = token;
-  hCaptcha.eKey = ekey;
-
-  const { data, error } = useFetch('/api/contact', {
-    method: 'POST',
-    body: { formData: { ...formData }, hCaptcha: { ...hCaptcha } }
-  });
-  showMessage('Attemping to email your message...', 'inprogress');
-
-  watch(data, (newData) => {
-    if (newData !== null) {
-      resetForm();
-      showMessage(newData.message, 'success', 3);
-    }
-  });
-
-  watch(error, (newError) => {
-    if (newError !== null) {
-      resetForm();
-      showMessage(newError.data.message, 'error', 3);
-    }
-  });
-};
-
-const onExpire = () => {
-  hCaptcha.verified = false;
-  hCaptcha.token = '';
-  hCaptcha.eKey = '';
-  hCaptcha.expired = true;
-  console.log('hCaptcha has expired...');
-};
-
-const onError = (err: Error) => {
-  hCaptcha.token = '';
-  hCaptcha.eKey = '';
-  hCaptcha.error = err;
-  console.log(`Error submitting hCaptcha: ${err}`);
 };
 
 const submit = async () => {

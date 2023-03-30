@@ -17,7 +17,7 @@
       <div class="logo-container">
         <div class="avatar-border"></div>
         <div class="avatar-border"></div>
-        <img src="/logos/character.png" alt="spimy's character logo" />
+        <NuxtImg src="/logos/character.png" alt="spimy's character logo" format="webp" quality="80" />
         <div class="avatar-border"></div>
         <div class="avatar-border"></div>
       </div>
@@ -42,10 +42,12 @@
 </template>
 
 <script lang="ts" setup>
+// -- Lifecycle hooks --
 onMounted(() => {
   window.scrollTo(0, 0);
 });
 
+// -- Methods --
 function calculateAge(date: string) {
   const timeDiff = Math.abs(Date.now() - new Date(date).getTime());
   return Math.floor(timeDiff / (1000 * 3600 * 24) / 365);

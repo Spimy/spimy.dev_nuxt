@@ -20,7 +20,10 @@ export default defineNuxtConfig({
         { name: 'twitter:image', content: `${DOMAIN}/logos/character.png` },
         { name: 'theme-color', content: '#3760dc' }
       ],
-      link: [{ rel: 'canonical', href: DOMAIN }]
+      link: [
+        { rel: 'canonical', href: DOMAIN },
+        { rel: 'icon', href: '/favicon.ico' }
+      ]
     },
     pageTransition: { name: 'page', mode: 'out-in' }
   },
@@ -32,8 +35,8 @@ export default defineNuxtConfig({
   build: { transpile: ['@fortawesome/vue-fontawesome'] },
 
   runtimeConfig: {
-    secret: process.env.SECRET,
-    mongoUrl: process.env.MONGO_URL,
+    mongoUrl: process.env.MONGODB_URI,
+    static_secret: process.env.STATIC_SECRET,
 
     email: {
       host: process.env.EMAIL_HOST,
@@ -46,12 +49,16 @@ export default defineNuxtConfig({
     hcaptcha_secret: process.env.HCAPTCHA_SECRET,
 
     public: {
-      hcaptcha_sitekey: process.env.HCAPTCHA_SITEKEY
+      hcaptcha_sitekeys: {
+        contact: process.env.HCAPTCHA_SITEKEY_CONTACT,
+        login: process.env.HCAPTCHA_SITEKEY_LOGIN
+      },
+      auth_backend: process.env.AUTH_BACKEND
     }
   },
 
   typescript: { shim: false },
-  modules: ['@nuxtjs/color-mode'],
+  modules: ['@nuxtjs/color-mode', '@nuxt/image-edge'],
   css: ['@/assets/scss/main.scss', '@/assets/scss/theme.scss', '@fortawesome/fontawesome-svg-core/styles.css'],
 
   nitro: {
@@ -61,5 +68,9 @@ export default defineNuxtConfig({
   colorMode: {
     preference: 'system',
     fallback: 'light'
+  },
+
+  image: {
+    domains: ['static.spimy.dev']
   }
 });
