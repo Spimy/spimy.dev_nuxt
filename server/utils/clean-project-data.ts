@@ -45,6 +45,8 @@ export const cleanProjectData = async (event: H3Event, isAdd: boolean) => {
   const { fields, files } = projectData;
   const { _id, title, link, technologies, description } = fields;
 
+  console.log(files.previewImage);
+
   const cleanedData = {
     _id: _id?.shift(),
     title: title?.shift(),
