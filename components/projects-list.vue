@@ -17,7 +17,7 @@
               <span class="tag" v-for="technology in project.technologies">{{ technology }}</span>
             </p>
           </div>
-          <p class="description" v-html="$mdRenderer.render(project.description)" />
+          <div class="description" v-html="$mdRenderer.render(project.description)" />
         </div>
       </TransitionGroup>
     </div>
@@ -216,6 +216,10 @@ router.beforeResolve((to, from) => {
       font-size: clamp(0.875rem, 0.8555rem + 0.0822vw, 1.25rem);
       transform: translateY(10%);
       max-width: 75ch;
+
+      & > p {
+        margin: 0;
+      }
     }
 
     .header,
