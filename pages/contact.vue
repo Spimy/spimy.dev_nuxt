@@ -2,7 +2,7 @@
   <main class="container">
     <div class="title">
       <h1>Get in touch!</h1>
-      <h2>I'll get back you as soon as possible.</h2>
+      <h2>I'll get back to you as soon as possible.</h2>
     </div>
     <div class="contact">
       <IllustrationsContact class="illustration" />
