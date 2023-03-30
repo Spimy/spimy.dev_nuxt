@@ -217,7 +217,7 @@ router.beforeResolve((to, from) => {
       transform: translateY(10%);
       max-width: 75ch;
 
-      & > p {
+      > p {
         margin: 0;
       }
     }
