@@ -1,4 +1,5 @@
 import fs from 'fs/promises';
+import { readFileSync } from 'fs';
 import { H3Event } from 'h3';
 import { readFiles, FieldsAndFiles } from 'h3-formidable';
 
@@ -45,8 +46,6 @@ export const cleanProjectData = async (event: H3Event, isAdd: boolean) => {
   const { fields, files } = projectData;
   const { _id, title, link, technologies, description } = fields;
 
-  console.log(files.previewImage);
-
   const cleanedData = {
     _id: _id?.shift(),
     title: title?.shift(),
@@ -88,7 +87,12 @@ export const cleanProjectData = async (event: H3Event, isAdd: boolean) => {
   let previewImageUrl: string | undefined;
   if (files.previewImage) {
     const file = files.previewImage[0];
+    console.log('path:', file.filepath);
+
+    console.log('sync:', readFileSync(file.filepath));
+
     const image = await fs.readFile(file.filepath);
+    console.log('promise:', image);
 
     const formData = new FormData();
     formData.append('file', new Blob([image], { type: file.mimetype }), file.originalFilename);
