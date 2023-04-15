@@ -25,7 +25,7 @@ const props = withDefaults(
 
 // -- Methods --
 const addTag = (event: KeyboardEvent) => {
-  if (event.code === 'Comma' || event.code === 'Enter') {
+  if (event.code === 'Comma' || event.code === 'Enter' || event.code === 'NumpadEnter') {
     event.preventDefault();
     const target = event.target as HTMLInputElement;
 
