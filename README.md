@@ -3,6 +3,8 @@
 Personal portfolio site with a brief introduction to who I am as well as a page dedicated to my past projects.
 You can contact me via the contact form on the site.
 
+Moved to: https://github.com/Spimy/spimy.dev
+
 ## Credits
 
 Icon Logo Design by OmniFX (current username unknown unfortunately)
